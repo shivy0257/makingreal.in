@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Menu, X, Mail, Plus, Aperture, Search } from "lucide-react";
 import { PhotoWall } from "@/components/PhotoWall";
 import { SlideWall, SLIDE_GYM, SLIDE_PROPOSAL } from "@/components/SlideWall";
 import { HeroCharacter } from "@/components/HeroCharacter";
 import { ThemePalette } from "@/components/ThemePalette";
+import { ApertureMarkNext } from "@/components/ApertureMarkNext";
+import { BriefForm } from "@/components/BriefForm";
+import { track } from "@/lib/analytics";
 import { CONTACT_EMAIL, DISPLAY_PHONE, whatsappLink } from "@/lib/contact";
 import crewCity from "@/assets/crew-city.webp";
 import productStill from "@/assets/product-still.webp";
@@ -45,23 +49,23 @@ const process = [
 ];
 
 const marqueeItems = ["Photography", "Reels", "UGC", "Product content", "Events", "Drone", "Editing"];
-const nav = [{ title: "Services", id: "services" }, { title: "Why us", id: "why" }, { title: "How it works", id: "how" }, { title: "FAQ", id: "faq" }];
+const nav = [{ title: "Services", id: "services" }, { title: "Work", id: "work" }, { title: "How it works", id: "how" }, { title: "Why us", id: "why" }, { title: "FAQ", id: "faq" }];
 const chips = ["Wedding", "Religious", "Proposal", "Baby shower", "Gym", "Office", "Fashion", "Food and cafe", "Product", "Event", "Drone", "Reels or UGC"];
 
 const businessLink = whatsappLink("Hi MAKINGREAL! I'd like to start a brief.\nBrand: \nLocations: \nContent needed: \nBudget: \nDates: ");
 const creatorLink = whatsappLink("Hi MAKINGREAL! I'd like to join as a creator.\nCity: \nSkills: \nPortfolio link: ");
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-function BriefButton({ className = "" }: { className?: string }) {
-  return <a href={businessLink} {...external} className={`btn btn-primary ${className}`}>Start a brief <ArrowUpRight aria-hidden="true" /></a>;
+function BriefButton({ className = "", source = "cta" }: { className?: string; source?: string }) {
+  return <a href={businessLink} {...external} className={`btn btn-primary ${className}`} onClick={() => track("start_brief_click", { source })}>Start a brief <ArrowUpRight aria-hidden="true" /></a>;
 }
 
-function CreatorButton() {
-  return <a href={creatorLink} {...external} className="btn btn-ghost">Join as a creator <ArrowUpRight aria-hidden="true" /></a>;
+function CreatorButton({ className = "", source = "cta" }: { className?: string; source?: string }) {
+  return <a href={creatorLink} {...external} className={`btn btn-ghost ${className}`} onClick={() => track("join_creator_click", { source })}>Join as a creator <ArrowUpRight aria-hidden="true" /></a>;
 }
 
-function Wordmark() {
-  return <a href="#top" className="wordmark" aria-label="MAKINGREAL home"><Aperture className="brand-mark" aria-hidden="true" />MAKINGREAL</a>;
+function Wordmark({ animated = false }: { animated?: boolean }) {
+  return <a href="#top" className="wordmark" aria-label="MAKINGREAL home"><ApertureMarkNext animated={animated} />MAKINGREAL</a>;
 }
 
 export default function Index() {
@@ -102,20 +106,20 @@ export default function Index() {
     <a href="#main" className="skip-link">Skip to content</a>
 
     <header className={`site-header ${solid || menuOpen ? "is-solid" : ""}`}>
-      <Wordmark />
+      <Wordmark animated />
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(item => <a href={`#${item.id}`} key={item.id}>{item.title}</a>)}
       </nav>
       <div className="header-actions">
         <ThemePalette />
-        <BriefButton className="btn-sm header-cta" />
+        <BriefButton className="btn-sm header-cta" source="header" />
         <button type="button" className="mobile-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X /> : <Menu />}
         </button>
       </div>
       {menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">
         {nav.map(item => <a href={`#${item.id}`} key={item.id} onClick={() => setMenuOpen(false)}>{item.title}</a>)}
-        <BriefButton className="mobile-cta" />
+        <BriefButton className="mobile-cta" source="mobile_menu" />
       </nav>}
     </header>
 
@@ -124,6 +128,11 @@ export default function Index() {
         <div ref={sentinel} className="hero-sentinel" aria-hidden="true" />
         <HeroCharacter />
         <div className="hero-scrim" aria-hidden="true" />
+        <div className="hero-smoke" aria-hidden="true">
+          <span className="smoke s-1" />
+          <span className="smoke s-2" />
+          <span className="smoke s-3" />
+        </div>
         <div className="grain" aria-hidden="true" />
         <div className="hero-copy">
           <p className="hero-tag fade-up">A creator network for real businesses</p>
@@ -133,7 +142,7 @@ export default function Index() {
             <span className="line line-accent" aria-hidden="true"><i>Real.</i></span>
           </h1>
           <p className="hero-lead fade-up fd-1">We connect ambitious local businesses with photographers, filmmakers, reel creators, UGC creators, drone operators and editors who make brands impossible to ignore.</p>
-          <div className="hero-actions fade-up fd-2"><BriefButton /><CreatorButton /></div>
+          <div className="hero-actions fade-up fd-2"><BriefButton source="hero" /><CreatorButton source="hero" /></div>
           <div className="hero-stats fade-up fd-3">
             <div><b>01</b><small>Brief</small></div>
             <div><b>02</b><small>Match</small></div>
@@ -167,7 +176,7 @@ export default function Index() {
             <div className="audience-copy">
               <h3>For brands and businesses</h3>
               <p>Share the brief, the locations and the budget. We find creators who can be there and keep every shoot on track.</p>
-              <BriefButton className="btn-sm" />
+              <BriefButton className="btn-sm" source="audience" />
             </div>
           </article>
           <article className="audience-card audience-creators reveal">
@@ -175,7 +184,7 @@ export default function Index() {
             <div className="audience-copy">
               <h3>For creators</h3>
               <p>You make things worth seeing. Share your work to be considered for briefs from brands near you.</p>
-              <CreatorButton />
+              <CreatorButton source="audience" />
             </div>
           </article>
         </div>
@@ -187,14 +196,14 @@ export default function Index() {
           <p>From one scroll-stopping reel to an entire visual identity, get the right creator for the job.</p>
         </div>
         <div className="bento reveal">
-          {services.map(service => <a key={service.name} className={`tile ${service.image ? "tile-image" : ""}`} style={{ gridArea: service.area }} href={whatsappLink(`Hi MAKINGREAL! I'm interested in ${service.name.toLowerCase()}.\nLocations: `)} {...external}>
+          {services.map(service => <a key={service.name} className={`tile ${service.image ? "tile-image" : ""}`} style={{ gridArea: service.area }} href={whatsappLink(`Hi MAKINGREAL! I'm interested in ${service.name.toLowerCase()}.\nLocations: `)} {...external} onClick={() => track("service_click", { service: service.name })}>
             {service.image && <figure className="media"><img src={service.image.src} alt="" width={service.image.width} height={service.image.height} loading="lazy" decoding="async" /></figure>}
             <div className="tile-copy">
               <h3>{service.name}<ArrowUpRight className="tile-arrow" aria-hidden="true" /></h3>
               <p>{service.detail}</p>
             </div>
           </a>)}
-          <a className="tile tile-idea" style={{ gridArea: "idea" }} href={whatsappLink("Hi MAKINGREAL! I have an idea I'd like to discuss: ")} {...external}>
+          <a className="tile tile-idea" style={{ gridArea: "idea" }} href={whatsappLink("Hi MAKINGREAL! I have an idea I'd like to discuss: ")} {...external} onClick={() => track("service_click", { service: "Something else" })}>
             <div className="tile-copy">
               <h3>Something else?<ArrowUpRight className="tile-arrow" aria-hidden="true" /></h3>
               <p>Start with the goal. We will work out the format together.</p>
@@ -220,10 +229,10 @@ export default function Index() {
               <Search aria-hidden="true" />
               <input type="text" value={query} maxLength={140} onChange={event => setQuery(event.target.value)} placeholder='Try "wedding reel in Delhi" or "gym photo shoot"' aria-label="Describe the content you need" />
             </label>
-            <a className="btn btn-primary" href={searchLink} {...external}>Send on WhatsApp <ArrowUpRight aria-hidden="true" /></a>
+            <a className="btn btn-primary" href={searchLink} {...external} onClick={() => track("whatsapp_search", { has_query: Boolean(query.trim()) })}>Send on WhatsApp <ArrowUpRight aria-hidden="true" /></a>
           </div>
           <div className="search-chips">
-            {chips.map(chip => <button type="button" className="chip" key={chip} onClick={() => setQuery(current => current ? `${current}, ${chip.toLowerCase()}` : `${chip.toLowerCase()} shoot`)}>{chip}</button>)}
+            {chips.map(chip => <button type="button" className="chip" key={chip} onClick={() => { setQuery(current => current ? `${current}, ${chip.toLowerCase()}` : `${chip.toLowerCase()} shoot`); track("chip_click", { chip }); }}>{chip}</button>)}
           </div>
         </div>
         <img className="floater fl-4" src={stickerLighter} alt="" width={480} height={480} loading="lazy" decoding="async" />
@@ -268,7 +277,7 @@ export default function Index() {
           <div className="faq-list reveal">
             {faqs.map(([question, answer], i) => <div className={`faq-item ${openFaq === i ? "is-open" : ""}`} key={question}>
               <h3>
-                <button type="button" className="faq-question" id={`faq-q-${i}`} aria-expanded={openFaq === i} aria-controls={`faq-a-${i}`} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+                <button type="button" className="faq-question" id={`faq-q-${i}`} aria-expanded={openFaq === i} aria-controls={`faq-a-${i}`} onClick={() => { if (openFaq !== i) track("faq_open", { question }); setOpenFaq(openFaq === i ? null : i); }}>
                   {question}<Plus className="faq-icon" aria-hidden="true" />
                 </button>
               </h3>
@@ -283,9 +292,10 @@ export default function Index() {
         <div className="closer-inner reveal">
           <h2>Let's make<br /><span className="accent">it real.</span></h2>
           <p>Send a brief for one location or several. A real person replies.</p>
-          <div className="closer-actions"><BriefButton /><CreatorButton /></div>
+          <div className="closer-actions"><BriefButton source="contact" /><CreatorButton source="contact" /></div>
+          <BriefForm />
           {(CONTACT_EMAIL || DISPLAY_PHONE) && <div className="closer-direct">
-            {CONTACT_EMAIL && <a href={`mailto:${CONTACT_EMAIL}`}><Mail aria-hidden="true" />{CONTACT_EMAIL}</a>}
+            {CONTACT_EMAIL && <a href={`mailto:${CONTACT_EMAIL}`} onClick={() => track("email_click")}><Mail aria-hidden="true" />{CONTACT_EMAIL}</a>}
             {DISPLAY_PHONE && <a href={whatsappLink("Hi MAKINGREAL!")} {...external}>{DISPLAY_PHONE}</a>}
           </div>}
         </div>
@@ -307,7 +317,10 @@ export default function Index() {
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} MAKINGREAL</span>
-        <a href="#top">Back to top</a>
+        <span className="footer-bottom-links">
+          <Link to="/privacy">Privacy</Link>
+          <a href="#top">Back to top</a>
+        </span>
       </div>
     </footer>
   </div>;

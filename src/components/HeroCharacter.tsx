@@ -22,10 +22,9 @@ export function HeroCharacter() {
     if (!layer || !video || !rig || !flash) return;
 
     const interactive = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const track = interactive && !reduced;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    video.play().catch(() => {});
+    if (!motion.matches) video.play().catch(() => {});
 
     let cx = 0, cy = 0, cw = 1, ch = 1;
 
@@ -57,6 +56,7 @@ export function HeroCharacter() {
     // Camera-lens flash: deliberate click or tap on the character only
     let lastFlash = 0;
     const onTap = (e: MouseEvent) => {
+      if (motion.matches) return;
       const now = performance.now();
       if (now - lastFlash < 260) return;
       const rect = layer.getBoundingClientRect();
@@ -80,6 +80,7 @@ export function HeroCharacter() {
     let raf = 0;
 
     const onMove = (e: PointerEvent) => {
+      if (motion.matches) return;
       const nx = Math.max(-1, Math.min(1, (e.clientX / window.innerWidth - 0.5) * 2));
       const ny = Math.max(-1, Math.min(1, (e.clientY / window.innerHeight - 0.5) * 2));
       rigPos.tx = nx * 16;
@@ -97,11 +98,25 @@ export function HeroCharacter() {
       raf = requestAnimationFrame(tick);
     };
 
-    if (track) {
+    const syncMotion = () => {
+      if (motion.matches) {
+        video.pause();
+        onLeave();
+        cancelAnimationFrame(raf);
+        raf = 0;
+        rig.style.transform = "";
+      } else {
+        video.play().catch(() => {});
+        if (interactive && !raf) raf = requestAnimationFrame(tick);
+      }
+    };
+
+    if (interactive) {
       window.addEventListener("pointermove", onMove, { passive: true });
       document.documentElement.addEventListener("pointerleave", onLeave);
-      raf = requestAnimationFrame(tick);
+      if (!motion.matches) raf = requestAnimationFrame(tick);
     }
+    motion.addEventListener("change", syncMotion);
 
     return () => {
       video.removeEventListener("loadedmetadata", measure);
@@ -109,6 +124,7 @@ export function HeroCharacter() {
       layer.removeEventListener("click", onTap);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
+      motion.removeEventListener("change", syncMotion);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -121,11 +137,11 @@ export function HeroCharacter() {
             ref={videoRef}
             className="hero-character-video"
             src={VIDEO_SRC}
-            autoPlay
+            poster="/hero-camera-boy-poster.webp"
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             tabIndex={-1}
           />
           <div className="hero-flash" ref={flashRef} />
