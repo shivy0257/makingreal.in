@@ -1,5 +1,5 @@
-export const GA_ID = import.meta.env.VITE_GA_ID ?? "";
-export const CLARITY_ID = import.meta.env.VITE_CLARITY_ID ?? "";
+export const GA_ID = import.meta.env.VITE_GA_ID || "";
+export const CLARITY_ID = import.meta.env.VITE_CLARITY_ID || "z68ktdr7lz";
 
 type EventParams = Record<string, string | number | boolean>;
 
