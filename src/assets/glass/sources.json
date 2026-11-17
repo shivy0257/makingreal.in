@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "project": "MAKINGREAL redesign",
+  "asset_directory": "C:/Users/Shivy/Desktop/new repository/makingreal.in/src/assets/glass",
+  "verified_at": "2026-11-06T21:27:06.140Z",
+  "distinct_photos": 6,
+  "webp_variants": 12,
+  "total_image_bytes": 1828230,
+  "research_sources": [
+    "https://unsplash.com/s/photos/cinematographer",
+    "https://unsplash.com/s/photos/behind-the-scenes",
+    "https://unsplash.com/s/photos/product-photography",
+    "https://unsplash.com/s/photos/editorial",
+    "https://unsplash.com/s/photos/design-studio",
+    "https://unsplash.com/s/photos/still-life-product",
+    "https://unsplash.com/s/photos/cafe-interior"
+  ],
+  "verification_method": [
+    "Read the public HTML of each individual official Unsplash photo page, including ImageObject JSON-LD and serialized public photo metadata. No third-party mirrors were used.",
+    "For every selected photo, verified HTTP 200, the visible standard Unsplash License notice, a Download free button, JSON-LD license=https://unsplash.com/license and isAccessibleForFree=true, and public photo flags premium=false and plus=false.",
+    "Photography provenance is supported by the credited creator, original upload date, camera EXIF, asset_type=photo and visual inspection of the delivered 640px variant. No AI-generated assets were sourced or generated.",
+    "Downloaded only the verified images.unsplash.com photo paths, using fm=webp, q=85, fit=max and the requested widths. Checked WebP headers, decoded pixel dimensions, file sizes and SHA-256 hashes.",
+    "The public /napi/photos endpoint returned 401; verification was completed through publicly accessible individual photo-page HTML instead. No authentication was bypassed and no alternative provider was substituted."
+  ],
+  "license": {
+    "name": "Unsplash License (free; not Unsplash+)",
+    "url": "https://unsplash.com/license",
+    "checked_on": "2026-11-06",
+    "copyright_license_quote": "Unsplash grants you an irrevocable, nonexclusive, worldwide copyright license to download, copy, modify, distribute, perform, and use images from Unsplash for free, including for commercial purposes, without permission from or attributing the photographer or Unsplash.",
+    "commercial_use_permitted": true,
+    "attribution_required": false,
+    "attribution_appreciated": true,
+    "restrictions": [
+      "Images cannot be sold without significant modification.",
+      "Do not compile images from Unsplash to replicate a similar or competing service."
+    ],
+    "terms_url": "https://unsplash.com/terms",
+    "third_party_rights_quote": "Note that the Unsplash License does not include the right to use: Trademarks, logos, or brands that appear in Images People's images if they are recognizable in the Images Works of art or authorship that appear in Images",
+    "third_party_permission_quote": "If you download images with any of these depicted in them, you may need the permission of the brand owner of the brand or work of authorship or individual depending on how you use the Image.",
+    "rights_scope_note": "This manifest verifies the platform's copyright-license evidence, not blanket model, property, artwork or trademark clearance. No separate releases were obtained or verified. Review the intended marketing context before publication. Do not present these stock people, spaces or productions as MAKINGREAL's actual team, premises or client work, or imply their endorsement."
+  },
+  "assets": [
+    {
+      "role": "hero",
+      "basename": "hero-filmmaker",
+      "alt": "Filmmaker operating a cinema camera on a tripod amid blue and red studio light beams.",
+      "source": {
+        "photo_id": "kbd1oAf-9Ms",
+        "page_url": "https://unsplash.com/photos/person-filming-with-camera-in-light-kbd1oAf-9Ms",
+        "discovered_on": "https://unsplash.com/s/photos/cinematographer",
+        "photographer": "Jakob Owens",
+        "username": "jakobowens1",
+        "profile_url": "https://unsplash.com/@jakobowens1",
+        "credit": "Photo by Jakob Owens on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1625690303837-654c9666d2d0?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2021-07-07T20:39:24Z",
+        "original_width": 6240,
+        "original_height": 4160,
+        "exif": {
+          "make": "FUJIFILM",
+          "model": "X-T4",
+          "exposure_time": "1/250",
+          "aperture": "2.8",
+          "focal_length": "31.1",
+          "iso": 1600
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:00.575Z",
+        "http_status": 200,
+        "page_sha256": "9606835494bede8ff98c143870908fbaff87bbf7a951fa216f226f07b3c03625",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Landscape on-set image with a clearly visible professional camera and operator; dramatic practical light beams, not an office scene.",
+      "rights_notes": "Silhouetted person and camera equipment; no separate model or trademark release verified.",
+      "transform": { "format": "webp", "quality": 85, "fit": "max", "crop": null },
+      "files": [
+        {
+          "filename": "hero-filmmaker-1600.webp",
+          "width": 1600,
+          "height": 1067,
+          "bytes": 444182,
+          "sha256": "0fb65371109c49d371a1bc78d85136f72373f73c36965fb7c8fc8153b9a2e2a6",
+          "download_url": "https://images.unsplash.com/photo-1625690303837-654c9666d2d0?fm=webp&w=1600&q=85&fit=max"
+        },
+        {
+          "filename": "hero-filmmaker-640.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 38696,
+          "sha256": "722a6952b9e9aaa372de955e099622037abc9f2aad52e6c57b4b1da186a8e733",
+          "download_url": "https://images.unsplash.com/photo-1625690303837-654c9666d2d0?fm=webp&w=640&q=85&fit=max"
+        }
+      ]
+    },
+    {
+      "role": "product still life",
+      "basename": "product-still-life",
+      "alt": "Two small unlabelled glass bottles with gold caps on a sculptural white pedestal.",
+      "source": {
+        "photo_id": "ykg6ILZf7Zk",
+        "page_url": "https://unsplash.com/photos/a-pair-of-white-candles-sitting-on-top-of-a-table-ykg6ILZf7Zk",
+        "discovered_on": "https://unsplash.com/s/photos/still-life-product",
+        "photographer": "Marek Mucha",
+        "username": "marcc",
+        "profile_url": "https://unsplash.com/@marcc",
+        "credit": "Photo by Marek Mucha on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1654524438022-bd79018661c1?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2022-06-06T15:33:18Z",
+        "original_width": 4000,
+        "original_height": 5333,
+        "source_caption_note": "The Unsplash automatic caption and URL call these candles; visual review shows small glass bottles. The supplied alt text describes the actual delivered image.",
+        "exif": {
+          "make": "SONY",
+          "model": "ILCE-7M3",
+          "exposure_time": "1/100",
+          "aperture": "13.0",
+          "focal_length": "55.0",
+          "iso": 400
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:01.890Z",
+        "http_status": 200,
+        "page_sha256": "a5c73cd5aa852a8a6c0f518a81ac2bb8c2faf9ebde5f5b2a384a24336783267b",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Tight editorial product crop; simple glass bottles, no visible brand name or label. No people.",
+      "rights_notes": "No visible branding in the delivered crop; no independent product-design clearance claimed.",
+      "transform": {
+        "format": "webp",
+        "quality": 85,
+        "fit": "max",
+        "crop": { "method": "images.unsplash.com rect", "x": 2400, "y": 1600, "width": 1600, "height": 2400 },
+        "crop_reason": "Bring the unbranded bottles closer and remove distracting empty plinths and most of the red fabric. Both variants use the identical source crop."
+      },
+      "files": [
+        {
+          "filename": "product-still-life-1200.webp",
+          "width": 1200,
+          "height": 1800,
+          "bytes": 126162,
+          "sha256": "cfc1356241efaf7308440cf0b5920ac1f3d9a1d780210f57ca0f5dc980ef978f",
+          "download_url": "https://images.unsplash.com/photo-1654524438022-bd79018661c1?fm=webp&w=1200&q=85&fit=max&rect=2400,1600,1600,2400"
+        },
+        {
+          "filename": "product-still-life-640.webp",
+          "width": 640,
+          "height": 960,
+          "bytes": 34024,
+          "sha256": "daa88ec7e6be190680859b563adfb77f39505c6fa2b4fc0c3c2669ddfb5b67b9",
+          "download_url": "https://images.unsplash.com/photo-1654524438022-bd79018661c1?fm=webp&w=640&q=85&fit=max&rect=2400,1600,1600,2400"
+        }
+      ]
+    },
+    {
+      "role": "creator working with camera",
+      "basename": "creator-camera",
+      "alt": "Camera operator adjusting a cinema rig and monitor on a red-lit production set.",
+      "source": {
+        "photo_id": "DqmXihYx5UE",
+        "page_url": "https://unsplash.com/photos/man-in-white-t-shirt-holding-black-video-camera-DqmXihYx5UE",
+        "discovered_on": "https://unsplash.com/s/photos/behind-the-scenes",
+        "photographer": "Kyle Loftus",
+        "username": "kyleloftusstudios",
+        "profile_url": "https://unsplash.com/@kyleloftusstudios",
+        "credit": "Photo by Kyle Loftus on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1611784728558-6c7d9b409cdf?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2021-01-27T22:04:12Z",
+        "original_width": 2792,
+        "original_height": 1861,
+        "exif": {
+          "make": "Canon",
+          "model": "Canon EOS 5D Mark IV",
+          "exposure_time": "1/100",
+          "aperture": "2.8",
+          "focal_length": "67.0",
+          "iso": 1250
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:03.173Z",
+        "http_status": 200,
+        "page_sha256": "ef741e4843a2d6cf204bf1cae49e7180ebe5800dffe8a03511622c9e6e103979",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Close documentary view of a working operator, hand controls, monitor and cinema camera; distinct from the hero photograph.",
+      "rights_notes": "People and production equipment are depicted. No separate model or equipment-brand releases verified.",
+      "transform": { "format": "webp", "quality": 85, "fit": "max", "crop": null },
+      "files": [
+        {
+          "filename": "creator-camera-1200.webp",
+          "width": 1200,
+          "height": 800,
+          "bytes": 63484,
+          "sha256": "cacd03fc0488cddaeb73ced0644cbcd977dbd75de73151d2e6cd19fc981227fe",
+          "download_url": "https://images.unsplash.com/photo-1611784728558-6c7d9b409cdf?fm=webp&w=1200&q=85&fit=max"
+        },
+        {
+          "filename": "creator-camera-640.webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 28408,
+          "sha256": "0193e2bd176426464964ef91360231b7b83e99d9217c601184368e147b2a043d",
+          "download_url": "https://images.unsplash.com/photo-1611784728558-6c7d9b409cdf?fm=webp&w=640&q=85&fit=max"
+        }
+      ]
+    },
+    {
+      "role": "modern cafe interior",
+      "basename": "cafe-interior",
+      "alt": "Daylit modern cafe with arched windows, a curved timber counter and white pendant lighting.",
+      "source": {
+        "photo_id": "ZZxmc66SjfM",
+        "page_url": "https://unsplash.com/photos/modern-coffee-shop-interior-with-curved-counter-ZZxmc66SjfM",
+        "discovered_on": "https://unsplash.com/s/photos/cafe-interior",
+        "photographer": "Keghan Crossland",
+        "username": "keghancphoto",
+        "profile_url": "https://unsplash.com/@keghancphoto",
+        "credit": "Photo by Keghan Crossland on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2019-09-07T18:28:58Z",
+        "original_width": 3024,
+        "original_height": 4032,
+        "exif": {
+          "make": "Apple",
+          "model": "iPhone X",
+          "exposure_time": "1/400",
+          "aperture": "1.8",
+          "focal_length": "4.0",
+          "iso": 20
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:04.201Z",
+        "http_status": 200,
+        "page_sha256": "4c20a9c29ed8f0b684c556c6232db16efb871820bbc3eeef13c4a5089c350488",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Real contemporary hospitality interior with architectural detail and natural light rather than generic office stock.",
+      "rights_notes": "Private business interior and distant patrons are visible. No separate property or model releases verified; do not imply this business is a MAKINGREAL client.",
+      "transform": { "format": "webp", "quality": 85, "fit": "max", "crop": null },
+      "files": [
+        {
+          "filename": "cafe-interior-1200.webp",
+          "width": 1200,
+          "height": 1600,
+          "bytes": 577236,
+          "sha256": "13b9df96c2f324fc9649bf298a115114ebad5d6aab1f5a3ef938b4efef8f615f",
+          "download_url": "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?fm=webp&w=1200&q=85&fit=max"
+        },
+        {
+          "filename": "cafe-interior-640.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 140236,
+          "sha256": "a098f539eec82b4ddad0c8283af9c0ecbc34aa5b97ce08c6f1a40c93d3bb96ac",
+          "download_url": "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?fm=webp&w=640&q=85&fit=max"
+        }
+      ]
+    },
+    {
+      "role": "studio team and design collaboration",
+      "basename": "studio-collaboration",
+      "alt": "Two designers reviewing a wall of printed editorial layouts and identity concepts in a creative studio.",
+      "source": {
+        "photo_id": "8ryz8T0bWx4",
+        "page_url": "https://unsplash.com/photos/people-viewing-wall-of-printed-images-8ryz8T0bWx4",
+        "discovered_on": "https://unsplash.com/s/photos/design-studio",
+        "photographer": "Brands&People",
+        "username": "brandsandpeople",
+        "profile_url": "https://unsplash.com/@brandsandpeople",
+        "portfolio_url": "https://www.brands.mx/",
+        "credit": "Photo by Brands&People on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1613759612065-d5971d32ca49?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2021-02-19T18:43:08Z",
+        "original_width": 4842,
+        "original_height": 3304,
+        "photographer_description": "Post it sticky notes editorial ideas board",
+        "exif": {
+          "make": "Canon",
+          "model": "Canon EOS 5D Mark III",
+          "exposure_time": "1/6",
+          "aperture": "11",
+          "focal_length": "47.0",
+          "iso": 5000
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:05.186Z",
+        "http_status": 200,
+        "page_sha256": "87318b879f35b45431f96cf011b50d4b832eabb158f0c8b86d287802ff005e07",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Design review at a physical pin-up wall; intentional motion blur and real editorial/identity work, not a staged laptop meeting.",
+      "rights_notes": "Printed artwork, identity marks and people appear in this photo. Their separate rights are not granted by the Unsplash copyright license. Review before commercial publication; do not imply the displayed designs or people belong to MAKINGREAL.",
+      "transform": { "format": "webp", "quality": 85, "fit": "max", "crop": null },
+      "files": [
+        {
+          "filename": "studio-collaboration-1200.webp",
+          "width": 1200,
+          "height": 819,
+          "bytes": 99264,
+          "sha256": "e018f3101d50ecc802f013978fdf56562c5bad4296688785f72c93986127b740",
+          "download_url": "https://images.unsplash.com/photo-1613759612065-d5971d32ca49?fm=webp&w=1200&q=85&fit=max"
+        },
+        {
+          "filename": "studio-collaboration-640.webp",
+          "width": 640,
+          "height": 437,
+          "bytes": 38654,
+          "sha256": "d2301b5679fb7f9c0e771accc483851cc1e6a96ce111290c75966ef3f5f7d200",
+          "download_url": "https://images.unsplash.com/photo-1613759612065-d5971d32ca49?fm=webp&w=640&q=85&fit=max"
+        }
+      ]
+    },
+    {
+      "role": "architectural studio environment",
+      "basename": "studio-environment",
+      "alt": "Sunlit industrial photography studio with a seamless white backdrop, trestle table and wooden stool.",
+      "source": {
+        "photo_id": "nME9TubZtSo",
+        "page_url": "https://unsplash.com/photos/wooden-table-and-stool-in-studio-nME9TubZtSo",
+        "discovered_on": "https://unsplash.com/s/photos/design-studio",
+        "photographer": "Hannah Busing",
+        "username": "hannahbusing",
+        "profile_url": "https://unsplash.com/@hannahbusing",
+        "credit": "Photo by Hannah Busing on Unsplash",
+        "raw_url": "https://images.unsplash.com/photo-1565791380713-1756b9a05343?ixid=NHwxMjA3fDA&ixlib=rb-4.1.0",
+        "published_at": "2019-08-14T14:03:15Z",
+        "original_width": 3024,
+        "original_height": 3024,
+        "location_city": "Atlanta",
+        "location_country": "United States",
+        "exif": {
+          "make": "Apple",
+          "model": "iPhone X",
+          "exposure_time": "1/500",
+          "aperture": "1.8",
+          "focal_length": "4.0",
+          "iso": 20
+        }
+      },
+      "license_evidence": {
+        "verified_at": "2026-11-06T21:27:06.140Z",
+        "http_status": 200,
+        "page_sha256": "8d287564fa18a14ad75e0e429434a1417f969aa13964bc45207ac54aa9b0a181",
+        "visible_notice": "Free to use under the Unsplash License",
+        "download_button": "Download free",
+        "jsonld_license": "https://unsplash.com/license",
+        "jsonld_isAccessibleForFree": true,
+        "asset_type": "photo",
+        "premium": false,
+        "plus": false
+      },
+      "visual_review": "Daylight photography environment with a seamless paper sweep, exposed brick, industrial column and strong window shadows. No people.",
+      "rights_notes": "Interior property is depicted; no separate property release verified. Do not identify this space as MAKINGREAL's premises.",
+      "transform": { "format": "webp", "quality": 85, "fit": "max", "crop": null },
+      "files": [
+        {
+          "filename": "studio-environment-1200.webp",
+          "width": 1200,
+          "height": 1200,
+          "bytes": 184318,
+          "sha256": "d6eaf406256563388fa0622c9e9e179428e092d623f12e78da5cffd0873af43f",
+          "download_url": "https://images.unsplash.com/photo-1565791380713-1756b9a05343?fm=webp&w=1200&q=85&fit=max"
+        },
+        {
+          "filename": "studio-environment-640.webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 53566,
+          "sha256": "9985eef571e964edbdadeb36e4ab399b5a43077f86a6583dcfa852906a8ae000",
+          "download_url": "https://images.unsplash.com/photo-1565791380713-1756b9a05343?fm=webp&w=640&q=85&fit=max"
+        }
+      ]
+    }
+  ]
+}

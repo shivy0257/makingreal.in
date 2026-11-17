@@ -24,6 +24,9 @@ export default {
       },
       colors: {
         "accent-ink": "hsl(var(--accent-ink))",
+        "glass-surface": "hsl(var(--glass-surface) / <alpha-value>)",
+        "glass-border": "hsl(var(--glass-border) / <alpha-value>)",
+        "glass-highlight": "hsl(var(--glass-highlight) / <alpha-value>)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -72,7 +75,17 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      boxShadow: {
+        control: "var(--shadow-control)",
+        floating: "var(--shadow-floating)",
+      },
+      backdropBlur: {
+        glass: "var(--glass-blur)",
+      },
       borderRadius: {
+        card: "var(--radius-card)",
+        hero: "var(--radius-hero)",
+        input: "var(--radius-input)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",

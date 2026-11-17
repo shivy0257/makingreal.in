@@ -2,8 +2,10 @@ import { ArrowLeft, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ApertureMarkNext } from "@/components/ApertureMarkNext";
 import { CONTACT_EMAIL } from "@/lib/contact";
+import { usePageMeta } from "@/lib/seo";
 
 const processors = [
+  ["Supabase", "Hosts creator accounts, profile details, portfolio images and the creator studio database. Sign-in is passwordless by email link or Google.", "supabase.com/privacy"],
   ["Google Analytics", "Page views, approximate location, device and how the site is used. Served from Google servers.", "policies.google.com/privacy"],
   ["Microsoft Clarity", "Session recordings and heatmaps that show where people click and scroll. Text you type into form fields is masked before it is sent.", "privacy.microsoft.com"],
   ["Web3Forms", "The contents of the brief form you submit, which forwards them to us by email.", "web3forms.com/privacy"],
@@ -11,6 +13,12 @@ const processors = [
 ];
 
 export default function Privacy() {
+  usePageMeta({
+    title: "Privacy policy — MAKINGREAL",
+    path: "/privacy",
+    description: "How MAKINGREAL collects, uses and stores briefs, creator profile details, portfolio images and analytics data.",
+  });
+
   return <div className="legal-page">
     <header className="legal-header">
       <Link to="/" className="wordmark" aria-label="MAKINGREAL home"><ApertureMarkNext />MAKINGREAL</Link>
@@ -25,6 +33,7 @@ export default function Privacy() {
       <section>
         <h2>What we collect</h2>
         <p><strong>What you send us.</strong> If you fill in the brief form, we receive your name, business, city, contact detail, budget range, dates and message. If you message us on WhatsApp or email, we receive whatever you write there.</p>
+        <p><strong>If you create a creator profile.</strong> We store the email address you sign in with, your sign-in method (email link or Google), the profile details you publish, and the portfolio images you upload. Your public profile is visible only after it is reviewed and approved.</p>
         <p><strong>What is collected automatically.</strong> We use analytics to understand how the site is used. This includes pages visited, buttons clicked, approximate location (city level), device and browser. We do not use this data to identify you personally, and we never sell it.</p>
       </section>
 
@@ -53,7 +62,7 @@ export default function Privacy() {
 
       <section>
         <h2>Your choices</h2>
-        <p>You can ask us what data we hold about you, ask us to correct it, or ask us to delete it. Just write to us. There is no account system, so "your data" is simply the messages and briefs you have sent.</p>
+        <p>You can ask us what data we hold about you, ask us to correct it, or ask us to delete it. For creator accounts this includes the profile, portfolio images and sign-in record, and you can also remove individual portfolio pieces from the studio yourself. Public content stops appearing when it is removed or unpublished.</p>
       </section>
 
       <section>
