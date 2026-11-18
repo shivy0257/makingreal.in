@@ -120,6 +120,7 @@ export default function Index() {
       <Wordmark animated />
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(item => <a href={`#${item.id}`} key={item.id}>{item.title}</a>)}
+        <a href="/portfolio/" target="_blank" rel="noopener noreferrer" aria-label="Shivam Singh portfolio (opens in a new tab)">Portfolio</a>
         {isSupabaseConfigured && <Link to="/creators">Creators</Link>}
       </nav>
       <div className="header-actions">
@@ -138,6 +139,7 @@ export default function Index() {
               </div>
               <nav aria-label="Mobile navigation">
                 {nav.map(item => <a href={`#${item.id}`} key={item.id} onClick={() => setMenuOpen(false)}>{item.title}</a>)}
+                <a href="/portfolio/" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Portfolio</a>
                 {isSupabaseConfigured && <Link to="/creators" onClick={() => setMenuOpen(false)}>Creators</Link>}
                 <BriefButton className="mobile-cta" source="mobile_menu" />
               </nav>
@@ -314,6 +316,7 @@ export default function Index() {
         </div>
         <nav aria-label="Footer navigation">
           {nav.map(item => <a href={`#${item.id}`} key={item.id}>{item.title}</a>)}
+          <a href="/portfolio/" target="_blank" rel="noopener noreferrer">Portfolio</a>
           <a href="#contact">Contact</a>
           {isSupabaseConfigured && <Link to="/creators">Creators</Link>}
         </nav>
