@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTFOLIO CONFIG — edit this file only.
+   PORTFOLIO CONFIG - edit this file only.
    --------------------------------------------------------------------------
    Everything on the page is driven by this object. No build step, no coding.
 
@@ -15,7 +15,7 @@
    10. contact   → email, WhatsApp, social links
    11. theme     → accent colour + grain toggle
 
-   Research items are exploratory by nature — keep the `status` line honest.
+   Research items are exploratory by nature - keep the `status` line honest.
 
    Tips
    • Wrap *words* in asterisks to italicise them.
@@ -33,10 +33,10 @@ const PORTFOLIO = {
     monogram: "SS",
     role: "Operations · Analytics · Automation",
     location: "Delhi NCR, India",
-    availability: "Open to operations & analyst roles",
-    siteTitle: "Shivam Singh — Operations, Analytics & Automation",
+    availability: "Open to operations, MIS & analytics roles",
+    siteTitle: "Shivam Singh - Operations, Analytics & Automation",
     siteDescription:
-      "Operations professional in Delhi NCR with 5+ years across coordination, MIS and reporting — building analytics, automation and digital projects on the side."
+      "Operations and MIS professional in Delhi NCR with 5+ years across reporting, coordination and system support, plus hands-on analytics, automation and web projects."
   },
 
   theme: {
@@ -48,21 +48,21 @@ const PORTFOLIO = {
   // data-app attributes in index.html (home, work, research, experience,
   // about, services, contact).
   os: {
-    defaultTheme: "glass", // "glass" | "macos" | "windows" | "oneui"
+    defaultTheme: "glass", // "glass" | "macos" | "oneui"
     phoneDock: ["work", "research", "services", "contact"],
     apps: [
-      { id: "home", label: "Home", short: "SS", icon: "house", tone: "#15151a", tone2: "#4b5162" },
-      { id: "work", label: "Work", short: "W", icon: "briefcase", tone: "#3468f5", tone2: "#5cc8ff" },
-      { id: "research", label: "Research", short: "R", icon: "magnifying-glass", tone: "#7a5cf0", tone2: "#c084fc" },
-      { id: "experience", label: "Experience", short: "E", icon: "chart-line-up", tone: "#128a6b", tone2: "#34d399" },
-      { id: "about", label: "About", short: "A", icon: "user", tone: "#c26a2c", tone2: "#f0a35e" },
-      { id: "services", label: "Services", short: "S", icon: "wrench", tone: "#2a8fb8", tone2: "#63d2e8" },
-      { id: "contact", label: "Contact", short: "C", icon: "envelope-simple", tone: "#1f2430", tone2: "#596273" },
-      { id: "music", label: "Music", short: "M", icon: "music-notes", tone: "#f43f5e", tone2: "#fb7185", fun: true },
-      { id: "games", label: "Game", short: "G", icon: "game-controller", tone: "#f59e0b", tone2: "#fbbf24", fun: true },
-      { id: "watch", label: "Watch", short: "T", icon: "watch", tone: "#0e7490", tone2: "#22d3ee", fun: true },
-      { id: "screen-time", label: "Screen Time", short: "ST", icon: "timer", tone: "#6366f1", tone2: "#8b5cf6", fun: true },
-      { id: "settings", label: "Customize", short: "CU", icon: "sliders-horizontal", tone: "#5b6472", tone2: "#8b93a3", fun: true }
+      { id: "home", label: "Home", short: "SS", icon: "house", tone: "#151a24", tone2: "#4d5668" },
+      { id: "work", label: "Work", short: "W", icon: "briefcase", tone: "#2f56c8", tone2: "#6f96e8" },
+      { id: "research", label: "Research", short: "R", icon: "magnifying-glass", tone: "#6a4fd0", tone2: "#a793ea" },
+      { id: "experience", label: "Experience", short: "E", icon: "chart-line-up", tone: "#0f7a5f", tone2: "#43b493" },
+      { id: "about", label: "About", short: "A", icon: "user", tone: "#a85f2c", tone2: "#dda06b" },
+      { id: "services", label: "Services", short: "S", icon: "wrench", tone: "#247a9c", tone2: "#62b8d2" },
+      { id: "contact", label: "Contact", short: "C", icon: "envelope-simple", tone: "#232936", tone2: "#5f6a7d" },
+      { id: "music", label: "Music", short: "M", icon: "music-notes", tone: "#c9405a", tone2: "#ec8298", fun: true },
+      { id: "games", label: "Game", short: "G", icon: "game-controller", tone: "#c1861f", tone2: "#e5b458", fun: true },
+      { id: "watch", label: "Watch", short: "T", icon: "watch", tone: "#0f6377", tone2: "#4fb2c6", fun: true },
+      { id: "screen-time", label: "Screen Time", short: "ST", icon: "timer", tone: "#5454c0", tone2: "#9296de", fun: true },
+      { id: "settings", label: "Customize", short: "CU", icon: "sliders-horizontal", tone: "#59616e", tone2: "#8b93a3", fun: true }
     ]
   },
 
@@ -83,7 +83,7 @@ const PORTFOLIO = {
   hero: {
     kicker: "Operations · analytics · automation",
     tagline:
-      "Five years keeping business operations accurate, people coordinated and systems moving. Now I build the dashboards and automations that make the work *faster, clearer and repeatable*.",
+      "Five-plus years in operations, MIS and reporting, currently in garment exports. I build the dashboards and automations that make daily work *faster, clearer and repeatable*.",
     ctas: [
       { label: "Selected projects", href: "#work", variant: "solid" },
       { label: "Start a conversation", href: "#contact", variant: "glass" }
@@ -91,16 +91,16 @@ const PORTFOLIO = {
     proof: {
       main: {
         src: "assets/img/work-makingreal-web.webp",
-        alt: "The MAKINGREAL homepage — “Make things real.” with the brief, match, create process.",
+        alt: "The MAKINGREAL homepage - “Make things real.” with the brief, match, create process.",
         url: "makingreal.in",
-        caption: "Live site — a creator network for real businesses.",
+        caption: "Live site - a creator network for real businesses.",
         width: 1600,
         height: 818
       },
       sub: {
         src: "assets/img/work-job-automation.webp",
         alt: "The n8n canvas for the job research automation, showing scoring, filtering and email digest nodes.",
-        caption: "n8n — job research workflow",
+        caption: "n8n - job research workflow",
         width: 1400,
         height: 875
       }
@@ -122,7 +122,7 @@ const PORTFOLIO = {
   works: [
     {
       src: "assets/img/work-makingreal-web.webp",
-      alt: "The MAKINGREAL homepage — “Make things real.” with a brief, match, create process.",
+      alt: "The MAKINGREAL homepage - “Make things real.” with a brief, match, create process.",
       title: "MAKINGREAL",
       category: "Creator platform",
       year: "2026",
@@ -131,7 +131,7 @@ const PORTFOLIO = {
       width: 1600,
       height: 818,
       summary:
-        "A live site connecting local businesses with photographers, filmmakers and creators — brief, match, create. Built and iterated in React and TypeScript, deployed on Vercel with search, analytics and lead tracking wired in.",
+        "A live platform connecting local businesses with photographers, filmmakers and creators. Built and iterated in React and TypeScript, deployed on Vercel with Search Console, GA4 and lead tracking wired in.",
       stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Lovable", "Vercel"],
       link: "https://makingreal.in",
       linkLabel: "Visit live site"
@@ -149,7 +149,7 @@ const PORTFOLIO = {
       summary:
         "An n8n workflow that runs twice daily: pulls job listings, normalizes them, scores each against salary, distance and skill criteria with Gemini, filters duplicates against a Sheets tracker and emails a digest of matches scoring 7+.",
       stack: ["n8n", "Gemini", "Google Sheets", "Gmail", "Webhooks", "JavaScript"],
-      note: "Working prototype — tested with sample listings, not yet run at scale."
+      note: "Working prototype - tested with sample listings, not yet run at scale."
     },
     {
       src: "assets/img/work-makingreal-analytics.webp",
@@ -162,7 +162,7 @@ const PORTFOLIO = {
       width: 2000,
       height: 667,
       summary:
-        "Search Console, GA4 and Web3Forms connected for makingreal.in — indexing, engagement and contact-form tracking, with 42 form submissions in the latest month.",
+        "Search Console, GA4 and Web3Forms connected for makingreal.in - indexing, engagement and contact-form tracking, with 42 form submissions in the latest month.",
       stack: ["Google Search Console", "GA4", "Web3Forms", "Vercel"],
       note: "3-month search view and a 28-day analytics window."
     }
@@ -170,20 +170,20 @@ const PORTFOLIO = {
 
   research: {
     eyebrow: "Research",
-    title: "Questions I've chased down.",
+    title: "Questions I've researched and tested.",
     note:
-      "Independent research across markets, data and technology. Exploratory by design — findings are labelled honestly, and no result is claimed before it exists.",
+      "Independent research across markets, data and technology. Exploratory by design: findings are labelled honestly, and no result is claimed before it exists.",
     items: [
       {
         category: "Market research · Customer discovery",
         title: "Pet care market & business validation",
         summary:
-          "Explored recurring pet-care categories — grooming, oral care, coat care and parasite protection — with separate English and Hindi surveys for dog and cat owners.",
+          "Explored recurring pet-care categories - grooming, oral care, coat care and parasite protection - with separate English and Hindi surveys for dog and cat owners.",
         status: "Validation framework built"
       },
       {
         category: "Creator economy · Competitive intelligence",
-        title: "MAKINGREAL — UGC market research",
+        title: "MAKINGREAL - UGC market research",
         summary:
           "Studied the UGC and short-form video market and compared a managed production model against a creator marketplace, benchmarking INFLENO, Kalinq and ADURA.",
         status: "Demand not yet validated"
@@ -192,7 +192,7 @@ const PORTFOLIO = {
         category: "Financial markets · Derivatives",
         title: "Options & technical strategy research",
         summary:
-          "Technical analysis and options exploration — EMA, RSI, ATR, implied volatility and strangle strategies — worked through on TradingView and Delta Exchange.",
+          "Technical analysis and options exploration - EMA, RSI, ATR, implied volatility and strangle strategies - worked through on TradingView and Delta Exchange.",
         status: "Ongoing research"
       },
       {
@@ -206,14 +206,14 @@ const PORTFOLIO = {
         category: "Digital analytics · SEO",
         title: "MAKINGREAL website analytics",
         summary:
-          "Search Console, GA4 and contact-form data for makingreal.in — indexing, engagement and conversion tracking for an early-stage site.",
+          "Search Console, GA4 and contact-form data for makingreal.in - indexing, engagement and conversion tracking for an early-stage site.",
         status: "Early real data only"
       },
       {
         category: "E-commerce · Operations",
         title: "Shopify & dropshipping research",
         summary:
-          "Store experiments — ShivyShop and ShivyDrop — covering product selection, listings, store branding and fulfilment workflows.",
+          "Store experiments - ShivyShop and ShivyDrop - covering product selection, listings, store branding and fulfilment workflows.",
         status: "Exploration only"
       },
       {
@@ -255,7 +255,7 @@ const PORTFOLIO = {
         category: "Web development · Systems",
         title: "Portfolio & content system",
         summary:
-          "A config-driven one-page portfolio where every section renders from a single content file — no framework, no build step, with keyboard, touch and reduced-motion support.",
+          "A config-driven one-page portfolio where every section renders from a single content file - no framework, no build step, with keyboard, touch and reduced-motion support.",
         status: "Completed build"
       }
     ],
@@ -276,32 +276,32 @@ const PORTFOLIO = {
 
   experience: [
     {
-      period: "Dec 2020 — Present",
+      period: "Dec 2020 - Present",
       current: true,
       role: "Senior Executive / Computer Analyst",
       org: "Shahi Exports Pvt Ltd",
       place: "Textile & garment export",
       points: [
-        "Ran computer-based operations, maintained business records and kept MIS reporting accurate.",
-        "Coordinated between departments and with IT to keep internal systems and daily workflows moving.",
-        "Worked across Excel, Word and the Spandan internal intranet."
+        "Own computer-based operations and business records for a garment-export unit, keeping MIS reporting accurate and on time.",
+        "Coordinate across departments and with IT so internal systems and daily workflows keep moving.",
+        "Work daily in Excel, Word and the Spandan intranet to keep information consistent and easy to retrieve."
       ],
       tags: ["MIS", "Excel", "Spandan", "Coordination"]
     },
     {
-      period: "Oct 2019 — Nov 2020",
+      period: "Oct 2019 - Nov 2020",
       role: "Channel Distribution Sales Executive",
       org: "Theme Venture Loyalty Firm",
       place: "Channel sales",
       points: [
-        "Coordinated channel distribution and day-to-day sales operations.",
-        "Handled partner communication, follow-ups and sales records.",
+        "Managed channel distribution and day-to-day sales operations.",
+        "Owned partner communication, follow-ups and sales records.",
         "Supported business development across the channel."
       ],
       tags: ["Channel distribution", "Sales ops", "Follow-ups"]
     },
     {
-      period: "Apr 2019 — Aug 2019",
+      period: "Apr 2019 - Aug 2019",
       role: "Office Administrator / Workforce Coordinator",
       org: "D.L. Group",
       place: "Administration",
@@ -312,7 +312,7 @@ const PORTFOLIO = {
       tags: ["Office admin", "Manpower", "Attendance"]
     },
     {
-      period: "Feb 2019 — Mar 2019",
+      period: "Feb 2019 - Mar 2019",
       role: "Field Sales Executive",
       org: "BSES Rajdhani Power Ltd",
       place: "Field sales",
@@ -336,9 +336,9 @@ const PORTFOLIO = {
       ]
     },
     paragraphs: [
-      "I'm Shivam — an operations professional based in Delhi NCR. My work sits where business process meets technology: records, reporting, coordination and the everyday systems that keep a company running.",
-      "Over the last five-plus years I've worked across manufacturing, channel distribution, administration and field sales. That range taught me how different teams actually operate — and where things get stuck.",
-      "Outside work I build things: a live creator platform, a Power BI dashboard, an AI job-tracking workflow and a Shopify store experiment. I like turning repetitive work into something *automatic*."
+      "I'm Shivam, an operations and MIS professional based in Delhi NCR. My work sits where business process meets technology: records, reporting, coordination and the systems that keep a company running.",
+      "Over five-plus years across garment exports, channel distribution, administration and field sales, I've learned how teams actually operate, where reporting breaks down and what it takes to keep information accurate.",
+      "Outside my day job I build the tools I want to use: a live creator platform, a Power BI dashboard, an AI-assisted job-tracking workflow and Shopify store experiments. Repetitive work should be *automatic*, not a daily chore."
     ],
     stats: [
       { value: "5+", label: "years in operations" },
@@ -352,54 +352,54 @@ const PORTFOLIO = {
     quote: "Good operations are invisible. The outcome isn't.",
     body:
       "I care about clean records, honest reporting and systems people can actually use. The goal is simple: less chasing, fewer errors, and more time for the work that matters.",
-    attribution: "— Shivam Singh"
+    attribution: "Shivam Singh"
   },
 
   services: [
     {
       title: "Operations & administration",
       description:
-        "Day-to-day coordination, documentation, workforce planning and the follow-through that keeps a business moving.",
+        "Reliable day-to-day operations: coordination, documentation, workforce planning and the follow-through that keeps commitments on track.",
       tags: ["Workflow coordination", "Documentation", "Manpower planning", "Reporting"]
     },
     {
       title: "MIS & data analysis",
       description:
-        "Structured reporting, spreadsheet systems and dashboards that turn messy records into readable decisions.",
+        "Structured MIS, spreadsheet systems and Power BI dashboards that turn raw records into decisions you can defend.",
       tags: ["Excel", "Power BI", "Reporting", "Data accuracy"]
     },
     {
       title: "Automation & AI",
       description:
-        "Connecting tools so repetitive work runs itself — from job pipelines to email digests and sheet updates.",
+        "n8n, Gemini and Sheets connected so repetitive work runs itself: job pipelines, email digests and scheduled updates.",
       tags: ["n8n", "Gemini", "Webhooks", "Sheets automation"]
     },
     {
       title: "Digital & web",
       description:
-        "Websites, storefronts and content built with modern tools — from a config-driven portfolio to a live product site.",
+        "Fast, maintainable websites and storefronts, from a config-driven portfolio to a live React product site.",
       tags: ["React", "TypeScript", "Tailwind", "Shopify"]
     }
   ],
 
   contact: {
     eyebrow: "Contact",
-    headline: "Let's make the work *run smoother*.",
+    headline: "Let's make your operations *run smoother*.",
     body:
-      "Hiring for operations, MIS or systems? Or need a workflow automated? Tell me what's slowing things down — I'll come back with a plan, usually within a day.",
+      "Hiring for operations, MIS or analytics, or need a workflow automated? Share what is slowing the team down and I will reply with a practical plan, usually within a day.",
     email: "singhshivy257@gmail.com",
-    emailSubject: "Opportunity — operations / analytics",
+    emailSubject: "Opportunity - operations / analytics",
     whatsapp: "919711807323",
     whatsappMessage: "Hi Shivam, I found your portfolio and I'd like to talk about a role or project.",
-    note: "Based in Delhi NCR · Open to operations & analyst roles",
+    note: "Based in Delhi NCR · Open to operations, MIS & analytics roles",
     socials: [
       { label: "LinkedIn", href: "https://www.linkedin.com/in/singhshivam257/" },
-      { label: "MAKINGREAL", href: "https://makingreal-connects.lovable.app/" }
+      { label: "MAKINGREAL", href: "https://www.makingreal.in/" }
     ]
   },
 
   footer: {
-    note: "Operations · Analytics · Automation — Delhi NCR."
+    note: "Operations · Analytics · Automation · Delhi NCR."
   }
 };
 

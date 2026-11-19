@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTFOLIO — renderer + interactions
+   PORTFOLIO - renderer + interactions
    All content comes from config.js. This file should not need editing.
    ========================================================================== */
 
@@ -234,7 +234,7 @@
         "</svg>" +
         "</div>" +
         '<div class="art__legend"><span>EMA</span><span>RSI</span><span>IV</span><span>Strangles</span></div>' +
-        '<div class="art__foot"><span>Research interest — not advisory</span><span class="art__dot"></span></div>' +
+        '<div class="art__foot"><span>Research interest, not advisory</span><span class="art__dot"></span></div>' +
         "</div>"
       );
     },
@@ -300,7 +300,7 @@
 
         return (
           '<button class="work-card reveal" type="button" data-work="' + index + '" ' +
-          'aria-label="View project ' + esc(work.title) + " — " + esc(work.category) + '" ' +
+          'aria-label="View project ' + esc(work.title) + " - " + esc(work.category) + '" ' +
           'style="--span:' + (work.span || 6) + ";--ratio:" + esc(work.ratio || "4/3") +
           ";--d:" + index * 70 + 'ms">' +
           media +
@@ -651,7 +651,7 @@
         textarea.select();
         try {
           document.execCommand("copy");
-          showToast("Email copied — " + email);
+          showToast("Email copied - " + email);
         } catch (err) {
           showToast("Could not copy. Email: " + email);
         }
@@ -660,7 +660,7 @@
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).then(function () {
-          showToast("Email copied — " + email);
+          showToast("Email copied - " + email);
         }).catch(fallbackCopy);
       } else {
         fallbackCopy();
@@ -670,7 +670,7 @@
 
   /* ---------------------------------------------------------------- os shell */
 
-  var THEMES = ["glass", "macos", "windows", "oneui"];
+  var THEMES = ["glass", "macos", "oneui"];
   var THEME_KEY = "portfolio-os";
   var HASH_APP = {
     main: "home",
@@ -697,20 +697,6 @@
       watch: [800, 640],
       "screen-time": [880, 630],
       settings: [860, 650]
-    },
-    windows: {
-      home: [1080, 740],
-      work: [980, 650],
-      research: [950, 650],
-      experience: [900, 630],
-      about: [940, 650],
-      services: [900, 640],
-      contact: [860, 610],
-      music: [980, 660],
-      games: [920, 690],
-      watch: [840, 650],
-      "screen-time": [920, 650],
-      settings: [900, 670]
     },
     oneui: {
       home: [1040, 728],
@@ -781,9 +767,9 @@
   }
 
   function workArea() {
-    var top = cssNumber("--bar-h", 0) + (os.theme === "windows" ? 4 : 12);
-    var bottom = cssNumber("--dock-space", 94) + (os.theme === "windows" ? 4 : 8);
-    var inset = os.theme === "windows" ? 6 : 14;
+    var top = cssNumber("--bar-h", 0) + 12;
+    var bottom = cssNumber("--dock-space", 94) + 8;
+    var inset = 14;
     return {
       left: inset,
       top: top,
@@ -845,7 +831,7 @@
 
   function maxRect() {
     var area = workArea();
-    var inset = os.theme === "windows" ? 0 : 10;
+    var inset = 10;
     return {
       left: area.left + inset,
       top: area.top,
@@ -1032,7 +1018,7 @@
   /* --- theme --- */
 
   function applyTheme(theme, persist) {
-    os.theme = THEMES.indexOf(theme) > -1 ? theme : "macos";
+    os.theme = THEMES.indexOf(theme) > -1 ? theme : ((C.os && C.os.defaultTheme) || "glass");
     document.documentElement.setAttribute("data-theme", os.theme);
     $$("[data-theme-set]").forEach(function (button) {
       button.setAttribute("aria-pressed", String(button.getAttribute("data-theme-set") === os.theme));
@@ -1060,80 +1046,11 @@
     "sliders-horizontal": '<path d="M32,80a8,8,0,0,1,8-8H77.17a28,28,0,0,1,53.66,0H216a8,8,0,0,1,0,16H130.83a28,28,0,0,1-53.66,0H40A8,8,0,0,1,32,80Zm184,88H194.83a28,28,0,0,0-53.66,0H40a8,8,0,0,0,0,16H141.17a28,28,0,0,0,53.66,0H216a8,8,0,0,0,0-16Z"/>'
   };
 
-  var ICON_ART = {
-    house:
-      '<path fill-rule="evenodd" d="M32 12.8c.95 0 1.87.34 2.6.97l16.1 14.05c.8.7 1.3 1.72 1.3 2.8V48a4.5 4.5 0 0 1-4.5 4.5H16.5A4.5 4.5 0 0 1 12 48V30.62c0-1.08.5-2.1 1.3-2.8L29.4 13.77a4 4 0 0 1 2.6-.97Zm-6.2 20.2a3 3 0 0 0-3 3V52h12.4V36a3 3 0 0 0-3-3h-6.4Z"/>',
-    briefcase:
-      '<path d="M25.5 14.5h13a6.5 6.5 0 0 1 6.5 6.5v3.5h-5.5V21a1 1 0 0 0-1-1h-13a1 1 0 0 0-1 1v3.5h-5.5V21a6.5 6.5 0 0 1 6.5-6.5Z" fill-opacity=".84"/>' +
-      '<rect x="9.5" y="24.5" width="45" height="27.5" rx="7" fill-opacity=".96"/>' +
-      '<path d="M9.5 34.5h45v4h-45z" fill="#000" fill-opacity=".18"/>' +
-      '<rect x="27" y="31.5" width="10" height="10" rx="3"/>' +
-      '<rect x="30.5" y="34.5" width="3" height="4" rx="1" fill="#000" fill-opacity=".24"/>',
-    "magnifying-glass":
-      '<circle cx="27.5" cy="26" r="13.5" fill="none" stroke="currentColor" stroke-width="5.6"/>' +
-      '<path d="M38.2 36.8 50.4 49" fill="none" stroke="currentColor" stroke-width="6.4" stroke-linecap="round"/>' +
-      '<path d="M21.2 22.6a9 9 0 0 1 5.2-5.6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".62"/>',
-    "chart-line-up":
-      '<rect x="10" y="38" width="9" height="14" rx="3" fill-opacity=".5"/>' +
-      '<rect x="23" y="31" width="9" height="21" rx="3" fill-opacity=".66"/>' +
-      '<rect x="36" y="24" width="9" height="28" rx="3" fill-opacity=".82"/>' +
-      '<rect x="49" y="16" width="9" height="36" rx="3"/>' +
-      '<path d="M12.5 32.5 24 26l9.5 3.5 15-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>',
-    user:
-      '<circle cx="32" cy="21.5" r="9.5"/>' +
-      '<path d="M13.5 49.5c0-8.7 8.3-14.7 18.5-14.7s18.5 6 18.5 14.7v.8a2.8 2.8 0 0 1-2.8 2.8H16.3a2.8 2.8 0 0 1-2.8-2.8v-.8Z" fill-opacity=".86"/>',
-    "envelope-simple":
-      '<rect x="9.5" y="16.5" width="45" height="31" rx="6.5" fill-opacity=".96"/>' +
-      '<path d="M13.5 20.5 32 34l18.5-13.5" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="3" stroke-linejoin="round"/>' +
-      '<path d="M13.5 44 26 32.5M50.5 44 38 32.5" fill="none" stroke="#000" stroke-opacity=".14" stroke-width="2.4" stroke-linecap="round"/>',
-    "music-notes":
-      '<ellipse cx="21" cy="45.5" rx="7" ry="5.4" transform="rotate(-18 21 45.5)"/>' +
-      '<ellipse cx="46" cy="40.5" rx="7" ry="5.4" transform="rotate(-18 46 40.5)"/>' +
-      '<rect x="25.4" y="17" width="3.4" height="28" rx="1.5"/>' +
-      '<rect x="50.4" y="12" width="3.4" height="28" rx="1.5"/>' +
-      '<path d="M25.4 17 53.8 12v7.2L25.4 24.4z"/>',
-    "game-controller":
-      '<path d="M19.5 20h25c8.8 0 15.2 7.3 16.3 17.2l.7 6.1c.7 6.4-6.2 10.2-10.7 5.8L42 41H22l-8.8 8.1c-4.5 4.4-11.4.6-10.7-5.8l.7-6.1C4.3 27.3 10.7 20 19.5 20Z" fill-opacity=".95"/>' +
-      '<path d="M22 28.5v9M17.5 33h9" fill="none" stroke="#000" stroke-opacity=".3" stroke-width="3.4" stroke-linecap="round"/>' +
-      '<circle cx="42" cy="30" r="2.3" fill="#000" fill-opacity=".26"/>' +
-      '<circle cx="48" cy="35" r="2.3" fill="#000" fill-opacity=".26"/>' +
-      '<circle cx="42" cy="40" r="2.3" fill="#000" fill-opacity=".26"/>' +
-      '<circle cx="36" cy="35" r="2.3" fill="#000" fill-opacity=".26"/>',
-    watch:
-      '<rect x="24" y="7" width="16" height="15" rx="5" fill-opacity=".7"/>' +
-      '<rect x="24" y="42" width="16" height="15" rx="5" fill-opacity=".7"/>' +
-      '<rect x="17" y="18.5" width="30" height="27" rx="9.5" fill-opacity=".97"/>' +
-      '<path d="M32 25.5v7.5l5 3" fill="none" stroke="#000" stroke-opacity=".32" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M26 15.5h12" stroke="#000" stroke-opacity=".1" stroke-width="2"/>',
-    timer:
-      '<circle cx="32" cy="35" r="15.5" fill-opacity=".95"/>' +
-      '<path d="M32 26.5V35l6 3.5" fill="none" stroke="#000" stroke-opacity=".32" stroke-width="3.2" stroke-linecap="round"/>' +
-      '<rect x="26.5" y="9.5" width="11" height="5" rx="2.5" fill-opacity=".8"/>' +
-      '<path d="M46.5 15.5 50.5 19.5" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/>',
-    "sliders-horizontal":
-      '<g fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" opacity=".9">' +
-        '<path d="M11 20h24M45 20h8"/>' +
-        '<path d="M11 32h7M28 32h25"/>' +
-        '<path d="M11 44h28M49 44h4"/>' +
-      '</g>' +
-      '<g fill="currentColor">' +
-        '<circle cx="40" cy="20" r="5.4"/>' +
-        '<circle cx="22" cy="32" r="5.4"/>' +
-        '<circle cx="44" cy="44" r="5.4"/>' +
-      '</g>' +
-      '<g fill="none" stroke="#000" stroke-opacity=".18" stroke-width="1.2">' +
-        '<circle cx="40" cy="20" r="5.4"/><circle cx="22" cy="32" r="5.4"/><circle cx="44" cy="44" r="5.4"/>' +
-      '</g>'
-  };
-
+  /* One glyph family everywhere: Phosphor fill icons on the glass squircle. */
   function iconSvg(app) {
-    var art = ICON_ART[app.icon];
-    if (art) {
-      return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' + art + "</svg>";
-    }
     var path = ICONS[app.icon];
     if (!path) return "";
-    return '<svg viewBox="0 0 256 256" aria-hidden="true" focusable="false">' + path + "</svg>";
+    return '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">' + path + "</svg>";
   }
 
   function toneVars(app) {
@@ -1146,12 +1063,6 @@
     return '<span class="gfolder" aria-hidden="true">' +
       '<span class="gfolder__float">' +
         '<span class="gfolder__glow"></span>' +
-        '<span class="gfolder__shell"></span>' +
-        '<span class="gfolder__deck">' +
-          '<span class="gfolder__card gfolder__card--a"></span>' +
-          '<span class="gfolder__card gfolder__card--b"></span>' +
-          '<span class="gfolder__card gfolder__card--c"></span>' +
-        '</span>' +
         '<span class="gfolder__front">' +
           '<span class="gfolder__badge">' +
             (svg || esc(app.short || (app.label || "?").charAt(0))) +
@@ -1168,7 +1079,11 @@
 
   var menuEl = $('[data-render="menu"]');
   if (menuEl) {
-    menuEl.innerHTML = osApps.map(function (app) {
+    // Menu bar lists only the core portfolio apps; utilities stay in the dock,
+    // app menu and Spotlight so the bar never crowds the right-hand controls.
+    menuEl.innerHTML = osApps.filter(function (app) {
+      return !app.fun;
+    }).map(function (app) {
       return '<button class="menubar__item" type="button" data-open-app="' + esc(app.id) + '">' +
         esc(app.label) + "</button>";
     }).join("");
@@ -1427,9 +1342,6 @@
       } },
       { label: "Switch to macOS", kind: "Theme", icon: "sliders-horizontal", run: function () {
         applyTheme("macos", true);
-      } },
-      { label: "Switch to Windows", kind: "Theme", icon: "sliders-horizontal", run: function () {
-        applyTheme("windows", true);
       } },
       { label: "Switch to One UI", kind: "Theme", icon: "sliders-horizontal", run: function () {
         applyTheme("oneui", true);
@@ -1894,14 +1806,14 @@
     if (!track.spotify) {
       stage.innerHTML = '<iframe class="music__frame" loading="lazy" allowfullscreen ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
-        'title="' + esc(track.title) + ' — ' + esc(musicData.artist) + '" ' +
+        'title="' + esc(track.title) + ' - ' + esc(musicData.artist) + '" ' +
         'src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(track.id) + '?autoplay=1&rel=0&modestbranding=1&enablejsapi=1"></iframe>';
       musicFrame = stage.querySelector("iframe");
-      updateMusicUi("Playing — " + track.title);
+      updateMusicUi("Playing - " + track.title);
       return;
     }
 
-    updateMusicUi("Starting — " + track.title);
+    updateMusicUi("Starting - " + track.title);
     var uri = "spotify:track:" + track.spotify;
     withSpotify(function (api) {
       if (musicCurrent !== index) return;
@@ -1916,16 +1828,16 @@
             var playing = !data.isPaused;
             if (playing === musicPlaying) return;
             musicPlaying = playing;
-            updateMusicUi((playing ? "Playing — " : "Paused — ") + (current ? current.title : ""));
+            updateMusicUi((playing ? "Playing - " : "Paused - ") + (current ? current.title : ""));
           });
           controller.play();
-          updateMusicUi("Playing — " + track.title);
+          updateMusicUi("Playing - " + track.title);
         });
         return;
       }
       spotifyController.loadUri(uri);
       spotifyController.play();
-      updateMusicUi("Playing — " + track.title);
+      updateMusicUi("Playing - " + track.title);
     });
   }
 
@@ -1947,7 +1859,7 @@
       musicCommand(musicPlaying ? "playVideo" : "pauseVideo");
     }
     var title = musicData.tracks[musicCurrent] ? musicData.tracks[musicCurrent].title : "";
-    updateMusicUi((musicPlaying ? "Playing — " : "Paused — ") + title);
+    updateMusicUi((musicPlaying ? "Playing - " : "Paused - ") + title);
   }
 
   function pauseMusic() {
@@ -1956,7 +1868,7 @@
     if (spotifyController) spotifyController.pause();
     else musicCommand("pauseVideo");
     var title = musicData.tracks[musicCurrent] ? musicData.tracks[musicCurrent].title : "";
-    updateMusicUi("Paused — " + title);
+    updateMusicUi("Paused - " + title);
   }
 
   renderMusic();
@@ -2056,7 +1968,7 @@
       try { localStorage.setItem("portfolio-snake-best", String(game.best)); } catch (err) {}
     }
     gameSetScore(game.score, game.best);
-    gameVeil("Crashed — score " + game.score, "Play again", true);
+    gameVeil("Crashed - score " + game.score, "Play again", true);
   }
 
   function gameSetDir(x, y) {
@@ -2307,7 +2219,7 @@
     var list = $("[data-screen-list]");
     if (!list) return;
     if (!entries.length) {
-      list.innerHTML = '<li class="screen__empty">No app time yet — open a window and it starts counting.</li>';
+      list.innerHTML = '<li class="screen__empty">No app time yet - open a window and it starts counting.</li>';
       return;
     }
     list.innerHTML = entries.map(function (entry) {

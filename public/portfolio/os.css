@@ -1,5 +1,5 @@
 /* ==========================================================================
-   OS SHELL — macOS / Windows / One UI desktop, One UI phone
+   OS SHELL — Glass / macOS / One UI desktop, One UI phone
    Loaded after styles.css. Screen chrome lives here; content styling does not.
    ========================================================================== */
 
@@ -39,39 +39,6 @@
   --icon-shadow: 0 8px 18px -10px rgba(10, 10, 20, 0.55), 0 1px 0 rgba(255, 255, 255, 0.35) inset;
 }
 
-html[data-theme="windows"] {
-  --bar-h: 0px;
-  --dock-space: 60px;
-
-  --bar-bg: rgba(26, 26, 31, 0.88);
-  --bar-ink: #f5f5f7;
-  --bar-muted: rgba(245, 245, 247, 0.66);
-  --bar-border: rgba(255, 255, 255, 0.08);
-  --menu-hover: rgba(255, 255, 255, 0.12);
-
-  --win-bg: rgba(248, 248, 250, 0.98);
-  --win-ink: #17171a;
-  --win-bar: #f3f3f5;
-  --win-bar-ink: #1b1b1f;
-  --win-border: rgba(0, 0, 0, 0.16);
-  --win-radius: 9px;
-  --win-shadow: 0 28px 70px -18px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(0, 0, 0, 0.3);
-  --win-blur: 14px;
-
-  --dock-bg: rgba(24, 24, 29, 0.9);
-  --dock-border: rgba(255, 255, 255, 0.09);
-  --dock-radius: 0px;
-  --dock-ink: #f5f5f7;
-  --dock-dot: #4cc2ff;
-
-  --switch-bg: rgba(255, 255, 255, 0.1);
-  --switch-on-bg: #0a84ff;
-  --switch-on-ink: #ffffff;
-  --switch-ink: rgba(245, 245, 247, 0.7);
-
-  --icon-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.55);
-}
-
 html[data-theme="oneui"] {
   --bar-h: 30px;
   --dock-space: 96px;
@@ -109,21 +76,21 @@ html[data-theme="glass"] {
   --bar-h: 32px;
   --dock-space: 100px;
 
-  --bar-bg: rgba(18, 21, 28, 0.4);
+  --bar-bg: rgba(16, 19, 26, 0.46);
   --bar-ink: #ffffff;
-  --bar-muted: rgba(255, 255, 255, 0.7);
+  --bar-muted: rgba(255, 255, 255, 0.74);
   --bar-border: rgba(255, 255, 255, 0.12);
   --menu-hover: rgba(255, 255, 255, 0.14);
 
-  --win-bg: rgba(250, 248, 245, 0.86);
+  --win-bg: rgba(248, 249, 252, 0.56);
   --win-ink: #14141a;
-  --win-bar: rgba(250, 248, 245, 0.9);
+  --win-bar: rgba(248, 249, 252, 0.38);
   --win-bar-ink: #3a3a42;
-  --win-border: rgba(255, 255, 255, 0.6);
+  --win-border: rgba(255, 255, 255, 0.66);
   --win-radius: 22px;
   --win-shadow: 0 40px 100px -30px rgba(10, 12, 20, 0.6), 0 0 0 0.5px rgba(0, 0, 0, 0.18),
     0 1px 0 rgba(255, 255, 255, 0.55) inset;
-  --win-blur: 34px;
+  --win-blur: 46px;
 
   --dock-bg: rgba(255, 255, 255, 0.3);
   --dock-border: rgba(255, 255, 255, 0.55);
@@ -302,23 +269,6 @@ body {
   opacity: 0.66;
 }
 
-html[data-theme="windows"] .wallpaper__photo img {
-  filter: brightness(0.52) saturate(0.75);
-}
-
-html[data-theme="windows"] .wallpaper__word--ink {
-  color: rgba(223, 233, 255, 0.14);
-  -webkit-text-stroke-color: rgba(223, 233, 255, 0.92);
-}
-
-html[data-theme="windows"] .wallpaper__vertical {
-  color: #dfe9ff;
-}
-
-html[data-theme="windows"] .wallpaper__word--outline {
-  -webkit-text-stroke-color: rgba(223, 233, 255, 0.9);
-}
-
 html[data-theme="glass"] .wallpaper__word--ink {
   color: rgba(255, 255, 255, 0.12);
   -webkit-text-stroke-color: rgba(255, 255, 255, 0.92);
@@ -350,18 +300,6 @@ html[data-theme="oneui"] .wallpaper__vertical {
   }
 }
 
-html[data-theme="windows"] .wallpaper {
-  background:
-    radial-gradient(1100px 720px at 76% 16%, rgba(52, 112, 255, 0.9), transparent 62%),
-    radial-gradient(900px 640px at 14% 88%, rgba(24, 180, 200, 0.55), transparent 58%),
-    radial-gradient(700px 500px at 50% 50%, rgba(90, 60, 200, 0.35), transparent 70%),
-    linear-gradient(160deg, #06101f 0%, #0a1d45 55%, #06101f 100%);
-}
-
-html[data-theme="windows"] .wallpaper__blob {
-  display: none;
-}
-
 html[data-theme="oneui"] .wallpaper {
   background:
     radial-gradient(880px 680px at 88% 2%, rgba(255, 214, 200, 0.95), transparent 62%),
@@ -372,10 +310,6 @@ html[data-theme="oneui"] .wallpaper {
 
 html[data-theme="oneui"] .wallpaper__blob {
   opacity: 0.4;
-}
-
-html[data-theme="windows"] .grain {
-  opacity: 0.14;
 }
 
 html[data-theme="oneui"] .grain {
@@ -402,6 +336,85 @@ html[data-theme="glass"] .wallpaper::before {
 
 html[data-theme="glass"] .wallpaper__blob {
   display: none;
+}
+
+/* Glass — quiet blueprint detail fills the bare left field */
+.wallpaper__grid,
+.wallpaper__rings,
+.wallpaper__meta {
+  display: none;
+}
+
+html[data-theme="glass"] .wallpaper__grid {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.085) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(78% 92% at 10% 84%, #000 8%, transparent 80%);
+  mask-image: radial-gradient(78% 92% at 10% 84%, #000 8%, transparent 80%);
+}
+
+html[data-theme="glass"] .wallpaper__rings {
+  display: block;
+  position: absolute;
+  left: -18vw;
+  bottom: -34vh;
+  width: 74vw;
+  height: 74vw;
+  border-radius: 50%;
+  pointer-events: none;
+  background: repeating-radial-gradient(circle at 50% 50%,
+      rgba(142, 172, 255, 0.22) 0 1px,
+      transparent 1px 42px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0 52%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0 52%, transparent 74%);
+}
+
+html[data-theme="glass"] .wallpaper__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  left: 20px;
+  bottom: 112px;
+  pointer-events: none;
+  user-select: none;
+  color: rgba(222, 232, 250, 0.6);
+  font-family: ui-monospace, "JetBrains Mono", Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+
+html[data-theme="glass"] .wallpaper__meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+html[data-theme="glass"] .wallpaper__meta span::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: rgba(222, 232, 250, 0.32);
+}
+
+html[data-theme="glass"] .wallpaper__meta span + span::before {
+  width: 6px;
+  background: rgba(255, 186, 128, 0.6);
+}
+
+@media (max-width: 760px) {
+  html[data-theme="glass"] .wallpaper__grid,
+  html[data-theme="glass"] .wallpaper__rings,
+  html[data-theme="glass"] .wallpaper__meta {
+    display: none;
+  }
 }
 
 html[data-theme="glass"] .grain {
@@ -463,10 +476,15 @@ html[data-theme="glass"] .grain {
 }
 
 .menubar__brand .brand__mark {
-  width: 20px;
-  height: 20px;
-  font-size: 8.5px;
-  box-shadow: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: linear-gradient(155deg, #262b38, #0f1219);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-indent: 0.05em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 3px rgba(0, 0, 0, 0.32);
 }
 
 .menubar__name {
@@ -552,14 +570,6 @@ html[data-theme="glass"] .grain {
   background: var(--switch-on-bg);
   color: var(--switch-on-ink);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
-}
-
-html[data-theme="windows"] .theme-switch {
-  border-radius: 6px;
-}
-
-html[data-theme="windows"] .theme-switch button {
-  border-radius: 4px;
 }
 
 html[data-theme="oneui"] .menubar__brand,
@@ -1109,22 +1119,16 @@ html[data-theme="glass"] .cc__toggle {
   fill: #fff;
 }
 
-/* ---------------------------------------------------------------- glass folder icons */
-
-.dock__item,
-.dicon,
-.quick__app,
-.papp {
-  perspective: 560px;
-}
+/* ---------------------------------------------------------------- glass app icons
+   Glass squircle: tonal gradient tile, inner highlight, white Phosphor glyph.
+   Replaces the old 3D folder (shell / deck / cards). Class hooks stay the
+   same, and the float animation and hover timings are unchanged. */
 
 .gfolder {
   position: relative;
   display: block;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateX(7deg) rotateY(-9deg);
   transition: transform 0.55s cubic-bezier(0.22, 0.68, 0.3, 1);
 }
 
@@ -1132,114 +1136,59 @@ html[data-theme="glass"] .cc__toggle {
   position: absolute;
   inset: 0;
   display: block;
-  transform-style: preserve-3d;
   animation: gfFloat 7.5s ease-in-out infinite;
 }
 
 .gfolder__glow {
   position: absolute;
-  inset: -42%;
+  inset: -34%;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--tone2, #3468f5) 62%, transparent) 0%, transparent 64%);
-  filter: blur(9px);
-  opacity: 0.36;
-  transform: translateZ(-26px);
+  background: radial-gradient(circle, color-mix(in srgb, var(--tone2, #3468f5) 55%, transparent) 0%, transparent 66%);
+  filter: blur(10px);
+  opacity: 0.26;
   transition: opacity 0.5s;
-}
-
-.gfolder__shell {
-  position: absolute;
-  inset: -4% 3% 6% -2%;
-  border-radius: 30%;
-  background: linear-gradient(165deg,
-    color-mix(in srgb, var(--tone2, #3468f5) 74%, #ffffff 10%),
-    color-mix(in srgb, var(--tone, #3468f5) 74%, #0a0c12 12%));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 12px 20px -14px rgba(0, 0, 0, 0.6);
-  transform: translateZ(2px) rotate(-5deg);
-}
-
-.gfolder__deck {
-  position: absolute;
-  inset: 2% 4%;
-  transform: translateZ(6px);
-  transform-style: preserve-3d;
-}
-
-.gfolder__card {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  top: 4%;
-  bottom: 12%;
-  border-radius: 16%;
-  background: linear-gradient(155deg,
-    color-mix(in srgb, var(--tone2, #3468f5) 82%, #ffffff 8%),
-    color-mix(in srgb, var(--tone, #3468f5) 80%, #0b0d12 10%));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 16px -10px rgba(0, 0, 0, 0.65);
-  transform-origin: 50% 100%;
-  transition: transform 0.6s cubic-bezier(0.22, 0.68, 0.3, 1), filter 0.5s;
-}
-
-.gfolder__card--a {
-  transform: rotate(-16deg) translateY(8%) scale(0.82);
-  filter: brightness(0.82) saturate(0.9);
-}
-
-.gfolder__card--b {
-  transform: rotate(-2deg);
-}
-
-.gfolder__card--c {
-  transform: rotate(14deg) translateY(8%) scale(0.82);
-  filter: brightness(0.82) saturate(0.9);
+  pointer-events: none;
 }
 
 .gfolder__front {
   position: absolute;
-  inset: 3% -1% -1% 3%;
+  inset: 0;
   display: block;
   border-radius: 28%;
-  background:
-    linear-gradient(150deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.12) 38%, rgba(255, 255, 255, 0.02) 62%, rgba(255, 255, 255, 0.24) 100%),
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--tone2, #3468f5) 34%, rgba(255, 255, 255, 0.22)),
-      color-mix(in srgb, var(--tone, #3468f5) 42%, rgba(12, 14, 20, 0.26)));
-  border: 1px solid rgba(255, 255, 255, 0.46);
+  background: linear-gradient(148deg, var(--tone2, #6f96e8) 0%, var(--tone, #3468f5) 78%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    0 16px 26px -18px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -14px 22px -18px rgba(0, 0, 0, 0.55);
-  transform-origin: 50% 100%;
-  transform: translateZ(12px) rotate(1deg);
-  transition: transform 0.6s cubic-bezier(0.22, 0.68, 0.3, 1), box-shadow 0.5s;
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.16),
+    0 14px 26px -14px rgba(4, 8, 18, 0.6);
+  transition: transform 0.55s cubic-bezier(0.22, 0.68, 0.3, 1), box-shadow 0.5s;
+}
+
+.gfolder__front::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 58%);
+  opacity: 0.85;
+  transition: opacity 0.5s;
+  pointer-events: none;
 }
 
 .gfolder__badge {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 45%;
-  aspect-ratio: 1;
+  inset: 0;
   display: grid;
   place-items: center;
-  border-radius: 50%;
   color: #fff;
-  background: radial-gradient(120% 120% at 32% 22%,
-    color-mix(in srgb, var(--tone2, #3468f5) 92%, #ffffff 8%),
-    color-mix(in srgb, var(--tone, #3468f5) 88%, #05070a 8%));
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.6),
-    inset 0 -8px 12px -8px rgba(0, 0, 0, 0.45),
-    0 4px 10px -5px rgba(0, 0, 0, 0.55);
-  transform: translate(-50%, -52%);
 }
 
 .gfolder__badge svg {
-  width: 58%;
-  height: 58%;
+  width: 52%;
+  height: 52%;
   display: block;
   fill: currentColor;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.22));
 }
 
 @keyframes gfFloat {
@@ -1259,11 +1208,11 @@ html[data-theme="glass"] .cc__toggle {
 .quick__app:hover .gfolder,
 .quick__app:focus-visible .gfolder,
 .papp:focus-visible .gfolder {
-  transform: rotateX(2deg) rotateY(0deg) translateY(-4px) scale(1.07);
+  transform: translateY(-4px) scale(1.06);
 }
 
 .papp:active .gfolder {
-  transform: rotateX(2deg) rotateY(0deg) scale(0.96);
+  transform: scale(0.94);
 }
 
 .dock__item:hover .gfolder__float,
@@ -1284,7 +1233,7 @@ html[data-theme="glass"] .cc__toggle {
 .quick__app:focus-visible .gfolder__glow,
 .papp:active .gfolder__glow,
 .papp:focus-visible .gfolder__glow {
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 .dock__item:hover .gfolder__front,
@@ -1295,50 +1244,27 @@ html[data-theme="glass"] .cc__toggle {
 .quick__app:focus-visible .gfolder__front,
 .papp:active .gfolder__front,
 .papp:focus-visible .gfolder__front {
-  transform: translateZ(12px) rotateX(-57deg) rotate(1deg);
-  box-shadow: 0 18px 26px -12px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.14),
+    0 20px 32px -14px rgba(4, 8, 18, 0.62);
 }
 
-.dock__item:hover .gfolder__card--a,
-.dock__item:focus-visible .gfolder__card--a,
-.dicon:hover .gfolder__card--a,
-.dicon:focus-visible .gfolder__card--a,
-.quick__app:hover .gfolder__card--a,
-.quick__app:focus-visible .gfolder__card--a,
-.papp:active .gfolder__card--a,
-.papp:focus-visible .gfolder__card--a {
-  transform: rotate(-24deg) translateY(-27%) scale(0.9);
-  filter: brightness(1) saturate(1);
-}
-
-.dock__item:hover .gfolder__card--b,
-.dock__item:focus-visible .gfolder__card--b,
-.dicon:hover .gfolder__card--b,
-.dicon:focus-visible .gfolder__card--b,
-.quick__app:hover .gfolder__card--b,
-.quick__app:focus-visible .gfolder__card--b,
-.papp:active .gfolder__card--b,
-.papp:focus-visible .gfolder__card--b {
-  transform: rotate(0deg) translateY(-36%) scale(1.04);
-}
-
-.dock__item:hover .gfolder__card--c,
-.dock__item:focus-visible .gfolder__card--c,
-.dicon:hover .gfolder__card--c,
-.dicon:focus-visible .gfolder__card--c,
-.quick__app:hover .gfolder__card--c,
-.quick__app:focus-visible .gfolder__card--c,
-.papp:active .gfolder__card--c,
-.papp:focus-visible .gfolder__card--c {
-  transform: rotate(22deg) translateY(-27%) scale(0.9);
-  filter: brightness(1) saturate(1);
+.dock__item:hover .gfolder__front::after,
+.dock__item:focus-visible .gfolder__front::after,
+.dicon:hover .gfolder__front::after,
+.dicon:focus-visible .gfolder__front::after,
+.quick__app:hover .gfolder__front::after,
+.quick__app:focus-visible .gfolder__front::after,
+.papp:focus-visible .gfolder__front::after {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gfolder__float { animation: none; }
   .gfolder,
   .gfolder__front,
-  .gfolder__card { transition-duration: 0.001s; }
+  .gfolder__front::after { transition-duration: 0.001s; }
 }
 
 /* ---------------------------------------------------------------- desktop icons */
@@ -1356,14 +1282,14 @@ html[data-theme="glass"] .cc__toggle {
 .dicon {
   display: grid;
   justify-items: center;
-  gap: 18px;
-  width: 76px;
+  gap: 12px;
+  width: 80px;
   padding: 0;
   border: 0;
   background: none;
   color: #fff;
-  font-size: 10.5px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 600;
   line-height: 1.25;
   text-align: center;
   cursor: pointer;
@@ -1376,22 +1302,21 @@ html[data-theme="glass"] .cc__toggle {
 
 .dicon__label {
   position: relative;
-  text-transform: lowercase;
-  letter-spacing: -0.02em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-  transition: text-shadow 0.3s;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 15, 22, 0.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  letter-spacing: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.25s, border-color 0.25s;
 }
 
 .dicon:hover .dicon__label,
 .dicon:focus-visible .dicon__label {
-  text-shadow:
-    0 1px 14px color-mix(in srgb, var(--tone2, #3468f5) 65%, transparent),
-    0 1px 4px rgba(0, 0, 0, 0.55);
-}
-
-html[data-theme="windows"] .desktop-icons {
-  right: auto;
-  left: 20px;
+  background: rgba(12, 15, 22, 0.56);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 html[data-theme="oneui"] .desktop-icons {
@@ -1414,18 +1339,17 @@ html[data-theme="macos"] .dicon__label,
 html[data-theme="oneui"] .dicon__label,
 html[data-theme="macos"] .dicon:hover .dicon__label,
 html[data-theme="oneui"] .dicon:hover .dicon__label {
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(255, 255, 255, 0.78);
+  text-shadow: none;
 }
 
 html[data-theme="macos"] .dock__label,
 html[data-theme="oneui"] .dock__label {
   color: #17181d;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
-}
-
-html[data-theme="macos"] .dock__label::before,
-html[data-theme="oneui"] .dock__label::before {
-  color: color-mix(in srgb, var(--tone2, #3468f5) 58%, #23242b);
+  background: rgba(252, 252, 254, 0.82);
+  border-color: rgba(255, 255, 255, 0.85);
+  text-shadow: none;
 }
 
 /* ---------------------------------------------------------------- desktop widgets */
@@ -1748,11 +1672,18 @@ html[data-theme="glass"] .widget--music .widget__open:hover {
   background: none;
   color: #26262c;
   font: inherit;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  text-transform: lowercase;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.25;
+  text-align: center;
   cursor: pointer;
+}
+
+.quick__app > span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .quick__app .gfolder {
@@ -1766,11 +1697,9 @@ html[data-theme="glass"] .widget--music .widget__open:hover {
 }
 
 .quick__app .gfolder__badge svg {
-  width: 62%;
-  height: 62%;
+  width: 54%;
+  height: 54%;
 }
-
-html[data-theme="windows"] .widgets,
 html[data-theme="oneui"] .widgets {
   display: none;
 }
@@ -1875,6 +1804,45 @@ html[data-theme="oneui"] .widgets {
   filter: brightness(0.92);
 }
 
+/* larger click target without changing the 12px dot */
+html:not([data-theme="oneui"]) .wc::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+}
+
+/* label on hover / keyboard focus: "Close Home", "Minimise Home", ... */
+.wc::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: calc(100% + 9px);
+  left: -2px;
+  z-index: 8;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(14, 18, 26, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 24px -12px rgba(3, 6, 12, 0.7);
+  color: #f3f6fc;
+  font-size: 10.5px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(0, -3px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  pointer-events: none;
+}
+
+.wc:hover::after,
+.wc:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition-delay: 0.2s;
+}
+
 .window__title {
   display: flex;
   align-items: center;
@@ -1935,106 +1903,6 @@ html[data-theme="oneui"] .widgets {
   border-radius: 999px;
   background-clip: content-box;
   background-color: rgba(17, 17, 20, 0.22);
-}
-
-/* --- windows theme chrome --- */
-
-html[data-theme="windows"] .window {
-  border-radius: 9px;
-}
-
-html[data-theme="windows"] .window.is-max {
-  border-radius: 0;
-}
-
-html[data-theme="windows"] .window__bar {
-  height: 34px;
-  padding: 0 0 0 12px;
-  cursor: default;
-}
-
-html[data-theme="windows"] .window__title {
-  position: static;
-  transform: none;
-  font-size: 12px;
-  font-weight: 500;
-  max-width: none;
-  margin-right: auto;
-}
-
-html[data-theme="windows"] .window__icon {
-  display: grid;
-  background: var(--tone, var(--accent));
-}
-
-html[data-theme="windows"] .window__controls {
-  order: 3;
-  margin-left: auto;
-  gap: 0;
-  align-self: stretch;
-}
-
-html[data-theme="windows"] .wc {
-  position: relative;
-  width: 44px;
-  height: 100%;
-  border-radius: 0;
-  background: transparent;
-  color: var(--win-bar-ink);
-}
-
-html[data-theme="windows"] .wc--close { order: 3; }
-html[data-theme="windows"] .wc--min { order: 1; }
-html[data-theme="windows"] .wc--max { order: 2; }
-
-html[data-theme="windows"] .wc--min::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 10px;
-  height: 1px;
-  background: currentColor;
-  transform: translate(-50%, -50%);
-}
-
-html[data-theme="windows"] .wc--max::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  border: 1px solid currentColor;
-  transform: translate(-50%, -50%);
-}
-
-html[data-theme="windows"] .wc--close::before,
-html[data-theme="windows"] .wc--close::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 11px;
-  height: 1px;
-  background: currentColor;
-}
-
-html[data-theme="windows"] .wc--close::before { transform: translate(-50%, -50%) rotate(45deg); }
-html[data-theme="windows"] .wc--close::after { transform: translate(-50%, -50%) rotate(-45deg); }
-
-html[data-theme="windows"] .wc:hover {
-  background: rgba(0, 0, 0, 0.08);
-  filter: none;
-}
-
-html[data-theme="windows"] .wc--close:hover {
-  background: #e81123;
-  color: #fff;
-}
-
-html[data-theme="windows"] .window__scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(17, 17, 20, 0.3);
 }
 
 /* --- one ui theme chrome --- */
@@ -2168,35 +2036,21 @@ html[data-theme="oneui"] .wc--close:hover {
   left: 50%;
   bottom: calc(100% + 13px);
   transform: translate(-50%, 6px);
-  padding: 0;
-  border-radius: 0;
-  background: none;
+  padding: 5px 12px;
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(16, 19, 26, 0.74);
+  backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.65);
   color: #fff;
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  text-transform: lowercase;
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
   white-space: nowrap;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s, transform 0.2s;
-}
-
-.dock__label::before {
-  content: attr(data-label);
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  transform: translateX(-50%);
-  font-size: 2.15em;
-  font-weight: 800;
-  letter-spacing: -0.055em;
-  text-transform: lowercase;
-  color: color-mix(in srgb, var(--tone2, #3468f5) 42%, #ffffff);
-  opacity: 0.2;
-  filter: blur(2.6px);
-  z-index: -1;
 }
 
 .dock__item:hover .dock__label,
@@ -2220,122 +2074,6 @@ html[data-theme="oneui"] .wc--close:hover {
 
 .dock__item.is-running .dock__run {
   opacity: 1;
-}
-
-.dock__start {
-  display: none;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 0;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.dock__start:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.dock__tray {
-  display: none;
-  color: var(--dock-ink);
-  font-size: 11.5px;
-  font-variant-numeric: tabular-nums;
-  padding: 0 8px;
-}
-
-.theme-switch--tray {
-  display: none;
-}
-
-html[data-theme="windows"] .menubar {
-  display: none;
-}
-
-html[data-theme="windows"] .dock__tray {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0;
-  padding: 0 4px;
-  color: #f5f5f7;
-  font-size: 12px;
-}
-
-html[data-theme="windows"] .theme-switch--tray {
-  display: inline-flex;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-html[data-theme="windows"] .theme-switch--tray button {
-  padding: 3px 8px;
-  font-size: 10px;
-  color: rgba(245, 245, 247, 0.72);
-}
-
-html[data-theme="windows"] .theme-switch--tray button[aria-pressed="true"] {
-  background: #0a84ff;
-  color: #fff;
-  box-shadow: none;
-}
-
-/* windows taskbar */
-
-html[data-theme="windows"] .dock {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transform: none;
-}
-
-html[data-theme="windows"] .dock__inner {
-  position: relative;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  padding: 7px 12px;
-  border: 0;
-  border-top: 1px solid var(--dock-border);
-  border-radius: 0;
-  background: var(--dock-bg);
-  box-shadow: 0 -14px 40px -24px rgba(0, 0, 0, 0.6);
-}
-
-html[data-theme="windows"] .dock__start {
-  display: grid;
-  margin-right: 8px;
-}
-
-html[data-theme="windows"] .dock__apps {
-  gap: 4px;
-}
-
-html[data-theme="windows"] .dock__item[data-open-app="home"] {
-  display: none;
-}
-
-html[data-theme="windows"] .dock__item {
-  width: 38px;
-  height: 38px;
-}
-
-html[data-theme="windows"] .dock__run {
-  bottom: 0;
-  width: 14px;
-  height: 3px;
-  border-radius: 2px;
-}
-
-html[data-theme="windows"] .dock__label {
-  bottom: calc(100% + 8px);
 }
 
 /* one ui desktop dock */
@@ -2688,10 +2426,8 @@ html[data-alpha="reduced"] .phone__dock-inner {
 }
 
 html[data-alpha="reduced"] .menubar { background: #f2f2f5; }
-html[data-theme="windows"][data-alpha="reduced"] .menubar { background: #1a1a1f; }
 html[data-theme="glass"][data-alpha="reduced"] .menubar { background: #141821; }
 html[data-alpha="reduced"] .dock__inner { background: #f4f4f7; }
-html[data-theme="windows"][data-alpha="reduced"] .dock__inner { background: #18181d; }
 html[data-theme="glass"][data-alpha="reduced"] .dock__inner { background: rgba(20, 22, 30, 0.92); }
 html[data-alpha="reduced"] .window { background: #f7f7f9; }
 html[data-alpha="reduced"] .widget { background: #f7f7f9; }
@@ -3708,11 +3444,13 @@ html[data-alpha="reduced"] .phone__dock-inner {
     height: 50px;
     margin-bottom: 8px;
     border-radius: 17px;
-    background: linear-gradient(160deg, #2a2a33, #101014);
+    background: linear-gradient(155deg, #262b38, #0f1219);
     color: #fff;
     font-size: 16px;
     font-weight: 700;
-    box-shadow: 0 10px 24px -12px rgba(20, 20, 40, 0.5);
+    letter-spacing: 0.06em;
+    text-indent: 0.06em;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 10px 24px -12px rgba(20, 20, 40, 0.5);
   }
 
   .phone__name {
@@ -3865,9 +3603,8 @@ html[data-alpha="reduced"] .phone__dock-inner {
 
   .papp > span:last-child {
     font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    text-transform: lowercase;
+    font-weight: 600;
+    letter-spacing: 0;
     max-width: 72px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3875,7 +3612,7 @@ html[data-alpha="reduced"] .phone__dock-inner {
   }
 
   .papp:active .gfolder {
-    transform: rotateX(2deg) rotateY(0deg) scale(0.94);
+    transform: scale(0.94);
   }
 
   .phone__hint {
@@ -3960,7 +3697,7 @@ html[data-alpha="reduced"] .phone__dock-inner {
   }
 
   html[data-theme="glass"] .papp > span:last-child {
-    text-shadow: 0 1px 6px rgba(6, 10, 18, 0.45);
+    text-shadow: 0 1px 3px rgba(6, 10, 18, 0.55), 0 0 14px rgba(6, 10, 18, 0.32);
   }
 
   html[data-theme="glass"] .phone__hint {
@@ -4008,20 +3745,14 @@ html[data-alpha="reduced"] .phone__dock-inner {
     transition: none !important;
     animation: none !important;
   }
+
+  .wc::after {
+    transition: none;
+  }
 }
 
 @media (max-width: 1340px) {
   .menubar__status {
-    display: none;
-  }
-}
-
-@media (max-width: 1180px) {
-  .menubar__item[data-open-app="music"],
-  .menubar__item[data-open-app="games"],
-  .menubar__item[data-open-app="watch"],
-  .menubar__item[data-open-app="screen-time"],
-  .menubar__item[data-open-app="settings"] {
     display: none;
   }
 }
@@ -4223,5 +3954,33 @@ html[data-alpha="reduced"] .phone__dock-inner {
 @media (prefers-reduced-motion: reduce) {
   .splash {
     display: none;
+  }
+}
+
+/* Glass theme: phone app sheets are frosted too, matching desktop windows.
+   The reduce-transparency toggle and OS preference force a solid sheet. */
+html[data-theme="glass"] .window.is-phone-open {
+  background: rgba(248, 249, 252, 0.74);
+  backdrop-filter: blur(42px) saturate(1.5);
+  -webkit-backdrop-filter: blur(42px) saturate(1.5);
+}
+
+html[data-theme="glass"] .window.is-phone-open .window__bar {
+  background: rgba(248, 249, 252, 0.5);
+}
+
+html[data-theme="glass"][data-alpha="reduced"] .window.is-phone-open,
+html[data-theme="glass"][data-alpha="reduced"] .window.is-phone-open .window__bar {
+  background: #f7f7f9;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html[data-theme="glass"] .window.is-phone-open,
+  html[data-theme="glass"] .window.is-phone-open .window__bar {
+    background: #f7f7fa;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
