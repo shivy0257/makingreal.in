@@ -2123,9 +2123,14 @@
 
   var musicData = (C.music && Array.isArray(C.music.tracks)) ? C.music : { artist: "Devotional", tracks: [] };
   var musicFrame = null;
+  var musicVolume = 0.6;
+  try {
+    var savedVolume = parseFloat(localStorage.getItem("portfolio-volume"));
+    if (savedVolume >= 0 && savedVolume <= 1) musicVolume = savedVolume;
+  } catch (err) {}
   var musicAudio = new Audio();
   musicAudio.preload = "auto";
-  musicAudio.volume = 0.6;
+  musicAudio.volume = musicVolume;
   var musicPlaying = false;
   var musicCurrent = -1;
   var musicMuted = false;
@@ -2231,7 +2236,7 @@
     if (current && current.src) {
       musicAudio.muted = on;
     } else if (spotifyController && typeof spotifyController.setVolume === "function") {
-      spotifyController.setVolume(on ? 0 : 1);
+      spotifyController.setVolume(on ? 0 : musicVolume);
     } else {
       musicCommand(on ? "mute" : "unMute");
     }
@@ -2241,6 +2246,21 @@
       button.setAttribute("aria-label", on ? "Unmute music" : "Mute music");
       button.title = on ? "Unmute" : "Mute";
     });
+  }
+
+  function setMusicVolume(value) {
+    musicVolume = Math.min(1, Math.max(0, value));
+    musicAudio.volume = musicVolume;
+    if (spotifyController && typeof spotifyController.setVolume === "function") {
+      spotifyController.setVolume(musicVolume);
+    } else if (musicFrame) {
+      musicCommand("setVolume", [Math.round(musicVolume * 100)]);
+    }
+    if (musicMuted && musicVolume > 0) setMusicMuted(false);
+    $$("[data-music-volume]").forEach(function (el) {
+      el.value = String(Math.round(musicVolume * 100));
+    });
+    try { localStorage.setItem("portfolio-volume", String(musicVolume)); } catch (err) {}
   }
 
   function playTrack(index) {
@@ -2307,9 +2327,9 @@
     });
   }
 
-  function musicCommand(func) {
+  function musicCommand(func, args) {
     if (!musicFrame || !musicFrame.contentWindow) return;
-    musicFrame.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*");
+    musicFrame.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: args || [] }), "*");
   }
 
   function toggleMusic() {
@@ -2376,7 +2396,17 @@
   });
 
   renderMusic();
+  $$("[data-music-volume]").forEach(function (el) {
+    el.value = String(Math.round(musicVolume * 100));
+  });
   autostartMusic();
+
+  document.addEventListener("input", function (event) {
+    var slider = event.target.closest ? event.target.closest("[data-music-volume]") : null;
+    if (!slider) return;
+    musicAuto.armed = false;
+    setMusicVolume(Number(slider.value) / 100);
+  });
 
   document.addEventListener("click", function (event) {
     var muteBtn = event.target.closest("[data-music-mute]");

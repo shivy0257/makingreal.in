@@ -2589,8 +2589,17 @@ html[data-alpha="reduced"] .phone__dock-inner {
 .music__actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 14px;
+}
+
+.music__volume {
+  width: 112px;
+  height: 20px;
+  margin: 0 0 0 2px;
+  accent-color: var(--win-ink);
+  cursor: pointer;
 }
 
 .music__actions .music__play {
