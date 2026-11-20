@@ -691,9 +691,15 @@
                   <h2 class="music__name" data-music-name>Devotional</h2>
                   <p class="music__sub" data-music-sub>3 MP3 tracks · plays in the background</p>
                   <div class="music__actions">
+                    <button class="music__step" type="button" data-music-prev aria-label="Previous track" title="Previous">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 5.5v13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M18.5 6.2v11.6L9 12z" fill="currentColor"/></svg>
+                    </button>
                     <button class="music__play" type="button" data-music-toggle>
                       <span class="music__play-ico" aria-hidden="true"></span>
                       <span data-music-toggle-label>Play</span>
+                    </button>
+                    <button class="music__step" type="button" data-music-next aria-label="Next track" title="Next">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 5.5v13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M5.5 6.2v11.6L15 12z" fill="currentColor"/></svg>
                     </button>
                     <button class="music__mute" type="button" data-music-mute aria-pressed="false" aria-label="Mute music" title="Mute">
                       <svg class="music__vol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4h3.4L12 5.6v12.8L7.4 14.6H4V9.4Z" fill="currentColor"/><path d="M15.3 8.6a4.9 4.9 0 0 1 0 6.8M17.8 6.1a8.4 8.4 0 0 1 0 11.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
@@ -703,6 +709,12 @@
                   </div>
                   <p class="music__status" data-music-status>Pick a track to start.</p>
                 </div>
+              </div>
+
+              <div class="music__seekrow">
+                <span class="music__time" data-music-time>0:00</span>
+                <input class="music__seek" type="range" data-music-seek min="0" max="1000" step="1" value="0" aria-label="Seek through track">
+                <span class="music__time music__time--total" data-music-duration>0:00</span>
               </div>
 
               <div class="music__stage" data-music-stage hidden></div>
