@@ -812,15 +812,6 @@
     var left = area.left + (availW - width) / 2 + step * 22;
     var top = area.top + Math.max(0, (availH - height) / 2 - 10) + step * 16;
 
-    // Leave the desktop widget rail clear on wide screens.
-    if (id === "home" && !isPhone() && window.innerWidth >= 1180 && window.innerHeight >= 700 &&
-        (os.theme === "glass" || os.theme === "macos")) {
-      var rail = 300;
-      width = Math.min(size[0], Math.max(600, availW - rail - 110));
-      left = area.left + rail;
-      top = area.top + Math.max(0, (availH - height) / 2);
-    }
-
     return {
       left: clamp(left, area.left + 6, area.right - width - 6),
       top: clamp(top, area.top, Math.max(area.top, area.bottom - height - 6)),
@@ -882,8 +873,7 @@
     updateDock();
   }
 
-  function closeWin(win) {
-    if (win.id === "music") pauseMusic();
+  function closeWin(win, hideDelay) {
     win.open = false;
     win.min = false;
     win.max = false;
@@ -892,12 +882,11 @@
       if (!win.open) win.el.hidden = true;
     };
     if (reduceMotion.matches) finish();
-    else setTimeout(finish, 240);
+    else setTimeout(finish, hideDelay || 240);
     updateDock();
   }
 
   function minimizeWin(win) {
-    if (win.id === "music") pauseMusic();
     win.min = true;
     win.el.classList.remove("is-open");
     var finish = function () {
@@ -1113,6 +1102,17 @@
     }).join("");
   }
 
+  var widgetAppsEl = $('[data-render="widget-apps"]');
+  if (widgetAppsEl) {
+    widgetAppsEl.innerHTML = ["work", "music", "games", "settings"].map(function (id) {
+      var app = appById[id];
+      if (!app) return "";
+      return '<button class="quick__app" type="button" data-open-app="' + esc(id) +
+        '" style="' + toneVars(app) + '" aria-label="Open ' + esc(app.label) + '">' +
+        folderIcon(app) + "<span>" + esc(app.label) + "</span></button>";
+    }).join("");
+  }
+
   function phoneButton(app) {
     return '<button class="papp" type="button" data-open-app="' + esc(app.id) +
       '" style="' + toneVars(app) + '" aria-label="Open ' + esc(app.label) + '">' +
@@ -1134,28 +1134,28 @@
     }).join("");
   }
 
-  /* --- desktop widgets --- */
+  /* --- control center date --- */
 
   function renderCalendar() {
     var now = new Date();
-    var months = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"];
-    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var month = months[now.getMonth()];
-    var weekday = weekdays[now.getDay()];
-    var today = now.getDate();
-
-    $$("[data-cal-month]").forEach(function (el) { el.textContent = month; });
-    $$("[data-cal-date]").forEach(function (el) { el.textContent = String(today); });
-    $$("[data-cal-weekday]").forEach(function (el) { el.textContent = weekday; });
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     $$("[data-cc-date]").forEach(function (el) {
-      el.textContent = weekday.slice(0, 3) + " " + today + " " + month.slice(0, 3);
+      el.textContent = weekdays[now.getDay()] + " " + now.getDate() + " " + months[now.getMonth()];
     });
+
+    var fullMonths = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+    var fullWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var today = now.getDate();
+    $$("[data-cal-month]").forEach(function (el) { el.textContent = fullMonths[now.getMonth()]; });
+    $$("[data-cal-date]").forEach(function (el) { el.textContent = String(today); });
+    $$("[data-cal-weekday]").forEach(function (el) { el.textContent = fullWeekdays[now.getDay()]; });
 
     var grid = $("[data-cal-grid]");
     if (!grid) return;
-    var firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
-    var offset = (firstDay + 6) % 7; // Monday-first
+    var offset = (new Date(now.getFullYear(), now.getMonth(), 1).getDay() + 6) % 7;
     var totalDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     var cells = [];
     for (var i = 0; i < offset; i += 1) {
@@ -1170,24 +1170,7 @@
     grid.innerHTML = cells.join("");
   }
 
-  function renderWidgets() {
-    var quick = $('[data-render="widget-apps"]');
-    if (quick) {
-      quick.innerHTML = ["work", "music", "games", "settings"].map(function (id) {
-        var app = appById[id];
-        if (!app) return "";
-        return '<button class="quick__app" type="button" data-open-app="' + esc(id) +
-          '" style="' + toneVars(app) + '" aria-label="Open ' + esc(app.label) + '">' +
-          folderIcon(app) + "<span>" + esc(app.label) + "</span></button>";
-      }).join("");
-    }
-    $$("[data-music-artist]").forEach(function (el) {
-      el.textContent = (C.music && C.music.artist) || "Cheema Y";
-    });
-    renderCalendar();
-  }
-
-  renderWidgets();
+  renderCalendar();
   window.setInterval(renderCalendar, 60000);
 
   /* --- control center --- */
@@ -1329,7 +1312,7 @@
     });
 
     var actions = [
-      { label: "Play Cheema Y", kind: "Music", icon: "music-notes", run: function () {
+      { label: "Play devotional playlist", kind: "Music", icon: "music-notes", run: function () {
         openApp("music");
         playTrack(0);
       } },
@@ -1476,11 +1459,20 @@
     });
   });
 
+  function enterJourneyFromHome(appId) {
+    if (appId !== "home" || isPhone() || journey.on) return false;
+    if (journey.started || tourCfg.enabled === false) return false;
+    if (reduceMotion.matches || tourOrder.length < 2) return false;
+    startJourney();
+    return journey.on;
+  }
+
   document.addEventListener("click", function (event) {
     var opener = event.target.closest("[data-open-app]");
     if (opener) {
       event.preventDefault();
-      openApp(opener.getAttribute("data-open-app"));
+      var openId = opener.getAttribute("data-open-app");
+      if (!enterJourneyFromHome(openId)) openApp(openId);
       return;
     }
 
@@ -1493,6 +1485,8 @@
     event.preventDefault();
     if (isPhone()) {
       openPhoneApp(appId);
+    } else if (enterJourneyFromHome(appId)) {
+      return;
     } else {
       openApp(appId);
       scrollToTarget(wins[appId], href.slice(1));
@@ -1580,6 +1574,7 @@
     if (event.key !== "Escape") return;
     if (lightbox && lightbox.open) return;
     if (ccPanel && !ccPanel.hidden) return;
+    if (journey.on) return;
     if (isPhone()) {
       if (os.phoneApp) {
         event.preventDefault();
@@ -1662,6 +1657,7 @@
         splashFinished = true;
         splash.hidden = true;
         document.removeEventListener("keydown", onSplashKey, true);
+        startJourney();
       }
 
       function skipSplash() {
@@ -1677,6 +1673,402 @@
       document.addEventListener("keydown", onSplashKey, true);
       window.setTimeout(finishSplash, 3200);
     }
+  }
+
+  /* ---------------------------------------------------------------- one-page journey */
+  /* The portfolio plays as one long page: every chapter window is stacked
+     full-bleed and the visitor simply scrolls the story top to bottom.
+     Nothing auto-advances — scroll, clicks and esc never switch chapters.
+     The only controls are the two HUD buttons; the cursor adds a soft
+     parallax drift and a trail of warm ash embers. */
+
+  var tourCfg = (C.os && C.os.tour) || {};
+  var tourOrder = (tourCfg.order || []).filter(function (id) { return !!wins[id]; });
+  var journey = {
+    on: false,
+    started: false,
+    index: 0,
+    motion: true
+  };
+  var tourbar = $("#tourbar");
+  var tourLabelEl = $("[data-tour-label]");
+  var tourCount = $("[data-tour-count]");
+  var tourFill = tourbar && $(".tourbar__fill", tourbar);
+  var prevBtn = tourbar && $("[data-journey='prev']", tourbar);
+  var nextBtn = tourbar && $("[data-journey='next']", tourbar);
+  var motionBtn = tourbar && $("[data-journey='motion']", tourbar);
+  var ashLayer = $("#ash");
+  var desktopEl = $("#main");
+  var ambientTimer = null;
+  var journeyEls = [];
+  var lastPuff = 0;
+
+  function paintJourney() {
+    if (!tourbar) return;
+    var activeId = tourOrder[journey.index];
+    var activeWin = wins[activeId];
+    if (tourLabelEl) {
+      tourLabelEl.textContent = (activeWin && activeWin.meta && activeWin.meta.label) || activeId;
+    }
+    if (tourCount) tourCount.textContent = pad(journey.index + 1) + " / " + pad(tourOrder.length);
+    if (prevBtn) prevBtn.disabled = journey.index <= 0;
+    if (nextBtn) nextBtn.disabled = journey.index >= tourOrder.length - 1;
+  }
+
+  var ashWarm = ["rgba(255,190,110,0.95)", "rgba(255,150,100,0.95)", "rgba(255,232,190,0.9)"];
+  var ashCool = ["rgba(170,200,255,0.9)", "rgba(210,225,255,0.95)"];
+  var ashDrifts = ["ash-drift-l", "ash-drift-c", "ash-drift-r"];
+
+  function ashSpeck(className, x, y, size, duration, delay, drift, color) {
+    var p = document.createElement("span");
+    p.className = "ash__p" + (className ? " " + className : "");
+    p.style.left = Math.round(x) + "px";
+    p.style.top = Math.round(y) + "px";
+    p.style.setProperty("--c", color);
+    p.style.setProperty("--s", size.toFixed(1) + "px");
+    p.style.setProperty("--d", duration.toFixed(2) + "s");
+    p.style.setProperty("--delay", delay.toFixed(2) + "s");
+    p.style.animationName = drift;
+    ashLayer.appendChild(p);
+    return p;
+  }
+
+  function removeAshLater(node, ms) {
+    window.setTimeout(function () {
+      if (node.parentNode) node.parentNode.removeChild(node);
+    }, ms);
+  }
+
+  // the journey opens with the whole screen burning to embers
+  function ashBurst() {
+    if (!ashLayer || reduceMotion.matches || !journey.motion) return;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var count = Math.round(Math.min(160, Math.max(90, (vw * vh) / 11000)));
+    var spawned = [];
+    for (var i = 0; i < count; i++) {
+      var ember = i % 13 === 0;
+      var color = i % 5 === 0 ? ashCool[i % ashCool.length] : ashWarm[i % ashWarm.length];
+      spawned.push(ashSpeck(ember ? "ash__p--ember" : "",
+        Math.random() * vw,
+        vh * 0.08 + Math.random() * vh * 0.96,
+        ember ? 9 + Math.random() * 5 : 3 + Math.random() * 5,
+        1.5 + Math.random() * 1.3,
+        Math.random() * 0.3,
+        ashDrifts[i % 3],
+        color
+      ));
+    }
+    var veil = document.createElement("span");
+    veil.className = "ash__veil";
+    ashLayer.appendChild(veil);
+    spawned.push(veil);
+    window.setTimeout(function () {
+      spawned.forEach(function (n) {
+        if (n.parentNode) n.parentNode.removeChild(n);
+      });
+    }, 3200);
+  }
+
+  // drifting past a chapter boundary stirs up a small ember cloud
+  function ashPuff() {
+    if (!ashLayer || reduceMotion.matches || !journey.motion) return;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var count = Math.round(Math.min(64, Math.max(36, (vw * vh) / 26000)));
+    for (var i = 0; i < count; i++) {
+      var ember = i % 9 === 0;
+      var p = ashSpeck(ember ? "ash__p--ember" : "",
+        Math.random() * vw,
+        vh * 0.15 + Math.random() * vh * 0.85,
+        ember ? 7 + Math.random() * 4 : 2.5 + Math.random() * 4,
+        1.4 + Math.random() * 1.2,
+        Math.random() * 0.25,
+        ashDrifts[i % 3],
+        i % 5 === 0 ? ashCool[i % ashCool.length] : ashWarm[i % ashWarm.length]
+      );
+      removeAshLater(p, 3000);
+    }
+  }
+
+  // faint embers keep drifting across the screen for the whole journey
+  function ashAmbient() {
+    if (!ashLayer || reduceMotion.matches || !journey.on || !journey.motion) return;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    for (var i = 0; i < 2; i++) {
+      var p = ashSpeck("ash__p--ambient",
+        Math.random() * vw,
+        vh * 0.72 + Math.random() * vh * 0.3,
+        1.6 + Math.random() * 2.2,
+        2.6 + Math.random() * 1.4,
+        0,
+        "ash-ambient",
+        i === 0 && Math.random() < 0.3 ? ashCool[0] : ashWarm[i % ashWarm.length]
+      );
+      removeAshLater(p, 4300);
+    }
+  }
+
+  /* cursor: parallax vars + warm follower glow + ember trail */
+
+  var plx = { tx: 0, ty: 0, cx: 0, cy: 0, raf: null };
+  function plxLoop() {
+    plx.cx += (plx.tx - plx.cx) * 0.07;
+    plx.cy += (plx.ty - plx.cy) * 0.07;
+    var rootStyle = document.documentElement.style;
+    rootStyle.setProperty("--plx-x", plx.cx.toFixed(4));
+    rootStyle.setProperty("--plx-y", plx.cy.toFixed(4));
+    if (Math.abs(plx.tx - plx.cx) > 0.0008 || Math.abs(plx.ty - plx.cy) > 0.0008) {
+      plx.raf = window.requestAnimationFrame(plxLoop);
+    } else {
+      plx.raf = null;
+    }
+  }
+
+  var followEl = null;
+  var follow = { x: 0, y: 0, tx: 0, ty: 0, on: false, raf: null };
+  function followLoop() {
+    follow.x += (follow.tx - follow.x) * 0.14;
+    follow.y += (follow.ty - follow.y) * 0.14;
+    if (followEl) {
+      followEl.style.transform = "translate3d(" + follow.x.toFixed(1) + "px," + follow.y.toFixed(1) + "px,0)";
+    }
+    var settled = Math.abs(follow.tx - follow.x) < 0.4 && Math.abs(follow.ty - follow.y) < 0.4;
+    if (follow.on || !settled) {
+      follow.raf = window.requestAnimationFrame(followLoop);
+    } else {
+      follow.raf = null;
+      if (followEl) followEl.classList.remove("is-on");
+    }
+  }
+
+  var lastTrailAt = 0;
+  document.addEventListener("mousemove", function (event) {
+    if (!journey.on || !journey.motion || reduceMotion.matches) return;
+    plx.tx = event.clientX / window.innerWidth - 0.5;
+    plx.ty = event.clientY / window.innerHeight - 0.5;
+    if (!plx.raf) plx.raf = window.requestAnimationFrame(plxLoop);
+
+    follow.tx = event.clientX;
+    follow.ty = event.clientY;
+    if (!follow.on) {
+      follow.on = true;
+      follow.x = follow.tx;
+      follow.y = follow.ty;
+      if (followEl) followEl.classList.add("is-on");
+    }
+    if (!follow.raf) follow.raf = window.requestAnimationFrame(followLoop);
+
+    var now = Date.now();
+    if (now - lastTrailAt < 34) return;
+    lastTrailAt = now;
+    for (var s = 0; s < 2; s++) {
+      var a = Math.random() * Math.PI * 2;
+      var r = 3 + Math.random() * 18;
+      var big = Math.random() < 0.3;
+      var p = ashSpeck("ash__p--trail" + (big ? " ash__p--ember" : ""),
+        event.clientX + Math.cos(a) * r,
+        event.clientY + Math.sin(a) * r,
+        big ? 5 + Math.random() * 4.5 : 2.4 + Math.random() * 3.6,
+        1.1 + Math.random() * 1.1,
+        s === 0 ? 0 : 0.08,
+        "ash-cursor",
+        Math.random() < 0.22 ? ashCool[0] : ashWarm[(Math.random() * ashWarm.length) | 0]
+      );
+      p.style.setProperty("--tx", (Math.random() * 56 - 28).toFixed(0) + "px");
+      removeAshLater(p, 2600);
+    }
+  }, { passive: true });
+
+  document.addEventListener("mouseout", function (event) {
+    if (!event.relatedTarget) follow.on = false;
+  });
+
+  /* scrolling the page moves the story — chapters never move themselves */
+
+  function chapterTop(i) {
+    return journeyEls[i].getBoundingClientRect().top + (window.scrollY || 0);
+  }
+
+  function goJourney(i) {
+    if (!journey.on || !journeyEls.length) return;
+    i = Math.max(0, Math.min(tourOrder.length - 1, i));
+    window.scrollTo({
+      top: chapterTop(i),
+      behavior: reduceMotion.matches ? "auto" : "smooth"
+    });
+  }
+
+  var spyTicking = false;
+  function journeySpy() {
+    if (spyTicking) return;
+    spyTicking = true;
+    window.requestAnimationFrame(function () {
+      spyTicking = false;
+      if (!journey.on) return;
+      var y = window.scrollY || 0;
+      var probe = y + window.innerHeight * 0.5;
+      var idx = 0;
+      for (var i = 0; i < journeyEls.length; i++) {
+        if (journeyEls[i].offsetTop <= probe) idx = i;
+      }
+      if (idx !== journey.index) {
+        journey.index = idx;
+        paintJourney();
+        var now = Date.now();
+        if (now - lastPuff > 1400) {
+          lastPuff = now;
+          ashPuff();
+        }
+      }
+      if (tourFill) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+        tourFill.style.transform = "scaleX(" + progress.toFixed(4) + ")";
+      }
+    });
+  }
+
+  function startJourney() {
+    if (tourCfg.enabled === false) return;
+    if (journey.started || journey.on) return;
+    if (isPhone() || reduceMotion.matches) return;
+    if (tourOrder.length < 2) return;
+
+    journey.started = true;
+    journey.on = true;
+    journey.index = 0;
+
+    Object.keys(wins).forEach(function (id) {
+      if (tourOrder.indexOf(id) === -1 && wins[id].open) closeWin(wins[id], 200);
+    });
+
+    journeyEls = tourOrder.map(function (id) { return wins[id].el; });
+
+    tourOrder.forEach(function (id, i) {
+      var win = wins[id];
+      if (desktopEl) desktopEl.appendChild(win.el);
+      window.setTimeout(function () {
+        win.open = true;
+        win.min = false;
+        win.max = false;
+        win.el.hidden = false;
+        if (!win.opened) {
+          setRect(win, defaultRect(id));
+          win.opened = true;
+        }
+        win.el.classList.remove("is-open");
+        void win.el.offsetWidth;
+        win.el.classList.add("is-open");
+        initReveals(win.el);
+        updateDock();
+      }, i * 110);
+    });
+
+    document.documentElement.classList.add("is-journey");
+    if (tourbar) tourbar.hidden = false;
+
+    if (ashLayer && !followEl) {
+      followEl = document.createElement("span");
+      followEl.className = "ash__follow";
+      followEl.setAttribute("aria-hidden", "true");
+      ashLayer.appendChild(followEl);
+    }
+
+    if (journey.motion) {
+      ashBurst();
+      clearInterval(ambientTimer);
+      ambientTimer = window.setInterval(ashAmbient, 1500);
+    }
+
+    window.scrollTo(0, 0);
+    paintJourney();
+    journeySpy();
+    // windows open on a stagger; re-measure once the stack has settled
+    window.setTimeout(function () {
+      if (!journey.on) return;
+      paintJourney();
+      journeySpy();
+    }, tourOrder.length * 110 + 120);
+    window.addEventListener("scroll", journeySpy, { passive: true });
+    window.addEventListener("resize", journeySpy);
+  }
+
+  function stopJourney() {
+    if (!journey.on) return;
+    journey.on = false;
+    clearInterval(ambientTimer);
+    ambientTimer = null;
+    document.documentElement.classList.remove("is-journey");
+    document.documentElement.style.setProperty("--plx-x", "0");
+    document.documentElement.style.setProperty("--plx-y", "0");
+    if (tourbar) tourbar.hidden = true;
+    window.removeEventListener("scroll", journeySpy);
+    window.removeEventListener("resize", journeySpy);
+  }
+
+  function setJourneyMotion(on) {
+    journey.motion = on;
+    document.documentElement.classList.toggle("motion-off", !on);
+    if (motionBtn) {
+      motionBtn.setAttribute("aria-pressed", on ? "true" : "false");
+      motionBtn.setAttribute("aria-label", on ? "Turn animation off" : "Turn animation on");
+      motionBtn.title = on ? "Animation on" : "Animation off";
+    }
+    if (!on) {
+      clearInterval(ambientTimer);
+      ambientTimer = null;
+      if (ashLayer) {
+        Array.prototype.slice.call(ashLayer.children).forEach(function (node) {
+          if (node !== followEl) ashLayer.removeChild(node);
+        });
+      }
+      follow.on = false;
+      if (followEl) followEl.classList.remove("is-on");
+      plx.tx = plx.ty = plx.cx = plx.cy = 0;
+      document.documentElement.style.setProperty("--plx-x", "0");
+      document.documentElement.style.setProperty("--plx-y", "0");
+    } else if (journey.on) {
+      clearInterval(ambientTimer);
+      ambientTimer = window.setInterval(ashAmbient, 1500);
+    }
+  }
+
+  function exitJourney() {
+    if (!journey.on) return;
+    var els = journeyEls.slice();
+    els.forEach(function (el) {
+      var win = wins[el.getAttribute("data-app")];
+      if (!win) return;
+      win.open = false;
+      win.min = false;
+      win.max = false;
+      win.el.classList.remove("is-open", "is-max");
+      win.el.hidden = true;
+    });
+    stopJourney();
+    journey.started = false;
+    window.scrollTo(0, 0);
+    updateDock();
+  }
+
+  if (tourbar) {
+    tourbar.addEventListener("click", function (event) {
+      if (!journey.on) return;
+      if (event.target.closest("[data-journey='home']")) {
+        window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+      } else if (event.target.closest("[data-journey='prev']")) goJourney(journey.index - 1);
+      else if (event.target.closest("[data-journey='next']")) goJourney(journey.index + 1);
+      else if (event.target.closest("[data-journey='motion']")) setJourneyMotion(!journey.motion);
+      else if (event.target.closest("[data-journey='desktop']")) exitJourney();
+    });
+  }
+
+  if (phoneMq.addEventListener) {
+    phoneMq.addEventListener("change", function () {
+      if (isPhone()) stopJourney();
+    });
   }
 
   /* ---------------------------------------------------------------- look & feel */
@@ -1729,10 +2121,15 @@
 
   /* ---------------------------------------------------------------- music */
 
-  var musicData = (C.music && Array.isArray(C.music.tracks)) ? C.music : { artist: "Cheema Y", tracks: [] };
+  var musicData = (C.music && Array.isArray(C.music.tracks)) ? C.music : { artist: "Devotional", tracks: [] };
   var musicFrame = null;
+  var musicAudio = new Audio();
+  musicAudio.preload = "auto";
+  musicAudio.volume = 0.6;
   var musicPlaying = false;
   var musicCurrent = -1;
+  var musicMuted = false;
+  var musicAuto = { armed: true, gesture: false };
   var spotifyApi = null;
   var spotifyController = null;
   var spotifyRequested = false;
@@ -1760,6 +2157,15 @@
   function renderMusic() {
     var list = $('[data-render="music-tracks"]');
     if (!list) return;
+    $$("[data-music-artist]").forEach(function (el) {
+      el.textContent = musicData.artist || "Devotional";
+    });
+    $$("[data-music-name]").forEach(function (el) {
+      el.textContent = musicData.artist || "Devotional";
+    });
+    $$("[data-music-sub]").forEach(function (el) {
+      el.textContent = musicData.tracks.length + " MP3 tracks · plays in the background";
+    });
     list.innerHTML = musicData.tracks.map(function (track, index) {
       return '<li class="music__track">' +
         '<button class="music__track-btn" type="button" data-track="' + index + '" aria-label="Play ' + esc(track.title) + '">' +
@@ -1795,12 +2201,72 @@
     });
   }
 
+  function armMusicGesture() {
+    if (musicAuto.gesture) return;
+    musicAuto.gesture = true;
+    var disarm = function () {
+      window.removeEventListener("pointerdown", kick, true);
+      window.removeEventListener("keydown", kick, true);
+    };
+    var kick = function (event) {
+      var control = event.target && event.target.closest
+        ? event.target.closest("[data-music-toggle],[data-track],[data-music-mute]")
+        : null;
+      disarm();
+      if (control) return;
+      if (musicAudio.paused) playTrack(musicCurrent < 0 ? 0 : musicCurrent);
+    };
+    window.addEventListener("pointerdown", kick, true);
+    window.addEventListener("keydown", kick, true);
+  }
+
+  function autostartMusic() {
+    if (isPhone() || !musicData.tracks.length || !musicData.tracks[0].src) return;
+    playTrack(0);
+  }
+
+  function setMusicMuted(on) {
+    musicMuted = on;
+    var current = musicCurrent >= 0 ? musicData.tracks[musicCurrent] : null;
+    if (current && current.src) {
+      musicAudio.muted = on;
+    } else if (spotifyController && typeof spotifyController.setVolume === "function") {
+      spotifyController.setVolume(on ? 0 : 1);
+    } else {
+      musicCommand(on ? "mute" : "unMute");
+    }
+    $$("[data-music-mute]").forEach(function (button) {
+      button.classList.toggle("is-muted", on);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.setAttribute("aria-label", on ? "Unmute music" : "Mute music");
+      button.title = on ? "Unmute" : "Mute";
+    });
+  }
+
   function playTrack(index) {
     var track = musicData.tracks[index];
     var stage = $("[data-music-stage]");
     if (!track || !stage) return;
     musicCurrent = index;
     musicPlaying = true;
+
+    if (track.src) {
+      stage.hidden = true;
+      stage.innerHTML = "";
+      musicAudio.src = track.src;
+      var attempt = musicAudio.play();
+      if (attempt && attempt.catch) {
+        attempt.catch(function () {
+          if (musicCurrent !== index) return;
+          musicPlaying = false;
+          if (musicAuto.armed) armMusicGesture();
+          updateMusicUi("Tap play to start - " + track.title);
+        });
+      }
+      updateMusicUi("Playing - " + track.title);
+      return;
+    }
+
     stage.hidden = false;
 
     if (!track.spotify) {
@@ -1851,6 +2317,19 @@
       playTrack(0);
       return;
     }
+    var current = musicData.tracks[musicCurrent];
+    if (current && current.src) {
+      musicAuto.armed = false;
+      musicPlaying = musicAudio.paused;
+      if (musicPlaying) {
+        var attempt = musicAudio.play();
+        if (attempt && attempt.catch) attempt.catch(function () {});
+      } else {
+        musicAudio.pause();
+      }
+      updateMusicUi((musicPlaying ? "Playing - " : "Paused - ") + current.title);
+      return;
+    }
     musicPlaying = !musicPlaying;
     if (spotifyController) {
       if (musicPlaying) spotifyController.resume();
@@ -1865,24 +2344,59 @@
   function pauseMusic() {
     if (!musicPlaying) return;
     musicPlaying = false;
-    if (spotifyController) spotifyController.pause();
+    var current = musicData.tracks[musicCurrent];
+    if (current && current.src) musicAudio.pause();
+    else if (spotifyController) spotifyController.pause();
     else musicCommand("pauseVideo");
     var title = musicData.tracks[musicCurrent] ? musicData.tracks[musicCurrent].title : "";
     updateMusicUi("Paused - " + title);
   }
 
+  musicAudio.addEventListener("ended", function () {
+    if (musicCurrent < 0) return;
+    var current = musicData.tracks[musicCurrent];
+    if (!current || !current.src) return;
+    playTrack((musicCurrent + 1) % musicData.tracks.length);
+  });
+
+  musicAudio.addEventListener("play", function () {
+    musicAuto.armed = false;
+    if (!musicPlaying && musicCurrent >= 0) {
+      musicPlaying = true;
+      updateMusicUi("Playing - " + musicData.tracks[musicCurrent].title);
+    }
+  });
+
+  musicAudio.addEventListener("error", function () {
+    if (musicCurrent < 0) return;
+    var current = musicData.tracks[musicCurrent];
+    if (!current || !current.src) return;
+    musicPlaying = false;
+    updateMusicUi("Could not play - " + current.title);
+  });
+
   renderMusic();
+  autostartMusic();
 
   document.addEventListener("click", function (event) {
+    var muteBtn = event.target.closest("[data-music-mute]");
+    if (muteBtn) {
+      event.preventDefault();
+      musicAuto.armed = false;
+      setMusicMuted(!musicMuted);
+      return;
+    }
     var toggle = event.target.closest("[data-music-toggle]");
     if (toggle) {
       event.preventDefault();
+      musicAuto.armed = false;
       toggleMusic();
       return;
     }
     var trackBtn = event.target.closest("[data-track]");
     if (trackBtn) {
       event.preventDefault();
+      musicAuto.armed = false;
       playTrack(Number(trackBtn.getAttribute("data-track")));
     }
   });

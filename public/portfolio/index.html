@@ -247,17 +247,17 @@
     <main class="desktop" id="main">
       <div class="desktop-icons" data-render="desktop-icons" aria-label="Desktop shortcuts"></div>
 
-      <!-- ======================= DESKTOP WIDGETS ====================== -->
+      <!-- DESKTOP WIDGETS -->
       <aside class="widgets" data-widgets aria-label="Desktop widgets">
         <article class="widget widget--calendar">
           <div class="widget__head">
             <span class="widget__label">Calendar</span>
-            <span class="widget__meta" data-cal-weekday>-</span>
+            <span class="widget__meta" data-cal-weekday>—</span>
           </div>
           <div class="cal">
             <div class="cal__hero">
-              <span class="cal__month" data-cal-month>-</span>
-              <span class="cal__date" data-cal-date>-</span>
+              <span class="cal__month" data-cal-month>—</span>
+              <span class="cal__date" data-cal-date>—</span>
             </div>
             <div class="cal__week" aria-hidden="true">
               <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
@@ -281,7 +281,7 @@
         <article class="widget widget--music">
           <div class="widget__head">
             <span class="widget__label">Now playing</span>
-            <span class="widget__meta" data-music-artist>Cheema Y</span>
+            <span class="widget__meta" data-music-artist>Devotional</span>
           </div>
           <div class="now">
             <span class="now__art" aria-hidden="true">
@@ -289,8 +289,12 @@
             </span>
             <span class="now__text">
               <b data-now-title>Nothing playing</b>
-              <span data-now-artist>4 tracks · tap play</span>
+              <span data-now-artist>3 tracks · tap play</span>
             </span>
+            <button class="now__btn now__mute" type="button" data-music-mute aria-pressed="false" aria-label="Mute music">
+              <svg class="now__vol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4h3.4L12 5.6v12.8L7.4 14.6H4V9.4Z" fill="currentColor"/><path d="M15.3 8.6a4.9 4.9 0 0 1 0 6.8M17.8 6.1a8.4 8.4 0 0 1 0 11.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <svg class="now__vol-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4h3.4L12 5.6v12.8L7.4 14.6H4V9.4Z" fill="currentColor"/><path d="m15.2 9.2 5 5.6m0-5.6-5 5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </button>
             <button class="now__btn" type="button" data-music-toggle aria-label="Play music">
               <svg class="now__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.4v13.2L19 12 8 5.4Z" fill="currentColor"/></svg>
               <svg class="now__pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8V5Zm5 0h3v14h-3V5Z" fill="currentColor"/></svg>
@@ -316,6 +320,22 @@
         </header>
         <div class="window__body">
           <div class="window__scroll">
+
+            <section class="jhero" aria-label="Introduction">
+              <div class="jhero__media" aria-hidden="true">
+                <img src="assets/img/portrait-snow.webp" alt="" decoding="async" fetchpriority="low" />
+              </div>
+              <div class="jhero__scrim" aria-hidden="true"></div>
+              <div class="jhero__content">
+                <p class="jhero__kicker"><span class="jhero__dot" aria-hidden="true"></span><span data-bind="hero.kicker">Operations · analytics · automation</span></p>
+                <h1 class="jhero__name">
+                  <span class="jhero__line" style="--d:120ms" data-bind="person.firstName">Shivam</span>
+                  <span class="jhero__line jhero__line--soft" style="--d:240ms" data-bind="person.lastName">Singh</span>
+                </h1>
+                <p class="jhero__tagline" style="--d:360ms" data-bind-html="hero.tagline"></p>
+              </div>
+              <span class="jhero__cue" aria-hidden="true"><i></i>scroll</span>
+            </section>
 
             <section class="hero" id="top" aria-label="Introduction">
               <div class="hero__glow" aria-hidden="true"></div>
@@ -665,15 +685,21 @@
           <div class="window__scroll">
             <div class="app app--music">
               <div class="music__head">
-                <div class="music__art" aria-hidden="true"><span>CY</span></div>
+                <div class="music__art" aria-hidden="true"><span>♪</span></div>
                 <div class="music__meta">
                   <p class="app__eyebrow">Playlist</p>
-                  <h2 class="music__name">Cheema Y</h2>
-                  <p class="music__sub">Spotify previews · 4 tracks</p>
-                  <button class="music__play" type="button" data-music-toggle>
-                    <span class="music__play-ico" aria-hidden="true"></span>
-                    <span data-music-toggle-label>Play</span>
-                  </button>
+                  <h2 class="music__name" data-music-name>Devotional</h2>
+                  <p class="music__sub" data-music-sub>3 MP3 tracks · plays in the background</p>
+                  <div class="music__actions">
+                    <button class="music__play" type="button" data-music-toggle>
+                      <span class="music__play-ico" aria-hidden="true"></span>
+                      <span data-music-toggle-label>Play</span>
+                    </button>
+                    <button class="music__mute" type="button" data-music-mute aria-pressed="false" aria-label="Mute music" title="Mute">
+                      <svg class="music__vol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4h3.4L12 5.6v12.8L7.4 14.6H4V9.4Z" fill="currentColor"/><path d="M15.3 8.6a4.9 4.9 0 0 1 0 6.8M17.8 6.1a8.4 8.4 0 0 1 0 11.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                      <svg class="music__vol-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.4h3.4L12 5.6v12.8L7.4 14.6H4V9.4Z" fill="currentColor"/><path d="m15.2 9.2 5 5.6m0-5.6-5 5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
                   <p class="music__status" data-music-status>Pick a track to start.</p>
                 </div>
               </div>
@@ -683,8 +709,7 @@
               <ol class="music__tracks" data-render="music-tracks"></ol>
 
               <p class="app__foot">
-                Previews via Spotify - sign in there for full songs.
-                <a href="https://www.youtube.com/channel/UCeBbEZPOxKpO8qjEUJ65sFw" target="_blank" rel="noopener">YouTube ↗</a>
+                Local MP3 · loops while you browse.
               </p>
             </div>
           </div>
@@ -972,12 +997,39 @@
     </div>
   </dialog>
 
+  <!-- auto tour: plays the portfolio like a short film -->
+  <div class="tourbar" id="tourbar" role="region" aria-label="Portfolio journey" hidden>
+    <button class="tourbar__nav tourbar__nav--home" type="button" data-journey="home" aria-label="Back to start" title="Back to start">
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.4 11 5.7H9.2V10.6H6.9V7.8H5.1V10.6H2.8V5.7H1z"/></svg>
+    </button>
+    <button class="tourbar__nav" type="button" data-journey="prev" aria-label="Previous chapter" disabled>
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.4 10.6 8.4H1.4z"/></svg>
+    </button>
+    <div class="tourbar__now">
+      <div class="tourbar__line">
+        <span class="tourbar__label" data-tour-label>Home</span>
+        <span class="tourbar__count" data-tour-count aria-hidden="true">01 / 07</span>
+      </div>
+      <span class="tourbar__track" aria-hidden="true"><span class="tourbar__fill"></span></span>
+    </div>
+    <button class="tourbar__nav tourbar__nav--next" type="button" data-journey="next" aria-label="Next chapter">
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.6 1.4 3.6h8.2z"/></svg>
+    </button>
+    <button class="tourbar__nav tourbar__nav--motion" type="button" data-journey="motion" aria-pressed="true" aria-label="Turn animation off" title="Animation on">
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.6 3.2h5.4M1.6 6h8.8M1.6 8.8h5.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </button>
+    <button class="tourbar__nav tourbar__nav--desktop" type="button" data-journey="desktop" aria-label="Go to desktop" title="Go to desktop">
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.7 2.4h8.6v5.9H1.7zM6 8.3v1.8M4.1 10.3h3.8" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="ash" id="ash" aria-hidden="true"></div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <noscript>
     <style>
       body { margin: 0; overflow: auto; background: #eef1f5; }
-      .os, .wallpaper, .phone, .skip, .toast, dialog { display: none !important; }
+      .os, .wallpaper, .phone, .skip, .toast, .tourbar, .ash, dialog { display: none !important; }
       .ns {
         min-height: 100vh;
         display: grid;

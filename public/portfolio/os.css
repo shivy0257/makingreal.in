@@ -1205,8 +1205,6 @@ html[data-theme="glass"] .cc__toggle {
 .dock__item:focus-visible .gfolder,
 .dicon:hover .gfolder,
 .dicon:focus-visible .gfolder,
-.quick__app:hover .gfolder,
-.quick__app:focus-visible .gfolder,
 .papp:focus-visible .gfolder {
   transform: translateY(-4px) scale(1.06);
 }
@@ -1219,8 +1217,6 @@ html[data-theme="glass"] .cc__toggle {
 .dock__item:focus-visible .gfolder__float,
 .dicon:hover .gfolder__float,
 .dicon:focus-visible .gfolder__float,
-.quick__app:hover .gfolder__float,
-.quick__app:focus-visible .gfolder__float,
 .papp:focus-visible .gfolder__float {
   animation-play-state: paused;
 }
@@ -1229,8 +1225,6 @@ html[data-theme="glass"] .cc__toggle {
 .dock__item:focus-visible .gfolder__glow,
 .dicon:hover .gfolder__glow,
 .dicon:focus-visible .gfolder__glow,
-.quick__app:hover .gfolder__glow,
-.quick__app:focus-visible .gfolder__glow,
 .papp:active .gfolder__glow,
 .papp:focus-visible .gfolder__glow {
   opacity: 0.6;
@@ -1240,8 +1234,6 @@ html[data-theme="glass"] .cc__toggle {
 .dock__item:focus-visible .gfolder__front,
 .dicon:hover .gfolder__front,
 .dicon:focus-visible .gfolder__front,
-.quick__app:hover .gfolder__front,
-.quick__app:focus-visible .gfolder__front,
 .papp:active .gfolder__front,
 .papp:focus-visible .gfolder__front {
   box-shadow:
@@ -1254,8 +1246,6 @@ html[data-theme="glass"] .cc__toggle {
 .dock__item:focus-visible .gfolder__front::after,
 .dicon:hover .gfolder__front::after,
 .dicon:focus-visible .gfolder__front::after,
-.quick__app:hover .gfolder__front::after,
-.quick__app:focus-visible .gfolder__front::after,
 .papp:focus-visible .gfolder__front::after {
   opacity: 1;
 }
@@ -1352,7 +1342,13 @@ html[data-theme="oneui"] .dock__label {
   text-shadow: none;
 }
 
-/* ---------------------------------------------------------------- desktop widgets */
+@media (max-width: 1179px) {
+  .desktop-icons {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- widgets */
 
 .widgets {
   position: fixed;
@@ -1423,7 +1419,7 @@ html[data-theme="oneui"] .dock__label {
   padding: 6px 0;
   border: 0;
   border-radius: 9px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(23, 23, 28, 0.07);
   color: inherit;
   font: inherit;
   font-size: 10.5px;
@@ -1432,7 +1428,7 @@ html[data-theme="oneui"] .dock__label {
 }
 
 .widget__open:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(23, 23, 28, 0.13);
 }
 
 /* calendar */
@@ -1523,12 +1519,7 @@ html[data-theme="oneui"] .dock__label {
   opacity: 0.55;
 }
 
-/* Glass: widgets share the light frosted surface of the menubar and windows */
-html[data-theme="glass"] .widget {
-  background: rgba(250, 250, 252, 0.82);
-  border-color: rgba(255, 255, 255, 0.82);
-}
-
+/* glass: widgets share the light frosted surface of the menubar and windows */
 html[data-theme="glass"] .widget--calendar,
 html[data-theme="glass"] .widget--music {
   background: rgba(250, 250, 252, 0.82);
@@ -1570,6 +1561,14 @@ html[data-theme="glass"] .widget--music .widget__open {
 html[data-theme="glass"] .widget--calendar .widget__open:hover,
 html[data-theme="glass"] .widget--music .widget__open:hover {
   background: rgba(23, 23, 28, 0.13);
+}
+
+html[data-theme="glass"][data-alpha="reduced"] .widget,
+html[data-theme="glass"][data-alpha="reduced"] .widget--calendar,
+html[data-theme="glass"][data-alpha="reduced"] .widget--music {
+  background: #f4f4f8;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .now {
@@ -1642,6 +1641,11 @@ html[data-theme="glass"] .widget--music .widget__open:hover {
   height: 14px;
 }
 
+.now__vol-off { display: none; }
+.now__mute.is-muted .now__vol { display: none; }
+.now__mute.is-muted .now__vol-off { display: block; }
+.now__mute.is-muted { opacity: 0.55; }
+
 .now__pause {
   display: none;
 }
@@ -1672,18 +1676,11 @@ html[data-theme="glass"] .widget--music .widget__open:hover {
   background: none;
   color: #26262c;
   font: inherit;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.25;
-  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
   cursor: pointer;
-}
-
-.quick__app > span {
-  display: block;
-  width: 100%;
-  white-space: nowrap;
 }
 
 .quick__app .gfolder {
@@ -1697,16 +1694,24 @@ html[data-theme="glass"] .widget--music .widget__open:hover {
 }
 
 .quick__app .gfolder__badge svg {
-  width: 54%;
-  height: 54%;
+  width: 62%;
+  height: 62%;
 }
+
+/* the one-ui desktop keeps its icons on the left; give the widgets the stage
+   only where they cannot collide */
 html[data-theme="oneui"] .widgets {
   display: none;
 }
 
+html.is-journey .widgets {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
 @media (max-width: 1179px) {
-  .widgets,
-  .desktop-icons {
+  .widgets {
     display: none;
   }
 }
@@ -2416,7 +2421,6 @@ html[data-wall="golden"] .wallpaper::after {
 html[data-alpha="reduced"] .menubar,
 html[data-alpha="reduced"] .dock__inner,
 html[data-alpha="reduced"] .window,
-html[data-alpha="reduced"] .widget,
 html[data-alpha="reduced"] .control-center,
 html[data-alpha="reduced"] .phone__chip,
 html[data-alpha="reduced"] .phone__widget,
@@ -2430,11 +2434,6 @@ html[data-theme="glass"][data-alpha="reduced"] .menubar { background: #141821; }
 html[data-alpha="reduced"] .dock__inner { background: #f4f4f7; }
 html[data-theme="glass"][data-alpha="reduced"] .dock__inner { background: rgba(20, 22, 30, 0.92); }
 html[data-alpha="reduced"] .window { background: #f7f7f9; }
-html[data-alpha="reduced"] .widget { background: #f7f7f9; }
-html[data-alpha="reduced"] .widget--calendar { background: #1b1e26; }
-html[data-alpha="reduced"] .widget--music { background: #211a1e; }
-html[data-theme="glass"][data-alpha="reduced"] .widget--calendar { background: #f6f4f1; }
-html[data-theme="glass"][data-alpha="reduced"] .widget--music { background: #f6f0f1; }
 html[data-alpha="reduced"] .control-center { background: #f2f2f5; }
 html[data-theme="glass"][data-alpha="reduced"] .control-center { background: #1b1e27; }
 html[data-alpha="reduced"] .phone__chip,
@@ -2586,6 +2585,45 @@ html[data-alpha="reduced"] .phone__dock-inner {
 
 .music__play:hover { filter: brightness(1.12); }
 .music__play:active { transform: scale(0.97); }
+
+.music__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.music__actions .music__play {
+  margin-top: 0;
+}
+
+.music__mute {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--win-ink) 8%, transparent);
+  color: var(--win-ink);
+  cursor: pointer;
+  transition: transform 0.16s var(--ease), filter 0.16s var(--ease);
+}
+
+.music__mute:hover { filter: brightness(1.12); }
+.music__mute:active { transform: scale(0.94); }
+
+.music__mute svg {
+  width: 18px;
+  height: 18px;
+}
+
+.music__vol-off { display: none; }
+.music__mute.is-muted .music__vol { display: none; }
+.music__mute.is-muted .music__vol-off { display: block; }
+.music__mute.is-muted { opacity: 0.55; }
 
 .music__play-ico {
   width: 0;
@@ -3983,4 +4021,478 @@ html[data-theme="glass"][data-alpha="reduced"] .window.is-phone-open .window__ba
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+}
+
+/* ---------------------------------------------------------------- one-page journey */
+/* All seven chapters are stacked full-bleed on a single scrolling page.
+   No auto-advance: scrolling moves through the story, nothing else does.
+   The HUD carries the only two controls; the cursor adds a soft parallax
+   drift and a trail of warm ash embers. */
+
+html.is-journey {
+  --dock-space: 150px;
+  --plx-x: 0;
+  --plx-y: 0;
+}
+
+/* the app shell is pinned to the viewport by default; the journey needs a
+   real document flow so the page can actually scroll */
+html.is-journey body { overflow: visible; }
+html.is-journey .os { position: static; height: auto; overflow: visible; }
+
+html.is-journey .menubar,
+html.is-journey .dock,
+html.is-journey .desktop-icons {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+/* chapter windows become full-bleed sections of one long page */
+html.is-journey .window {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 100vh !important;
+  border-radius: 0 !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  box-shadow: none !important;
+}
+
+html.is-journey .window__bar { display: none !important; }
+
+html.is-journey .window__scroll {
+  flex: none;
+  width: 100%;
+  overflow: visible;
+  height: auto;
+  overscroll-behavior: auto;
+  translate: calc(var(--plx-x) * 16px) calc(var(--plx-y) * 12px);
+}
+
+/* cursor parallax: content floats with the pointer, backdrop drifts against it */
+html.is-journey .hero__glow,
+html.is-journey .hero__glow--b {
+  translate: calc(var(--plx-x) * -34px) calc(var(--plx-y) * -24px);
+}
+
+html.is-journey .wallpaper__blob--warm { translate: calc(var(--plx-x) * -52px) calc(var(--plx-y) * -34px); }
+html.is-journey .wallpaper__blob--cool { translate: calc(var(--plx-x) * -72px) calc(var(--plx-y) * -46px); }
+html.is-journey .wallpaper__blob--lilac { translate: calc(var(--plx-x) * -36px) calc(var(--plx-y) * -24px); }
+
+/* --- journey hero: the wallpaper photo opens the story --- */
+.jhero { display: none; }
+
+html.is-journey .jhero {
+  position: relative;
+  display: grid;
+  place-items: start center;
+  min-height: 100vh;
+  overflow: hidden;
+  text-align: center;
+}
+
+.jhero__media {
+  position: absolute;
+  inset: -48px;
+  z-index: 0;
+  translate: calc(var(--plx-x) * -40px) calc(var(--plx-y) * -26px);
+}
+
+.jhero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 13%;
+  animation: jhero-zoom 18s cubic-bezier(0.25, 0.6, 0.2, 1) both;
+}
+
+@keyframes jhero-zoom {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+
+.jhero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(6, 8, 13, 0.52) 0%, rgba(6, 8, 13, 0.12) 32%, rgba(6, 8, 13, 0.1) 55%, rgba(6, 8, 13, 0.62) 100%),
+    radial-gradient(70% 42% at 50% 16%, rgba(6, 8, 13, 0.4), transparent 72%);
+}
+
+.jhero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 15vh 24px 0;
+  color: #f4f7fc;
+}
+
+.jhero__content > * {
+  animation: jhero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.jhero__content > *:nth-child(1) { animation-delay: 90ms; }
+.jhero__content > *:nth-child(2) { animation-delay: 220ms; }
+.jhero__content > *:nth-child(3) { animation-delay: 360ms; }
+
+@keyframes jhero-rise {
+  from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.jhero__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(238, 242, 250, 0.82);
+}
+
+.jhero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffb874;
+  box-shadow: 0 0 10px rgba(255, 184, 116, 0.9);
+}
+
+.jhero__name {
+  margin: 0;
+  font-size: clamp(56px, 11vw, 132px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-shadow: 0 18px 60px rgba(4, 6, 10, 0.55);
+}
+
+.jhero__line { display: block; }
+
+.jhero__line--soft {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(244, 247, 252, 0.85);
+}
+
+.jhero__tagline {
+  margin: 20px auto 0;
+  max-width: 560px;
+  font-size: clamp(14px, 1.6vw, 17px);
+  line-height: 1.65;
+  color: rgba(238, 242, 250, 0.86);
+  text-shadow: 0 2px 18px rgba(4, 6, 10, 0.6);
+}
+
+.jhero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(238, 242, 250, 0.6);
+}
+
+.jhero__cue i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffb874;
+  animation: jhero-cue 1.6s ease-in-out infinite;
+}
+
+@keyframes jhero-cue {
+  0%, 100% { transform: translateY(-3px); opacity: 0.5; }
+  50% { transform: translateY(3px); opacity: 1; }
+}
+
+/* --- journey HUD: the only two controls --- */
+
+.tourbar {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  z-index: 880;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: min(540px, calc(100vw - 32px));
+  padding: 8px 10px;
+  border-radius: 18px;
+  background: rgba(13, 16, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 52px -28px rgba(2, 4, 10, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #eef2fa;
+  backdrop-filter: blur(26px) saturate(1.5);
+  -webkit-backdrop-filter: blur(26px) saturate(1.5);
+  animation: tourbar-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.tourbar[hidden] { display: none; }
+
+@keyframes tourbar-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.tourbar__nav {
+  position: relative;
+  flex: none;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f2f5fb;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.tourbar__nav:hover:not(:disabled),
+.tourbar__nav:focus-visible {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.tourbar__nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.tourbar__nav svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
+}
+
+.tourbar__nav--motion[aria-pressed="false"] {
+  opacity: 0.55;
+}
+
+.tourbar__nav--motion[aria-pressed="false"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+html.motion-off {
+  --plx-x: 0 !important;
+  --plx-y: 0 !important;
+}
+
+html.motion-off .ash__p,
+html.motion-off .ash__follow {
+  display: none;
+}
+
+html.motion-off .jhero__media img,
+html.motion-off .hero__glow,
+html.motion-off .blob {
+  animation: none;
+}
+
+.tourbar__now {
+  flex: 1 1 auto;
+  display: grid;
+  gap: 7px;
+  align-content: center;
+  min-width: 0;
+  padding: 3px 0 4px;
+}
+
+.tourbar__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tourbar__label {
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tourbar__track {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.tourbar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 184, 116, 0.95), var(--accent, #3468f5));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.12s linear;
+}
+
+.tourbar__count {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(228, 234, 246, 0.66);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ash particles that drift up as the journey moves */
+
+.ash {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ash__p {
+  position: absolute;
+  width: var(--s, 2px);
+  height: var(--s, 2px);
+  border-radius: 50%;
+  background: var(--c, #ffd3a8);
+  box-shadow: 0 0 12px var(--c, #ffd3a8);
+  opacity: 0;
+  animation: ash-drift-c var(--d, 1.1s) var(--delay, 0s) cubic-bezier(0.2, 0.5, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes ash-drift-l {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+  12% { opacity: 1; }
+  55% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate3d(-70px, -120px, 0) scale(0.2); }
+}
+
+@keyframes ash-drift-c {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+  12% { opacity: 1; }
+  55% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate3d(4px, -140px, 0) scale(0.2); }
+}
+
+@keyframes ash-drift-r {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+  12% { opacity: 1; }
+  55% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate3d(72px, -110px, 0) scale(0.2); }
+}
+
+/* full-screen smoke/ember wash that opens the journey */
+.ash__veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    radial-gradient(110% 85% at 50% 98%, rgba(255, 146, 64, 0.42), rgba(255, 110, 50, 0.14) 40%, transparent 70%),
+    radial-gradient(90% 70% at 50% 30%, rgba(9, 11, 17, 0.26), transparent 72%),
+    radial-gradient(45% 35% at 50% 55%, rgba(255, 214, 170, 0.12), transparent 75%),
+    linear-gradient(180deg, rgba(6, 8, 13, 0.04) 25%, rgba(6, 8, 13, 0.46) 100%);
+  animation: ash-veil 1.3s ease-out both;
+}
+
+@keyframes ash-veil {
+  0% { opacity: 0; }
+  16% { opacity: 1; }
+  52% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+.ash__p--ember {
+  box-shadow: 0 0 14px var(--c, #ffd3a8), 0 0 30px rgba(255, 150, 80, 0.45);
+}
+
+/* faint embers drifting across the whole screen while the journey runs */
+.ash__p--ambient {
+  box-shadow: 0 0 6px var(--c, #ffd3a8);
+}
+
+@keyframes ash-ambient {
+  0% { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.5); }
+  22% { opacity: 0.55; }
+  70% { opacity: 0.32; }
+  100% { opacity: 0; transform: translate3d(6px, -190px, 0) scale(0.3); }
+}
+
+/* warm embers sprinkled around the cursor as it travels */
+.ash__p--trail {
+  box-shadow: 0 0 12px var(--c, #ffd3a8);
+}
+
+@keyframes ash-cursor {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.7); }
+  14% { opacity: 0.95; }
+  60% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate3d(var(--tx, 0px), -64px, 0) scale(0.25); }
+}
+
+.ash__follow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(closest-side, rgba(255, 168, 92, 0.22), rgba(255, 122, 58, 0.08) 52%, transparent 74%);
+  mix-blend-mode: screen;
+  transition: opacity 0.5s ease;
+  will-change: transform;
+}
+
+.ash__follow.is-on { opacity: 1; }
+
+@media (max-width: 900px) {
+  .tourbar { display: none !important; }
+  html.is-journey { --dock-space: 94px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tourbar { animation: none; }
+  .ash { display: none; }
+  html.is-journey .window__scroll,
+  html.is-journey .hero__glow,
+  html.is-journey .hero__glow--b,
+  html.is-journey .wallpaper__blob--warm,
+  html.is-journey .wallpaper__blob--cool,
+  html.is-journey .wallpaper__blob--lilac,
+  html.is-journey .jhero__media { translate: none; }
+  .jhero__media img { animation: none; }
+  .jhero__content > * { animation: none; }
+  .jhero__cue i { animation: none; }
 }

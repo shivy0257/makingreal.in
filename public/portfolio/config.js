@@ -50,6 +50,12 @@ const PORTFOLIO = {
   os: {
     defaultTheme: "glass", // "glass" | "macos" | "oneui"
     phoneDock: ["work", "research", "services", "contact"],
+    // Auto tour: plays the portfolio like a short film after the splash.
+    tour: {
+      enabled: true,
+      seconds: 9,
+      order: ["home", "work", "research", "experience", "about", "services", "contact"]
+    },
     apps: [
       { id: "home", label: "Home", short: "SS", icon: "house", tone: "#151a24", tone2: "#4d5668" },
       { id: "work", label: "Work", short: "W", icon: "briefcase", tone: "#2f56c8", tone2: "#6f96e8" },
@@ -66,17 +72,15 @@ const PORTFOLIO = {
     ]
   },
 
-  // Official Cheema Y releases. The label blocks YouTube embeds, so playback
-  // uses Spotify's embed player (30s preview when signed out, full track when
-  // signed in). YouTube ids stay for the direct links.
+  // Local MP3 playlist. The first track starts on the desktop and keeps
+  // playing in the background; change, mute or stop it from the Music window
+  // or the Now Playing widget.
   music: {
-    artist: "Cheema Y",
-    channel: "https://www.youtube.com/channel/UCeBbEZPOxKpO8qjEUJ65sFw",
+    artist: "Devotional",
     tracks: [
-      { title: "Cartel", id: "i0RJTOFwcgk", spotify: "31NP3kpDutZWYcHAY4Vmze" },
-      { title: "Young G.O.A.T", id: "uz6oyGKGvNo", spotify: "6xHPBEvcG0RQDfyTq7jc8P" },
-      { title: "Tutor", id: "CKamNm4y3OU", spotify: "2KQBM1PYjg2ZpeA5xbTjrJ" },
-      { title: "Snake", id: "Il4vvuBF5DI", spotify: "5Hbcsj2iTcsETphClTi4Wq" }
+      { title: "Shree Hari Stotram", src: "assets/audio/shree-hari-stotram.mp3" },
+      { title: "Anadi Ananta - Kailash Kher", src: "assets/audio/anadi-ananta.mp3" },
+      { title: "Hare Krishna Hare Rama - Lofi", src: "assets/audio/hare-krishna-lofi.mp3" }
     ]
   },
 
