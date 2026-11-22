@@ -5284,3 +5284,248 @@ html.motion-off .blob {
   .jhero__content > * { animation: none; }
   .jhero__cue i { animation: none; }
 }
+
+/* ---------------------------------------------------------------- floating sound + chat */
+
+.ambient,
+.chat-fab {
+  position: fixed;
+  z-index: 620;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(250, 250, 252, 0.8);
+  color: #17171c;
+  box-shadow: 0 18px 44px -24px rgba(10, 12, 20, 0.55), 0 1px 0 rgba(255, 255, 255, 0.65) inset;
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  animation: floatControlsIn 0.5s var(--ease) 0.7s both;
+}
+
+html[data-theme="glass"] .ambient,
+html[data-theme="glass"] .chat-fab {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(13, 16, 23, 0.6);
+  color: #f4f6fb;
+  box-shadow: 0 22px 50px -26px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+@keyframes floatControlsIn {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+.ambient {
+  left: calc(20px + env(safe-area-inset-left));
+  gap: 2px;
+  height: 42px;
+  padding: 0 5px;
+}
+
+.ambient__btn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.16s ease, opacity 0.16s ease;
+}
+
+.ambient__btn:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="glass"] .ambient__btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ambient__btn:active {
+  transform: scale(0.94);
+}
+
+.ambient__btn:focus-visible {
+  outline: 2px solid var(--accent, #3468f5);
+  outline-offset: 1px;
+}
+
+.ambient__btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.ambient__pause {
+  display: none;
+}
+
+.ambient__toggle.is-playing .ambient__play {
+  display: none;
+}
+
+.ambient__toggle.is-playing .ambient__pause {
+  display: block;
+}
+
+.ambient__label {
+  padding: 0 6px 0 3px;
+  font-size: 9.5px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(23, 23, 28, 0.56);
+  pointer-events: none;
+}
+
+html[data-theme="glass"] .ambient__label {
+  color: rgba(244, 246, 251, 0.62);
+}
+
+.ambient__stop {
+  width: 28px;
+  height: 28px;
+}
+
+.ambient__stop svg {
+  width: 11px;
+  height: 11px;
+  opacity: 0.7;
+  transition: opacity 0.16s ease;
+}
+
+.ambient__stop:hover svg {
+  opacity: 1;
+}
+
+.chat-fab {
+  right: calc(20px + env(safe-area-inset-right));
+  gap: 9px;
+  height: 46px;
+  padding: 0 17px 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s ease;
+}
+
+html[data-theme="glass"] .chat-fab {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.chat-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 52px -24px rgba(10, 12, 20, 0.62), 0 1px 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.chat-fab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.chat-fab:focus-visible {
+  outline: 2px solid var(--accent, #3468f5);
+  outline-offset: 3px;
+}
+
+.chat-fab__ico {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #0b6e63, #4fcbb0);
+  color: #ffffff;
+  box-shadow: 0 7px 16px -9px rgba(11, 110, 99, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.26) inset;
+}
+
+.chat-fab__ico svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+@media (max-width: 899px) {
+  .ambient,
+  .chat-fab {
+    bottom: calc(94px + env(safe-area-inset-bottom));
+  }
+
+  .ambient {
+    left: calc(12px + env(safe-area-inset-left));
+    height: 38px;
+  }
+
+  .ambient__label {
+    display: none;
+  }
+
+  .chat-fab {
+    right: calc(12px + env(safe-area-inset-right));
+    height: 42px;
+    padding: 0 14px 0 7px;
+    font-size: 12px;
+  }
+
+  .chat-fab__ico {
+    width: 28px;
+    height: 28px;
+  }
+
+  html.phone-app-open .chat-fab {
+    display: none;
+  }
+
+  /* inside a phone app the bar's right side is free, so tuck the sound
+     control there instead of floating over the input area */
+  html.phone-app-open .ambient {
+    left: auto;
+    right: calc(10px + env(safe-area-inset-right));
+    top: calc(env(safe-area-inset-top) + 12px);
+    bottom: auto;
+    height: 34px;
+    padding: 0 4px;
+    border-color: rgba(0, 0, 0, 0.06);
+    background: rgba(247, 247, 250, 0.92);
+    color: #16161c;
+    box-shadow: 0 8px 20px -14px rgba(20, 22, 40, 0.5);
+  }
+
+  html.phone-app-open .ambient__btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  html.phone-app-open .ambient__btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  html.phone-app-open .ambient__stop svg {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient,
+  .chat-fab {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* on narrower desktops the dock reaches both corners, so lift the floating
+   controls above it instead of letting them collide */
+@media (min-width: 900px) and (max-width: 1100px) {
+  html:not(.is-journey) .ambient,
+  html:not(.is-journey) .chat-fab {
+    bottom: calc(var(--dock-space, 94px) + 8px);
+  }
+}

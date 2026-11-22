@@ -1001,7 +1001,6 @@
   }
 
   function closePhoneApp() {
-    if (os.phoneApp === "music") pauseMusic();
     $$(".window.is-phone-open").forEach(function (el) {
       el.classList.remove("is-phone-open");
       var win = wins[el.getAttribute("data-app")];
@@ -2137,7 +2136,8 @@
 
   var musicData = (C.music && Array.isArray(C.music.tracks)) ? C.music : { artist: "Devotional", tracks: [] };
   var musicFrame = null;
-  var musicVolume = 0.6;
+  var AUDIO_OFF_KEY = "portfolio-audio-off";
+  var musicVolume = 0.35;
   try {
     var savedVolume = parseFloat(localStorage.getItem("portfolio-volume"));
     if (savedVolume >= 0 && savedVolume <= 1) musicVolume = savedVolume;
@@ -2153,6 +2153,18 @@
   var spotifyController = null;
   var spotifyRequested = false;
   var spotifyQueue = [];
+
+  function audioIsOff() {
+    try { return localStorage.getItem(AUDIO_OFF_KEY) === "1"; } catch (err) { return false; }
+  }
+
+  function markAudioOff() {
+    try { localStorage.setItem(AUDIO_OFF_KEY, "1"); } catch (err) {}
+  }
+
+  function markAudioOn() {
+    try { localStorage.removeItem(AUDIO_OFF_KEY); } catch (err) {}
+  }
 
   function two(n) { return (n < 10 ? "0" : "") + n; }
 
@@ -2201,8 +2213,13 @@
       if (statusEl) statusEl.textContent = status;
     }
     $$("[data-music-toggle]").forEach(function (toggle) {
+      var ambient = toggle.hasAttribute("data-ambient-toggle");
+      var label = ambient
+        ? (musicPlaying ? "Pause background sound" : "Play background sound")
+        : (musicPlaying ? "Pause music" : "Play music");
       toggle.classList.toggle("is-playing", musicPlaying);
-      toggle.setAttribute("aria-label", musicPlaying ? "Pause music" : "Play music");
+      toggle.setAttribute("aria-label", label);
+      toggle.title = label;
     });
     var nowTitle = musicCurrent >= 0 && musicData.tracks[musicCurrent]
       ? musicData.tracks[musicCurrent].title
@@ -2229,10 +2246,10 @@
     };
     var kick = function (event) {
       var control = event.target && event.target.closest
-        ? event.target.closest("[data-music-toggle],[data-track],[data-music-mute]")
+        ? event.target.closest("[data-music-toggle],[data-track],[data-music-mute],[data-ambient-stop],[data-chat-fab]")
         : null;
       disarm();
-      if (control) return;
+      if (control || audioIsOff() || !musicAuto.armed) return;
       if (musicAudio.paused) playTrack(musicCurrent < 0 ? 0 : musicCurrent);
     };
     window.addEventListener("pointerdown", kick, true);
@@ -2240,7 +2257,9 @@
   }
 
   function autostartMusic() {
-    if (isPhone() || !musicData.tracks.length || !musicData.tracks[0].src) return;
+    var first = musicData.tracks[0];
+    if (!first || !first.src || !first.ambient) return;
+    if (audioIsOff()) { updateMusicUi(); return; }
     playTrack(0);
   }
 
@@ -2309,6 +2328,7 @@
     var track = musicData.tracks[index];
     var stage = $("[data-music-stage]");
     if (!track || !stage) return;
+    markAudioOn();
     musicCurrent = index;
     musicPlaying = true;
     if ("mediaSession" in navigator) {
@@ -2324,6 +2344,7 @@
     if (track.src) {
       stage.hidden = true;
       stage.innerHTML = "";
+      musicAudio.loop = !!track.ambient;
       musicAudio.src = track.src;
       $$("[data-music-seek]").forEach(function (el) { el.disabled = false; });
       updateSeekUi();
@@ -2342,6 +2363,7 @@
     }
 
     stage.hidden = false;
+    musicAudio.loop = false;
     $$("[data-music-seek]").forEach(function (el) { el.disabled = true; });
     $$("[data-music-time], [data-music-duration]").forEach(function (el) { el.textContent = "0:00"; });
 
@@ -2428,6 +2450,24 @@
     updateMusicUi("Paused - " + title);
   }
 
+  function stopMusic() {
+    musicAuto.armed = false;
+    musicPlaying = false;
+    var current = musicCurrent >= 0 ? musicData.tracks[musicCurrent] : null;
+    if (current && current.src) {
+      musicAudio.pause();
+      try { musicAudio.currentTime = 0; } catch (err) {}
+    } else if (spotifyController) {
+      spotifyController.pause();
+    } else if (musicFrame) {
+      musicCommand("stopVideo");
+    }
+    musicCurrent = -1;
+    markAudioOff();
+    updateMusicUi("Stopped");
+    updateSeekUi();
+  }
+
   musicAudio.addEventListener("ended", function () {
     if (musicCurrent < 0) return;
     var current = musicData.tracks[musicCurrent];
@@ -2508,6 +2548,12 @@
       stepTrack(1);
       return;
     }
+    var stopBtn = event.target.closest("[data-ambient-stop]");
+    if (stopBtn) {
+      event.preventDefault();
+      stopMusic();
+      return;
+    }
     var toggle = event.target.closest("[data-music-toggle]");
     if (toggle) {
       event.preventDefault();
@@ -2524,6 +2570,19 @@
       else playTrack(trackIndex);
     }
   });
+
+  var chatFab = $("[data-chat-fab]");
+  if (chatFab) {
+    chatFab.addEventListener("click", function () {
+      if (document.documentElement.classList.contains("is-journey")) exitJourney();
+      if (isPhone()) {
+        closePhoneApp();
+        openPhoneApp("assistant");
+      } else {
+        openApp("assistant");
+      }
+    });
+  }
 
   /* ---------------------------------------------------------------- ask shivam */
 

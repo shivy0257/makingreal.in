@@ -77,8 +77,9 @@ const PORTFOLIO = {
   // playing in the background; change, mute or stop it from the Music window
   // or the Now Playing widget.
   music: {
-    artist: "Devotional",
+    artist: "Shivam's mix",
     tracks: [
+      { title: "Autumn Nature", src: "assets/audio/autumn-nature.mp3", ambient: true },
       { title: "Shree Hari Stotram", src: "assets/audio/shree-hari-stotram.mp3" },
       { title: "Anadi Ananta - Kailash Kher", src: "assets/audio/anadi-ananta.mp3" },
       { title: "Hare Krishna Hare Rama - Lofi", src: "assets/audio/hare-krishna-lofi.mp3" }
