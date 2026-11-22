@@ -91,7 +91,7 @@ const PORTFOLIO = {
   // portfolio only.
   assistant: {
     endpoint: "/api/assistant",
-    intro: "Hi, I'm Shivy - Shivam's portfolio buddy. Ask about his work, projects or trading style.",
+    intro: "Hi, I'm Süße - Shivam's portfolio buddy. Ask about Shivam's work, projects or trading style.",
     chips: [
       "What does Shivam do?",
       "Show his strongest projects",

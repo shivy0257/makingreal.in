@@ -2658,7 +2658,7 @@
     }).catch(function () {});
   }
 
-  /* shivy - the ask shivam mascot */
+  /* süße - the ask shivam mascot */
 
   var buddyEl = $("[data-buddy]");
   var buddyCaption = $("[data-buddy-caption]");
