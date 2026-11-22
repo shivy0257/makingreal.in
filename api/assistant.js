@@ -164,8 +164,10 @@ export default async function handler(req, res) {
   }
 
   if (!upstream.ok || !upstream.body) {
-    try { await upstream.text(); } catch (err) {}
-    res.status(502).json({ error: "upstream" });
+    let detail = "";
+    try { detail = await upstream.text(); } catch (err) {}
+    console.error("assistant upstream", upstream.status, detail.slice(0, 600));
+    res.status(502).json({ error: "upstream", code: upstream.status });
     return;
   }
 
