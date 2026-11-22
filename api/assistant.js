@@ -1,9 +1,9 @@
 // Ask Shivam - grounded portfolio assistant.
 // Streams plain text from Gemini. The API key stays server-side in a Vercel
 // env var (GEMINI_API_KEY); it is never sent to the browser.
-// Optional: ASSISTANT_MODEL to override the model (default gemini-2.5-flash).
+// Optional: ASSISTANT_MODEL to override the model (default gemini-3.5-flash-lite).
 
-const MODEL = process.env.ASSISTANT_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.ASSISTANT_MODEL || "gemini-3.5-flash-lite";
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 12;
 const MAX_MESSAGES = 12;
