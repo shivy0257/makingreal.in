@@ -696,7 +696,8 @@
       games: [880, 680],
       watch: [800, 640],
       "screen-time": [880, 630],
-      settings: [860, 650]
+      settings: [860, 650],
+      assistant: [780, 660]
     },
     oneui: {
       home: [1040, 728],
@@ -710,7 +711,8 @@
       games: [900, 680],
       watch: [820, 640],
       "screen-time": [900, 640],
-      settings: [880, 660]
+      settings: [880, 660],
+      assistant: [800, 680]
     }
   };
 
@@ -871,6 +873,13 @@
     focusWin(win);
     initReveals(win.el);
     updateDock();
+
+    if (id === "assistant" && !isPhone()) {
+      checkAssistant();
+      if (chatInput) {
+        window.setTimeout(function () { chatInput.focus({ preventScroll: true }); }, 60);
+      }
+    }
   }
 
   function closeWin(win, hideDelay) {
@@ -1032,7 +1041,8 @@
     "game-controller": '<path d="M247.44,173.75a.68.68,0,0,0,0-.14L231.05,89.44c0-.06,0-.12,0-.18A60.08,60.08,0,0,0,172,40H83.89a59.88,59.88,0,0,0-59,49.52L8.58,173.61a.68.68,0,0,0,0,.14,36,36,0,0,0,60.9,31.71l.35-.37L109.52,160h37l39.71,45.09c.11.13.23.25.35.37A36.08,36.08,0,0,0,212,216a36,36,0,0,0,35.43-42.25ZM104,112H96v8a8,8,0,0,1-16,0v-8H72a8,8,0,0,1,0-16h8V88a8,8,0,0,1,16,0v8h8a8,8,0,0,1,0,16Zm40-8a8,8,0,0,1,8-8h24a8,8,0,0,1,0,16H152A8,8,0,0,1,144,104Zm84.37,87.47a19.84,19.84,0,0,1-12.9,8.23A20.09,20.09,0,0,1,198,194.31L167.8,160H172a60,60,0,0,0,51-28.38l8.74,45A19.82,19.82,0,0,1,228.37,191.47Z"/>',
     watch: '<path d="M175.3,63.53l-6.24-34.38A16,16,0,0,0,153.32,16H102.68A16,16,0,0,0,86.94,29.15L80.7,63.53a79.9,79.9,0,0,0,0,128.94l6.24,34.38A16,16,0,0,0,102.68,240h50.64a16,16,0,0,0,15.74-13.15l6.24-34.38a79.9,79.9,0,0,0,0-128.94ZM102.68,32h50.64l3.91,21.55a79.75,79.75,0,0,0-58.46,0Zm50.64,192H102.68l-3.91-21.55a79.75,79.75,0,0,0,58.46,0ZM168,136H128a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"/>',
     timer: '<path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm45.66,61.66-40,40a8,8,0,0,1-11.32-11.32l40-40a8,8,0,0,1,11.32,11.32ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/>',
-    "sliders-horizontal": '<path d="M32,80a8,8,0,0,1,8-8H77.17a28,28,0,0,1,53.66,0H216a8,8,0,0,1,0,16H130.83a28,28,0,0,1-53.66,0H40A8,8,0,0,1,32,80Zm184,88H194.83a28,28,0,0,0-53.66,0H40a8,8,0,0,0,0,16H141.17a28,28,0,0,0,53.66,0H216a8,8,0,0,0,0-16Z"/>'
+    "sliders-horizontal": '<path d="M32,80a8,8,0,0,1,8-8H77.17a28,28,0,0,1,53.66,0H216a8,8,0,0,1,0,16H130.83a28,28,0,0,1-53.66,0H40A8,8,0,0,1,32,80Zm184,88H194.83a28,28,0,0,0-53.66,0H40a8,8,0,0,0,0,16H141.17a28,28,0,0,0,53.66,0H216a8,8,0,0,0,0-16Z"/>',
+    "chat-circle-dots": '<path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24ZM84,140a12,12,0,1,1,12-12A12,12,0,0,1,84,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,128,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,172,140Z"/>'
   };
 
   /* One glyph family everywhere: Phosphor fill icons on the glass squircle. */
@@ -1074,7 +1084,7 @@
       return !app.fun;
     }).map(function (app) {
       return '<button class="menubar__item" type="button" data-open-app="' + esc(app.id) + '">' +
-        esc(app.label) + "</button>";
+        esc(app.menuLabel || app.label) + "</button>";
     }).join("");
   }
 
@@ -1315,6 +1325,9 @@
       { label: "Play devotional playlist", kind: "Music", icon: "music-notes", run: function () {
         openApp("music");
         playTrack(0);
+      } },
+      { label: "Ask Shivam anything", kind: "Assistant", icon: "chat-circle-dots", run: function () {
+        openApp("assistant");
       } },
       { label: "Customize look", kind: "Action", icon: "sliders-horizontal", run: function () {
         openApp("settings");
@@ -2509,6 +2522,186 @@
       if (trackIndex === musicCurrent) toggleMusic();
       else playTrack(trackIndex);
     }
+  });
+
+  /* ---------------------------------------------------------------- ask shivam */
+
+  var chatCfg = C.assistant || {};
+  var chatLog = $("[data-chat-log]");
+  var chatForm = $("[data-chat-form]");
+  var chatInput = $("[data-chat-input]");
+  var chatSend = $("[data-chat-send]");
+  var chatChips = $("[data-chat-chips]");
+  var chatHistory = [];
+  var chatBusy = false;
+  var chatHealthChecked = false;
+
+  var CHAT_ERRORS = {
+    not_configured: "The AI assistant isn't connected on this deployment yet.",
+    rate_limited: "That's a lot of questions in a short time - give it a few minutes.",
+    upstream: "The assistant hit a problem on the AI side.",
+    network: "I couldn't reach the assistant."
+  };
+
+  function chatEmail() {
+    return (C.contact && C.contact.email) || "";
+  }
+
+  function chatRich(text) {
+    return esc(text).split(/\r?\n/).map(function (line) {
+      return line
+        .replace(/^\s*[-*]\s+/, "\u2022 ")
+        .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+        .replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    }).join("<br>");
+  }
+
+  function chatScroll() {
+    if (chatLog) chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  function chatAdd(role, html) {
+    if (!chatLog) return null;
+    var row = document.createElement("div");
+    row.className = "chat__msg chat__msg--" + (role === "user" ? "user" : "bot");
+    row.innerHTML = '<span class="chat__avatar" aria-hidden="true">' + (role === "user" ? "You" : "AI") + "</span>" +
+      '<div class="chat__bubble">' + html + "</div>";
+    chatLog.appendChild(row);
+    chatScroll();
+    return row.querySelector(".chat__bubble");
+  }
+
+  function chatSetStatus(state) {
+    var badge = $("[data-assistant-status]");
+    var label = $("[data-assistant-status-text]");
+    if (!badge || !label) return;
+    badge.classList.toggle("is-busy", state === "busy");
+    badge.classList.toggle("is-off", state === "off" || state === "setup");
+    label.textContent = state === "busy" ? "Thinking…" :
+      state === "setup" ? "Not set up" :
+      state === "off" ? "Offline" : "Online";
+  }
+
+  function chatWithEmail(message) {
+    var email = chatEmail();
+    return email ? message + " Email Shivam - " + email + "." : message;
+  }
+
+  function checkAssistant() {
+    if (chatHealthChecked) return;
+    chatHealthChecked = true;
+    var endpoint = chatCfg.endpoint || "/api/assistant";
+    fetch(endpoint).then(function (response) {
+      return response.json().catch(function () { return null; });
+    }).then(function (info) {
+      if (info && info.ok && info.configured === false) chatSetStatus("setup");
+    }).catch(function () {});
+  }
+
+  function askShivam(question) {
+    if (!chatLog || chatBusy) return;
+    question = String(question || "").trim().slice(0, 600);
+    if (!question) return;
+
+    chatBusy = true;
+    if (chatInput) { chatInput.value = ""; chatInput.disabled = true; }
+    if (chatSend) chatSend.disabled = true;
+    if (chatChips) chatChips.classList.add("is-hidden");
+    chatSetStatus("busy");
+
+    chatAdd("user", chatRich(question));
+    chatHistory.push({ role: "user", content: question });
+
+    var bubble = chatAdd("bot", '<span class="chat__typing" aria-label="Thinking"><i></i><i></i><i></i></span>');
+    var answer = "";
+    var endpoint = chatCfg.endpoint || "/api/assistant";
+
+    function finish(code) {
+      chatBusy = false;
+      if (chatInput) chatInput.disabled = false;
+      if (chatSend) chatSend.disabled = false;
+      if (code) {
+        chatHistory.pop();
+        bubble.innerHTML = chatRich(chatWithEmail(CHAT_ERRORS[code] || CHAT_ERRORS.network));
+        chatSetStatus(code === "not_configured" ? "setup" : "off");
+      } else if (!answer.trim()) {
+        bubble.innerHTML = chatRich("I can only help with questions about Shivam - his experience, projects, skills or contact details.");
+        chatSetStatus("ready");
+      } else {
+        bubble.innerHTML = chatRich(answer);
+        chatHistory.push({ role: "assistant", content: answer });
+        if (chatHistory.length > 16) chatHistory = chatHistory.slice(-16);
+        chatSetStatus("ready");
+      }
+      chatScroll();
+      if (chatInput && !isPhone()) chatInput.focus({ preventScroll: true });
+    }
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory.slice(-10) })
+    }).then(function (response) {
+      if (!response.ok) {
+        return response.json().catch(function () { return {}; }).then(function (info) {
+          throw new Error((info && info.error) || "upstream");
+        });
+      }
+      if (!response.body || typeof response.body.getReader !== "function") {
+        return response.text().then(function (text) { answer = text || ""; });
+      }
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      function pump() {
+        return reader.read().then(function (chunk) {
+          if (chunk.done) return undefined;
+          answer += decoder.decode(chunk.value, { stream: true });
+          bubble.innerHTML = chatRich(answer);
+          chatScroll();
+          return pump();
+        });
+      }
+      return pump();
+    }).then(function () {
+      finish("");
+    }).catch(function (err) {
+      var code = err && err.message;
+      finish(CHAT_ERRORS[code] ? code : "network");
+    });
+  }
+
+  function renderChat() {
+    if (!chatLog) return;
+    $$("[data-chat-mail]").forEach(function (link) {
+      var email = chatEmail();
+      if (!email) return;
+      link.setAttribute("href", "mailto:" + email);
+      link.textContent = email;
+    });
+    chatLog.innerHTML = "";
+    chatAdd("bot", chatRich(chatCfg.intro || "Ask me about Shivam's experience, projects, tools or how to reach him."));
+    if (chatChips) {
+      chatChips.innerHTML = (chatCfg.chips || []).map(function (q) {
+        return '<button class="chat__chip" type="button" data-chat-ask="' + esc(q) + '">' + esc(q) + "</button>";
+      }).join("");
+    }
+  }
+
+  renderChat();
+  chatSetStatus("ready");
+
+  if (chatForm) {
+    chatForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      askShivam(chatInput.value);
+    });
+  }
+
+  document.addEventListener("click", function (event) {
+    var chip = event.target.closest ? event.target.closest("[data-chat-ask]") : null;
+    if (!chip) return;
+    event.preventDefault();
+    askShivam(chip.getAttribute("data-chat-ask"));
   });
 
   /* ---------------------------------------------------------------- snake */
