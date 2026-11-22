@@ -88,9 +88,20 @@
 
   <a class="skip" href="#main">Skip to content</a>
 
-  <div class="wallpaper" aria-hidden="true">
+  <div class="wallpaper wallpaper--poster" aria-hidden="true">
     <span class="wallpaper__photo">
-      <img src="assets/img/portrait-snow.webp" alt="" decoding="async" fetchpriority="low" />
+      <img src="assets/img/wallpaper-trading.jpg" alt="" decoding="async" fetchpriority="low" />
+    </span>
+    <span class="wallpaper__waves">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path class="wallpaper__wave wallpaper__wave--glow" d="M-40 880C220 848 400 792 540 684C640 606 682 516 702 424C718 348 758 298 838 268"/>
+        <path class="wallpaper__wave wallpaper__wave--a" d="M-40 880C220 848 400 792 540 684C640 606 682 516 702 424C718 348 758 298 838 268"/>
+        <path class="wallpaper__wave wallpaper__wave--b" d="M-40 862C220 830 398 774 538 666C638 588 678 498 698 406C714 330 752 280 830 250"/>
+        <path class="wallpaper__wave wallpaper__wave--c" d="M-40 898C220 866 402 810 542 702C642 624 686 534 708 442C724 366 766 316 848 286"/>
+        <path class="wallpaper__wave wallpaper__wave--d" d="M-40 916C220 884 404 828 546 720C646 642 690 552 712 460C728 384 770 334 852 304"/>
+        <path class="wallpaper__wave wallpaper__wave--e" d="M-40 934C220 902 406 846 550 738C650 660 694 570 716 478C732 402 776 352 858 322"/>
+        <path class="wallpaper__wave wallpaper__wave--f" d="M-40 276C210 226 402 312 580 262C700 228 788 190 892 200C1000 210 1082 258 1140 300"/>
+      </svg>
     </span>
     <span class="wallpaper__word wallpaper__word--outline"><b>S</b><b>H</b><b>I</b><b>V</b><b>A</b><b>M</b></span>
     <span class="wallpaper__word wallpaper__word--ink"><b>S</b><b>H</b><b>I</b><b>V</b><b>A</b><b>M</b></span>
@@ -935,7 +946,9 @@
             <button class="wc wc--max" type="button" data-win-action="max" aria-label="Maximise Ask Shivam"></button>
           </span>
           <span class="window__title">
-            <span class="window__icon" aria-hidden="true">AI</span>
+            <span class="window__icon window__icon--logo" aria-hidden="true">
+              <svg viewBox="0 0 256 256"><path d="M78 44h100c16.6 0 30 13.4 30 30v100c0 16.6-13.4 30-30 30h-38l-34 22.6c-7.4 4.9-17-.4-17-9.2V204H78c-16.6 0-30-13.4-30-30V74c0-16.6 13.4-30 30-30Z"/><path d="M64 60 46 6l46 22Z"/><path d="M192 60 210 6l-46 22Z"/></svg>
+            </span>
             <span class="window__name">Ask Shivam</span>
           </span>
           <span class="window__fill"></span>
@@ -943,31 +956,65 @@
         <div class="window__body">
           <div class="window__scroll">
             <div class="app app--assistant">
-              <div class="chat__head">
-                <div>
-                  <p class="app__eyebrow">AI assistant</p>
-                  <h2 class="app__title">Ask about Shivam</h2>
-                  <p class="app__sub">Answers grounded in his work history, projects and skills.</p>
+              <header class="chat__head">
+                <div class="chat__brand">
+                  <span class="chat__logo" aria-hidden="true">
+                    <svg viewBox="0 0 256 256">
+                      <path class="chat__logo-bubble" d="M78 44h100c16.6 0 30 13.4 30 30v100c0 16.6-13.4 30-30 30h-38l-34 22.6c-7.4 4.9-17-.4-17-9.2V204H78c-16.6 0-30-13.4-30-30V74c0-16.6 13.4-30 30-30Z"/>
+                      <path class="chat__logo-ear" d="M64 60 46 6l46 22Z"/>
+                      <path class="chat__logo-ear" d="M192 60 210 6l-46 22Z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <p class="app__eyebrow">Portfolio buddy</p>
+                    <h2 class="app__title">Ask Shivam</h2>
+                    <p class="app__sub">Shivy answers from his real work and trading style.</p>
+                  </div>
                 </div>
-                <span class="chat__badge" data-assistant-status>
-                  <i aria-hidden="true"></i>
-                  <span data-assistant-status-text>Ready</span>
-                </span>
-              </div>
+                <div class="chat__tools">
+                  <span class="chat__badge" data-assistant-status>
+                    <i aria-hidden="true"></i>
+                    <span data-assistant-status-text>Ready</span>
+                  </span>
+                </div>
+              </header>
 
-              <div class="chat">
+              <div class="chat__main">
+                <aside class="buddy" data-buddy data-mood="idle" data-pose="grumpy" aria-label="Shivy, the Ask Shivam mascot">
+                  <span class="buddy__glow" aria-hidden="true"></span>
+                  <figure class="buddy__portrait" aria-hidden="true">
+                    <div class="buddy__frame">
+                      <img data-pose="grumpy" src="assets/img/shivy-grumpy.jpg" alt="" width="736" height="962" decoding="async" />
+                      <img data-pose="happy" src="assets/img/shivy-happy.jpg" alt="" width="640" height="853" decoding="async" />
+                      <img data-pose="groom" src="assets/img/shivy-groom.jpg" alt="" width="640" height="853" decoding="async" />
+                      <span class="buddy__flash"></span>
+                      <span class="buddy__thought"><i></i><i></i><i></i></span>
+                      <span class="buddy__heart buddy__heart--a"><svg viewBox="0 0 20 18"><path d="M10 17S1 11.2 1 5.6C1 2.6 3.2 1 5.5 1 7.2 1 8.7 2 10 3.9 11.3 2 12.8 1 14.5 1 16.8 1 19 2.6 19 5.6 19 11.2 10 17 10 17Z"/></svg></span>
+                      <span class="buddy__heart buddy__heart--b"><svg viewBox="0 0 20 18"><path d="M10 17S1 11.2 1 5.6C1 2.6 3.2 1 5.5 1 7.2 1 8.7 2 10 3.9 11.3 2 12.8 1 14.5 1 16.8 1 19 2.6 19 5.6 19 11.2 10 17 10 17Z"/></svg></span>
+                      <span class="buddy__steam buddy__steam--a"></span>
+                      <span class="buddy__steam buddy__steam--b"></span>
+                    </div>
+                  </figure>
+                  <div class="buddy__plate">
+                    <b>Shivy</b>
+                    <span data-buddy-caption>your portfolio buddy</span>
+                  </div>
+                </aside>
+
+                <div class="chat">
                 <div class="chat__log" data-chat-log role="log" aria-live="polite" aria-label="Conversation"></div>
 
                 <div class="chat__chips" data-chat-chips aria-label="Suggested questions"></div>
 
                 <form class="chat__form" data-chat-form>
-                  <input class="chat__input" type="text" data-chat-input placeholder="Ask about experience, projects, skills…" autocomplete="off" maxlength="600" aria-label="Your question">
+                  <input class="chat__input" type="text" data-chat-input placeholder="Ask about his work or trading style…" autocomplete="off" maxlength="600" aria-label="Your question">
                   <button class="chat__send" type="submit" data-chat-send aria-label="Send question">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.1 11.5 19.8 4.2l-6.2 15.6-2.4-6-7.1-2.3Z" fill="currentColor"/></svg>
                   </button>
                 </form>
 
                 <p class="chat__foot">AI can make mistakes. For anything important, email <a data-chat-mail href="mailto:singhshivy257@gmail.com">singhshivy257@gmail.com</a>.</p>
+                </div>
               </div>
             </div>
           </div>

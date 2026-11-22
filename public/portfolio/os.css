@@ -202,6 +202,102 @@ body {
     linear-gradient(0deg, rgba(16, 18, 24, 0.2), transparent 24%);
 }
 
+/* poster wallpaper variant: full print on a soft shadow, waves flowing past */
+.wallpaper--poster .wallpaper__photo {
+  right: 3.2vw;
+  width: 47vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5vh 0;
+  z-index: 2;
+}
+
+.wallpaper--poster .wallpaper__photo img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    0 60px 110px -55px rgba(18, 20, 30, 0.55),
+    0 18px 40px -28px rgba(18, 20, 30, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.wallpaper--poster .wallpaper__photo::after {
+  content: none;
+}
+
+.wallpaper--poster .wallpaper__word {
+  display: none;
+}
+
+.wallpaper--poster .wallpaper__vertical {
+  right: calc(47vw + clamp(34px, 3.6vw, 60px));
+  color: rgba(35, 37, 44, 0.62);
+}
+
+.wallpaper__waves {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  color: #0e8a78;
+  opacity: 0.55;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 80%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 80%, transparent);
+}
+
+.wallpaper__waves svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wallpaper__wave {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-opacity: 0.32;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: waveFloat 13s ease-in-out infinite alternate;
+}
+
+.wallpaper__wave--glow {
+  stroke-width: 26;
+  stroke-opacity: 0.07;
+  filter: blur(9px);
+  animation-duration: 18s;
+}
+
+.wallpaper__wave--a { stroke-width: 2.2; stroke-opacity: 0.8; animation-duration: 11s; }
+.wallpaper__wave--b { stroke-opacity: 0.55; stroke-width: 1.5; animation-duration: 15s; animation-delay: -4s; }
+.wallpaper__wave--c { stroke-opacity: 0.4; stroke-width: 1.3; animation-duration: 12s; animation-delay: -3s; }
+.wallpaper__wave--d { stroke-opacity: 0.28; stroke-width: 1.1; animation-duration: 19s; animation-delay: -6s; }
+.wallpaper__wave--e { stroke-opacity: 0.2; stroke-width: 1; animation-duration: 22s; animation-delay: -9s; }
+.wallpaper__wave--f { stroke-opacity: 0.18; stroke-width: 1; animation-duration: 24s; animation-delay: -12s; }
+
+html[data-theme="glass"] .wallpaper__waves {
+  color: #7ce9d2;
+  opacity: 0.9;
+}
+
+html[data-theme="oneui"] .wallpaper__waves {
+  color: #1f7f6f;
+  opacity: 0.42;
+}
+
+@keyframes waveFloat {
+  from { transform: translate3d(-0.7%, 10px, 0); }
+  to { transform: translate3d(0.7%, -10px, 0); }
+}
+
 .wallpaper__word {
   position: absolute;
   inset: 0;
@@ -241,13 +337,13 @@ body {
   position: absolute;
   top: 50%;
   right: calc(53vw + clamp(40px, 4.6vw, 72px));
+  z-index: 3;
   transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: clamp(14px, 2vh, 22px);
-  z-index: 1;
   color: #17181d;
   pointer-events: none;
   user-select: none;
@@ -287,11 +383,39 @@ html[data-theme="oneui"] .wallpaper__vertical {
   color: #23252c;
 }
 
+html[data-theme="glass"] .wallpaper--poster .wallpaper__vertical {
+  color: rgba(233, 238, 248, 0.46);
+}
+
+html[data-theme="oneui"] .wallpaper--poster .wallpaper__vertical {
+  color: rgba(35, 37, 44, 0.62);
+}
+
 @media (max-width: 760px) {
   .wallpaper__photo {
     width: 100vw;
     min-width: 0;
     opacity: 0.4;
+  }
+
+  .wallpaper--poster .wallpaper__photo {
+    right: 0;
+    width: 100vw;
+    padding: 0;
+  }
+
+  .wallpaper--poster .wallpaper__photo img {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    opacity: 0.32;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .wallpaper__waves {
+    display: none;
   }
 
   .wallpaper__word,
@@ -1879,6 +2003,17 @@ html:not([data-theme="oneui"]) .wc::before {
   font-weight: 700;
 }
 
+.window__icon svg {
+  width: 70%;
+  height: 70%;
+  fill: currentColor;
+}
+
+.window__icon--logo {
+  background: linear-gradient(160deg, var(--tone2, #4fcbb0), var(--tone, #0b6e63));
+  color: #fff;
+}
+
 .window__fill {
   flex: 1;
 }
@@ -2809,7 +2944,7 @@ html[data-alpha="reduced"] .phone__dock-inner {
 /* --- ask shivam --- */
 
 .app--assistant {
-  gap: 16px;
+  gap: 14px;
   height: 100%;
   min-height: 0;
 }
@@ -2819,6 +2954,280 @@ html[data-alpha="reduced"] .phone__dock-inner {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+}
+
+.chat__brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.chat__logo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: linear-gradient(160deg, var(--tone2, #4fcbb0), var(--tone, #0b6e63));
+  box-shadow: 0 16px 30px -18px color-mix(in srgb, var(--tone, #0b6e63) 75%, transparent);
+}
+
+.chat__logo svg {
+  width: 25px;
+  height: 25px;
+}
+
+.chat__logo-bubble,
+.chat__logo-ear {
+  fill: #fff;
+}
+
+.chat__tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.chat__main {
+  display: grid;
+  grid-template-columns: 212px minmax(0, 1fr);
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* --- shivy mascot --- */
+
+.buddy {
+  --look-x: 0px;
+  --look-y: 0px;
+  --look-tilt: 0deg;
+  position: relative;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 14px;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, #fff 78%, transparent), transparent 72%),
+    color-mix(in srgb, #4fcbb0 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--win-ink) 7%, transparent);
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.buddy__glow {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: 220px;
+  height: 220px;
+  margin-left: -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 233, 210, 0.55), transparent 68%);
+  filter: blur(18px);
+  pointer-events: none;
+  opacity: 0.7;
+  transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.buddy__portrait {
+  position: relative;
+  width: 100%;
+  max-width: 188px;
+  aspect-ratio: 0.78;
+  margin: 0;
+  border-radius: 16px;
+  background: #93d0c1;
+  box-shadow:
+    0 22px 34px -22px rgba(8, 36, 31, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  transform: translate(var(--look-x), var(--look-y)) rotate(var(--look-tilt));
+  transition: transform 0.16s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.buddy__frame {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  animation: shivyBreath 5.4s ease-in-out infinite;
+}
+
+.buddy__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  opacity: 0;
+  transition: opacity 0.24s ease, transform 0.3s var(--ease);
+}
+
+.buddy[data-pose="grumpy"] .buddy__frame img[data-pose="grumpy"],
+.buddy[data-pose="happy"] .buddy__frame img[data-pose="happy"],
+.buddy[data-pose="groom"] .buddy__frame img[data-pose="groom"] { opacity: 1; }
+
+.buddy__flash {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease);
+  background: radial-gradient(80% 60% at 50% 34%, rgba(226, 64, 64, 0.34), rgba(226, 64, 64, 0) 70%);
+}
+
+.buddy[data-mood="angry"] .buddy__flash { opacity: 1; }
+
+.buddy__heart {
+  position: absolute;
+  z-index: 3;
+  width: 18px;
+  height: 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.buddy__heart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #ff8fa6;
+  filter: drop-shadow(0 3px 6px rgba(200, 40, 80, 0.25));
+}
+
+.buddy__heart--a { left: 11%; top: 34%; }
+.buddy__heart--b { right: 9%; top: 22%; width: 13px; height: 12px; }
+
+.buddy[data-mood="happy"] .buddy__heart--a { animation: heartFloat 1.9s ease-out infinite; }
+.buddy[data-mood="happy"] .buddy__heart--b { animation: heartFloat 1.9s ease-out 0.55s infinite; }
+
+.buddy__steam {
+  position: absolute;
+  z-index: 3;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 40% 35%, rgba(255, 255, 255, 0.9), rgba(216, 67, 67, 0.55) 60%, rgba(216, 67, 67, 0) 72%);
+  filter: blur(1px);
+}
+
+.buddy__steam--a { left: 4%; top: 40%; }
+.buddy__steam--b { right: 5%; top: 28%; width: 12px; height: 12px; }
+
+.buddy[data-mood="angry"] .buddy__steam--a { animation: steamPuff 1.5s ease-out infinite; }
+.buddy[data-mood="angry"] .buddy__steam--b { animation: steamPuff 1.5s ease-out 0.6s infinite; }
+
+.buddy__thought {
+  position: absolute;
+  z-index: 3;
+  right: 7%;
+  top: 5%;
+  display: flex;
+  gap: 3px;
+  padding: 6px 8px;
+  border-radius: 12px 12px 12px 4px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 6px 14px -8px rgba(20, 30, 28, 0.5);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.buddy__thought i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2f6b5f;
+  animation: thoughtDot 1s ease-in-out infinite;
+}
+
+.buddy__thought i:nth-child(2) { animation-delay: 0.15s; }
+.buddy__thought i:nth-child(3) { animation-delay: 0.3s; }
+
+.buddy[data-mood="thinking"] .buddy__thought {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.buddy[data-mood="thinking"] .buddy__portrait img[data-pose="grumpy"] { transform: scale(1.035); }
+.buddy[data-mood="happy"] .buddy__portrait img[data-pose="happy"] { animation: shivyHop 0.55s ease-in-out 2; }
+.buddy[data-mood="angry"] .buddy__portrait img[data-pose="grumpy"] { animation: shivyShake 0.4s ease-in-out 3; }
+
+.buddy[data-mood="happy"] .buddy__glow {
+  background: radial-gradient(circle, rgba(255, 199, 140, 0.6), transparent 68%);
+  opacity: 0.95;
+}
+
+.buddy[data-mood="angry"] .buddy__glow {
+  background: radial-gradient(circle, rgba(238, 120, 120, 0.55), transparent 68%);
+}
+
+.buddy__plate {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  text-align: center;
+}
+
+.buddy__plate b {
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+
+.buddy__plate span {
+  font-size: 11px;
+  color: color-mix(in srgb, var(--win-ink) 52%, transparent);
+  min-height: 13px;
+}
+
+@keyframes shivyBreath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.012); }
+}
+
+@keyframes shivyHop {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-6px); }
+  65% { transform: translateY(-2px); }
+}
+
+@keyframes shivyShake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-3px) rotate(-1.2deg); }
+  40% { transform: translateX(3px) rotate(1.2deg); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes heartFloat {
+  0% { opacity: 0; transform: translateY(6px) scale(0.7); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.1); }
+}
+
+@keyframes steamPuff {
+  0% { opacity: 0; transform: translateY(4px) scale(0.6); }
+  35% { opacity: 0.75; }
+  100% { opacity: 0; transform: translateY(-14px) scale(1.35); }
+}
+
+@keyframes thoughtDot {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
 }
 
 .chat__badge {
@@ -2907,6 +3316,10 @@ html[data-alpha="reduced"] .phone__dock-inner {
 }
 
 .chat__msg--user .chat__avatar {
+  width: auto;
+  min-width: 26px;
+  padding: 0 7px;
+  border-radius: 999px;
   background: var(--accent);
   color: #fff;
 }
@@ -2930,6 +3343,17 @@ html[data-alpha="reduced"] .phone__dock-inner {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.chat__bubble.is-streaming::after {
+  content: "▍";
+  margin-left: 2px;
+  opacity: 0.55;
+  animation: caretBlink 1s steps(2) infinite;
+}
+
+@keyframes caretBlink {
+  50% { opacity: 0; }
 }
 
 .chat__typing {
@@ -3051,14 +3475,56 @@ html[data-alpha="reduced"] .phone__dock-inner {
 
 @media (prefers-reduced-motion: reduce) {
   .chat__badge.is-busy i,
-  .chat__typing i {
-    animation: none;
+  .chat__typing i,
+  .buddy__frame,
+  .buddy__portrait img,
+  .buddy__heart,
+  .buddy__steam,
+  .buddy__thought i,
+  .wallpaper__wave {
+    animation: none !important;
+  }
+
+  .buddy__portrait {
+    transition: none;
   }
 }
 
 @media (max-width: 899px) {
   .chat__head {
     flex-wrap: wrap;
+  }
+
+  .chat__main {
+    grid-template-columns: 1fr;
+  }
+
+  .buddy {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 16px;
+  }
+
+  .buddy__glow {
+    left: 8%;
+    top: 50%;
+    bottom: auto;
+    width: 130px;
+    height: 130px;
+    margin-left: 0;
+    transform: translateY(-50%);
+  }
+
+  .buddy__portrait {
+    width: 104px;
+    max-width: 104px;
+    flex: none;
+  }
+
+  .buddy__plate {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .chat__input {

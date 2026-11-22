@@ -697,7 +697,7 @@
       watch: [800, 640],
       "screen-time": [880, 630],
       settings: [860, 650],
-      assistant: [780, 660]
+      assistant: [880, 700]
     },
     oneui: {
       home: [1040, 728],
@@ -712,7 +712,7 @@
       watch: [820, 640],
       "screen-time": [900, 640],
       settings: [880, 660],
-      assistant: [800, 680]
+      assistant: [900, 720]
     }
   };
 
@@ -1042,6 +1042,7 @@
     watch: '<path d="M175.3,63.53l-6.24-34.38A16,16,0,0,0,153.32,16H102.68A16,16,0,0,0,86.94,29.15L80.7,63.53a79.9,79.9,0,0,0,0,128.94l6.24,34.38A16,16,0,0,0,102.68,240h50.64a16,16,0,0,0,15.74-13.15l6.24-34.38a79.9,79.9,0,0,0,0-128.94ZM102.68,32h50.64l3.91,21.55a79.75,79.75,0,0,0-58.46,0Zm50.64,192H102.68l-3.91-21.55a79.75,79.75,0,0,0,58.46,0ZM168,136H128a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"/>',
     timer: '<path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm45.66,61.66-40,40a8,8,0,0,1-11.32-11.32l40-40a8,8,0,0,1,11.32,11.32ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/>',
     "sliders-horizontal": '<path d="M32,80a8,8,0,0,1,8-8H77.17a28,28,0,0,1,53.66,0H216a8,8,0,0,1,0,16H130.83a28,28,0,0,1-53.66,0H40A8,8,0,0,1,32,80Zm184,88H194.83a28,28,0,0,0-53.66,0H40a8,8,0,0,0,0,16H141.17a28,28,0,0,0,53.66,0H216a8,8,0,0,0,0-16Z"/>',
+    "ask-shivam": '<path d="M78 44h100c16.6 0 30 13.4 30 30v100c0 16.6-13.4 30-30 30h-38l-34 22.6c-7.4 4.9-17-.4-17-9.2V204H78c-16.6 0-30-13.4-30-30V74c0-16.6 13.4-30 30-30Z"/><path d="M64 60 46 6l46 22Z"/><path d="M192 60 210 6l-46 22Z"/><path d="M228 176l4.6 12.4 12.4 4.6-12.4 4.6-4.6 12.4-4.6-12.4-12.4-4.6 12.4-4.6Z"/>',
     "chat-circle-dots": '<path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24ZM84,140a12,12,0,1,1,12-12A12,12,0,0,1,84,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,128,140Zm44,0a12,12,0,1,1,12-12A12,12,0,0,1,172,140Z"/>'
   };
 
@@ -1326,7 +1327,7 @@
         openApp("music");
         playTrack(0);
       } },
-      { label: "Ask Shivam anything", kind: "Assistant", icon: "chat-circle-dots", run: function () {
+      { label: "Ask Shivam anything", kind: "Assistant", icon: "ask-shivam", run: function () {
         openApp("assistant");
       } },
       { label: "Customize look", kind: "Action", icon: "sliders-horizontal", run: function () {
@@ -2598,16 +2599,122 @@
     }).catch(function () {});
   }
 
+  /* shivy - the ask shivam mascot */
+
+  var buddyEl = $("[data-buddy]");
+  var buddyCaption = $("[data-buddy-caption]");
+  var buddyTimer = 0;
+  var buddyPokes = [];
+  var buddyGaze = { x: 0, y: 0 };
+
+  var BUDDY_LINES = {
+    idle: "your portfolio buddy",
+    thinking: "hmm, checking…",
+    happy: "hehe, hi!",
+    groom: "…busy licking paw",
+    angry: "hmph!",
+    sad: "can't reach the AI right now"
+  };
+
+  var BUDDY_POSE = {
+    idle: "grumpy",
+    thinking: "grumpy",
+    happy: "happy",
+    groom: "groom",
+    angry: "grumpy",
+    sad: "grumpy"
+  };
+
+  var BUDDY_LOOK = {
+    idle: [0, 0],
+    thinking: [1.8, -1.6],
+    happy: [0, -0.6],
+    groom: [-1.6, 1.2],
+    angry: [0, 1],
+    sad: [0, 1.8]
+  };
+
+  function buddyPaintLook() {
+    if (!buddyEl) return;
+    var mood = buddyEl.getAttribute("data-mood") || "idle";
+    var base = BUDDY_LOOK[mood] || BUDDY_LOOK.idle;
+    buddyEl.style.setProperty("--look-x", (base[0] + buddyGaze.x).toFixed(2) + "px");
+    buddyEl.style.setProperty("--look-y", (base[1] + buddyGaze.y).toFixed(2) + "px");
+  }
+
+  function buddySetMood(mood, hold) {
+    if (!buddyEl) return;
+    if (buddyTimer) { clearTimeout(buddyTimer); buddyTimer = 0; }
+    buddyEl.setAttribute("data-mood", mood);
+    buddyEl.setAttribute("data-pose", BUDDY_POSE[mood] || "grumpy");
+    if (buddyCaption) buddyCaption.textContent = BUDDY_LINES[mood] || BUDDY_LINES.idle;
+    buddyPaintLook();
+    if (hold) {
+      buddyTimer = setTimeout(function () { buddySetMood("idle"); }, hold);
+    }
+  }
+
+  function buddyIsRude(text) {
+    return /(stupid|idiot|hate|bakwas|useless|fool|pagal|bewakoof|gadha|chutiya|saala)/i.test(String(text || ""));
+  }
+
+  function buddyReactTo(text) {
+    if (buddyIsRude(text)) {
+      buddySetMood(Math.random() < 0.55 ? "groom" : "angry", 2400);
+    } else {
+      buddySetMood("thinking");
+    }
+  }
+
+  if (buddyEl) {
+    document.addEventListener("pointermove", function (event) {
+      if (!buddyEl.offsetParent) return;
+      var rect = buddyEl.getBoundingClientRect();
+      var dx = (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      var dy = (event.clientY - (rect.top + rect.height * 0.42)) / (rect.height / 2);
+      buddyGaze.x = Math.max(-4, Math.min(4, dx * 4));
+      buddyGaze.y = Math.max(-3, Math.min(3, dy * 3));
+      buddyEl.style.setProperty("--look-tilt", Math.max(-3, Math.min(3, dx * 2.4)).toFixed(2) + "deg");
+      buddyPaintLook();
+    }, { passive: true });
+
+    buddyEl.addEventListener("pointerdown", function () {
+      var now = Date.now();
+      buddyPokes = buddyPokes.filter(function (t) { return now - t < 1600; });
+      buddyPokes.push(now);
+      if (buddyPokes.length >= 3) {
+        buddyPokes = [];
+        buddySetMood("groom", 2600);
+      } else if (buddyPokes.length === 2) {
+        buddySetMood("angry", 1800);
+      } else {
+        buddySetMood("happy", 1700);
+      }
+    });
+  }
+
+  if (chatInput) {
+    chatInput.addEventListener("input", function () {
+      if (chatBusy) return;
+      if (buddyTimer) { clearTimeout(buddyTimer); buddyTimer = 0; }
+      buddySetMood(chatInput.value.trim() ? "happy" : "idle");
+    });
+  }
+
+  buddySetMood("idle");
+
   function askShivam(question) {
     if (!chatLog || chatBusy) return;
     question = String(question || "").trim().slice(0, 600);
     if (!question) return;
 
+    var rude = buddyIsRude(question);
     chatBusy = true;
     if (chatInput) { chatInput.value = ""; chatInput.disabled = true; }
     if (chatSend) chatSend.disabled = true;
     if (chatChips) chatChips.classList.add("is-hidden");
     chatSetStatus("busy");
+    buddyReactTo(question);
 
     chatAdd("user", chatRich(question));
     chatHistory.push({ role: "user", content: question });
@@ -2620,18 +2727,22 @@
       chatBusy = false;
       if (chatInput) chatInput.disabled = false;
       if (chatSend) chatSend.disabled = false;
+      if (bubble) bubble.classList.remove("is-streaming");
       if (code) {
         chatHistory.pop();
         bubble.innerHTML = chatRich(chatWithEmail(CHAT_ERRORS[code] || CHAT_ERRORS.network));
         chatSetStatus(code === "not_configured" ? "setup" : "off");
+        buddySetMood(code === "not_configured" ? "sad" : "angry", 3200);
       } else if (!answer.trim()) {
         bubble.innerHTML = chatRich("I can only help with questions about Shivam - his experience, projects, skills or contact details.");
         chatSetStatus("ready");
+        buddySetMood("groom", 2400);
       } else {
         bubble.innerHTML = chatRich(answer);
         chatHistory.push({ role: "assistant", content: answer });
         if (chatHistory.length > 16) chatHistory = chatHistory.slice(-16);
         chatSetStatus("ready");
+        buddySetMood(rude ? "groom" : "happy", rude ? 2800 : 3600);
       }
       chatScroll();
       if (chatInput && !isPhone()) chatInput.focus({ preventScroll: true });
@@ -2656,7 +2767,10 @@
         return reader.read().then(function (chunk) {
           if (chunk.done) return undefined;
           answer += decoder.decode(chunk.value, { stream: true });
-          bubble.innerHTML = chatRich(answer);
+          if (bubble) {
+            bubble.classList.add("is-streaming");
+            bubble.innerHTML = chatRich(answer);
+          }
           chatScroll();
           return pump();
         });

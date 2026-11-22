@@ -64,7 +64,7 @@ const PORTFOLIO = {
       { id: "about", label: "About", short: "A", icon: "user", tone: "#a85f2c", tone2: "#dda06b" },
       { id: "services", label: "Services", short: "S", icon: "wrench", tone: "#247a9c", tone2: "#62b8d2" },
       { id: "contact", label: "Contact", short: "C", icon: "envelope-simple", tone: "#232936", tone2: "#5f6a7d" },
-      { id: "assistant", label: "Ask Shivam", short: "AI", icon: "chat-circle-dots", tone: "#0b6e63", tone2: "#4fcbb0", menuLabel: "Ask" },
+      { id: "assistant", label: "Ask Shivam", short: "AI", icon: "ask-shivam", tone: "#0b6e63", tone2: "#4fcbb0", menuLabel: "Ask" },
       { id: "music", label: "Music", short: "M", icon: "music-notes", tone: "#c9405a", tone2: "#ec8298", fun: true },
       { id: "games", label: "Game", short: "G", icon: "game-controller", tone: "#c1861f", tone2: "#e5b458", fun: true },
       { id: "watch", label: "Watch", short: "T", icon: "watch", tone: "#0f6377", tone2: "#4fb2c6", fun: true },
@@ -90,11 +90,11 @@ const PORTFOLIO = {
   // portfolio only.
   assistant: {
     endpoint: "/api/assistant",
-    intro: "Hi, I'm Shivam's portfolio assistant. Ask me about his experience, projects, tools or how to reach him.",
+    intro: "Hi, I'm Shivy - Shivam's portfolio buddy. Ask about his work, projects or trading style.",
     chips: [
       "What does Shivam do?",
       "Show his strongest projects",
-      "Which tools does he use?",
+      "How does he trade?",
       "How do I contact him?"
     ]
   },
